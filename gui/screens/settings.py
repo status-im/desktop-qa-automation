@@ -12,6 +12,7 @@ from gui.components.settings.send_contact_request_popup import SendContactReques
 from gui.elements.qt.button import Button
 from gui.elements.qt.list import List
 from gui.elements.qt.object import QObject
+from gui.elements.qt.scroll import Scroll
 from gui.elements.qt.text_label import TextLabel
 from gui.screens.community_settings import CommunitySettingsScreen
 from gui.screens.messages import MessagesScreen
@@ -198,8 +199,8 @@ class KeycardSettingsView(QObject):
         assert self._import_restore_via_seed_phrase_button.is_visible, f'Import and restore via seed phrase button not visible'
         self._scroll.vertical_scroll_to(self._import_from_keycard_button)
         assert driver.waitFor(lambda: self._import_from_keycard_button.is_visible,
-                              10000), f'Import keycard button not visible'
+                              configs.timeouts.UI_LOAD_TIMEOUT_MSEC), f'Import keycard button not visible'
         assert driver.waitFor(lambda: self._check_whats_on_keycard_button.is_visible,
-                              10000), f'Check whats new keycard button not visible'
+                              configs.timeouts.UI_LOAD_TIMEOUT_MSEC ), f'Check whats new keycard button not visible'
         assert driver.waitFor(lambda: self._factory_reset_keycard_button.is_visible,
-                              10000), f'Factory reset keycard button not visible'
+                              configs.timeouts.UI_LOAD_TIMEOUT_MSEC ), f'Factory reset keycard button not visible'
