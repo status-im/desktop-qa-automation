@@ -9,7 +9,7 @@ settingsContentBaseScrollView_Flickable = {"container": settingsContentBase_Scro
 mainWindow_LeftTabView = {"container": mainWindow_StatusSectionLayout_ContentItem, "type": "LeftTabView", "unnamed": 1, "visible": True}
 mainWindow_Settings_StatusNavigationPanelHeadline = {"container": mainWindow_LeftTabView, "type": "StatusNavigationPanelHeadline", "unnamed": 1, "visible": True}
 mainWindow_scrollView_StatusScrollView = {"container": mainWindow_LeftTabView, "id": "scrollView", "type": "StatusScrollView", "unnamed": 1, "visible": True}
-scrollView_AppMenuItem_StatusNavigationListItem = {"container": mainWindow_scrollView_StatusScrollView, "type": "StatusNavigationListItem", "visible": True}
+scrollView_MenuItem_StatusNavigationListItem = {"container": mainWindow_scrollView_StatusScrollView, "type": "StatusNavigationListItem", "visible": True}
 
 # Communities View
 mainWindow_CommunitiesView = {"container": statusDesktop_mainWindow, "type": "CommunitiesView", "unnamed": 1, "visible": True}
@@ -52,3 +52,9 @@ settingsContentBaseScrollView_Goerli_testnet_active_StatusBaseText = {"container
 settingsContentBaseScrollView_accountsList_StatusListView = {"container": settingsContentBase_ScrollView, "id": "accountsList", "type": "StatusListView", "unnamed": 1, "visible": True}
 settingsContentBaseScrollView_draggableDelegate_StatusDraggableListItem = {"checkable": False, "container": settingsContentBase_ScrollView, "id": "draggableDelegate", "type": "StatusDraggableListItem", "unnamed": 1, "visible": True}
 settingsContentBaseScrollView_accountOrderView_AccountOrderView = {"container": settingsContentBase_ScrollView, "id": "accountOrderView", "type": "AccountOrderView", "unnamed": 1, "visible": True}
+
+# Profile View
+mainWindow_MyProfileView = {"container": statusDesktop_mainWindow, "type": "MyProfileView", "unnamed": 1, "visible": True}
+displayName_StatusInput = {"container": statusDesktop_mainWindow, "objectName": "displayNameInput", "type": "StatusInput", "visible": True}
+displayName_TextEdit = {"container": displayName_StatusInput, "type": "TextEdit", "unnamed": 1, "visible": True}
+change_password_button = {"container": statusDesktop_mainWindow, "type": "StatusButton", "objectName": "profileSettingsChangePasswordButton", "visible": True}
