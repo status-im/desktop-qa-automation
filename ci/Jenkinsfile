@@ -100,7 +100,7 @@ pipeline {
             allure([
                 jdk: '',
                 properties: [],
-                results: [[path: "/tmp/allure"]],
+                results: [[path: 'allure-results']],
                 reportBuildPolicy: 'ALWAYS',
             ])
         }}
