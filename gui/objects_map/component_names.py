@@ -286,3 +286,7 @@ settingsSave_StatusButton = {"container": statusDesktop_mainWindow, "objectName"
 
 # Back up seed phrase banner
 mainWindow_secureYourSeedPhraseBanner_ModuleWarning = {"container": statusDesktop_mainWindow, "objectName": "secureYourSeedPhraseBanner", "type": "ModuleWarning", "visible": True}
+
+# Sync new device popup
+copy_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "text": "Copy", "type": "StatusButton", "unnamed": 1, "visible": True}
+syncCodeInput_StatusPasswordInput = {"container": statusDesktop_mainWindow_overlay, "id": "syncCodeInput", "type": "StatusPasswordInput", "unnamed": 1, "visible": True}

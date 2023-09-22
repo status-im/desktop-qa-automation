@@ -66,3 +66,7 @@ change_password_button = {"container": statusDesktop_mainWindow, "type": "Status
 bio_StatusInput = {"container": statusDesktop_mainWindow, "objectName": "bioInput", "type": "StatusInput", "visible": True}
 bio_TextEdit = {"container": bio_StatusInput, "type": "TextEdit", "unnamed": 1, "visible": True}
 addMoreSocialLinks = {"container": statusDesktop_mainWindow, "objectName": "addMoreSocialLinks", "type": "StatusLinkText", "visible": True}
+
+# Syncing Settings View
+mainWindow_SyncingView = {"container": statusDesktop_mainWindow, "type": "SyncingView", "unnamed": 1, "visible": True}
+settingsContentBaseScrollView_Setup_Syncing_StatusButton = {"checkable": False, "container": settingsContentBase_ScrollView, "text": "Setup Syncing", "type": "StatusButton", "unnamed": 1, "visible": True}
