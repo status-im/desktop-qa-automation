@@ -11,7 +11,9 @@ from driver import objects_access
 from driver.objects_access import walk_children
 from gui.components.back_up_your_seed_phrase_popup import BackUpYourSeedPhrasePopUp
 from gui.components.change_password_popup import ChangePasswordPopup
+from gui.components.community.authenticate_popup import AuthenticatePopup
 from gui.components.settings.send_contact_request_popup import SendContactRequest
+from gui.components.settings.sync_new_device_popup import SyncNewDevicePopup
 from gui.components.social_links_popup import SocialLinksPopup
 from gui.components.wallet.testnet_mode_popup import TestnetModePopup
 from gui.elements.qt.button import Button
@@ -59,6 +61,11 @@ class LeftPanel(QObject):
     def open_back_up_seed_phrase(self):
         self._open_settings(15)
         return BackUpYourSeedPhrasePopUp()
+
+    @allure.step('Open syncing settings')
+    def open_syncing_settings(self):
+        self._open_settings(8)
+        return SyncingSettingsView()
 
 
 class SettingsScreen(QObject):
@@ -448,3 +455,16 @@ class EditAccountOrderSettings(WalletSettingsView):
     @allure.step('Verify that back button is present')
     def is_back_button_present(self) -> bool:
         return self._back_button.is_visible
+
+
+class SyncingSettingsView(QObject):
+
+    def __init__(self):
+        super().__init__('mainWindow_SyncingView')
+        self._setup_syncing_button = Button('settingsContentBaseScrollView_Setup_Syncing_StatusButton')
+
+    @allure.step('Setup syncing')
+    def set_up_syncing(self, password: str):
+        self._setup_syncing_button.click()
+        AuthenticatePopup().wait_until_appears().authenticate(password)
+        return SyncNewDevicePopup().wait_until_appears()
