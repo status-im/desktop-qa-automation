@@ -78,21 +78,33 @@ pipeline {
         }
 
         stage('Test') {
-            steps { script {
-                 wrap([
-                    $class: 'Xvfb',
-                    autoDisplayName: true,
-                    parallelBuild: false,
-                    screen: '1920x1080x24',
-                ]) { script {
-                    def cmd = ''
-                    if (params.FILTER != "") {
-                        cmd = cmd + "${params.FILTER}"
-                    }
-                    sh "cp -f '${env.WORKSPACE}'/configs/_local.py.ci '${env.WORKSPACE}'/configs/_local.py"
-                    sh "python3 -m pytest ${cmd} --disable-warnings --alluredir=${env.WORKSPACE}/allure-results"
-                }}
-            }}
+            steps {
+                withCredentials([
+                    usernamePassword(
+                    credentialsId:  'test-rail-api-devops',
+                    usernameVariable: 'TESTRAIL_USER',
+                    passwordVariable: 'TESTRAIL_PWD'
+                )]) { wrap([
+                        $class: 'Xvfb',
+                        autoDisplayName: true,
+                        parallelBuild: false,
+                        screen: '1920x1080x24',
+                    ]) { script {
+                        if (params.TEST_RUN != '') {
+                            env.TESTRAIL_RUN_ID = "${params.TEST_RUN}"
+                            env.TESTRAIL_URL = "https://ethstatus.testrail.net"
+                            env.TESTRAIL_USER = "${TESTRAIL_USER}"
+                            env.TESTRAIL_PWD = "${TESTRAIL_PWD}"
+                        }
+                        def cmd = ''
+                        if (params.FILTER != "") {
+                            cmd = cmd + "${params.FILTER}"
+                        }
+                        sh "cp -f '${env.WORKSPACE}'/configs/_local.py.ci '${env.WORKSPACE}'/configs/_local.py"
+                        sh "python3 -m pytest ${cmd} --disable-warnings --alluredir=${env.WORKSPACE}/allure-results"
+                    }}
+                }
+            }
         }
     }
     post {
