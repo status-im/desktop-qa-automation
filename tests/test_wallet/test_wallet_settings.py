@@ -15,6 +15,8 @@ from constants.wallet import WalletNetworkSettings
 from gui.main_window import MainWindow
 from scripts.tools import image
 
+pytestmark = allure.suite("Wallet")
+
 
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/703505', 'Network: Testnet switching')
 @pytest.mark.case(703505)
@@ -200,7 +202,7 @@ def test_change_account_order_not_possible(main_screen: MainWindow, default_name
         assert account_order.accounts[0].name == default_name
 
     with step('Back button is present and text on top is correct'):
-        assert account_order.text_labels_from_edit_account_order_settings[0] == text_on_top
+        assert account_order.account_recommendations[0] == text_on_top
         assert account_order.is_back_button_present() is True
 
 
