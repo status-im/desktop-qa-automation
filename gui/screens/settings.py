@@ -7,6 +7,7 @@ import allure
 import configs.timeouts
 import driver
 from constants import UserCommunityInfo, wallet_account_list_item
+from constants.syncing import SyncingSettings
 from driver import objects_access
 from driver.objects_access import walk_children
 from gui.components.back_up_your_seed_phrase_popup import BackUpYourSeedPhrasePopUp
@@ -117,7 +118,8 @@ class ProfileSettingsView(QObject):
     def social_links(self) -> dict:
         self._scroll_view.vertical_scroll_to(self._add_more_links_label)
         links = {}
-        for link_name in walk_children(driver.waitForObjectExists(self._links_list.real_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)):
+        for link_name in walk_children(
+                driver.waitForObjectExists(self._links_list.real_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)):
             if getattr(link_name, 'id', '') == 'draggableDelegate':
                 for link_value in walk_children(link_name):
                     if getattr(link_value, 'id', '') == 'textMouseArea':
@@ -332,9 +334,9 @@ class KeycardSettingsView(QObject):
         assert driver.waitFor(lambda: self._import_from_keycard_button.is_visible,
                               configs.timeouts.UI_LOAD_TIMEOUT_MSEC), f'Import keycard button not visible'
         assert driver.waitFor(lambda: self._check_whats_on_keycard_button.is_visible,
-                              configs.timeouts.UI_LOAD_TIMEOUT_MSEC ), f'Check whats new keycard button not visible'
+                              configs.timeouts.UI_LOAD_TIMEOUT_MSEC), f'Check whats new keycard button not visible'
         assert driver.waitFor(lambda: self._factory_reset_keycard_button.is_visible,
-                              configs.timeouts.UI_LOAD_TIMEOUT_MSEC ), f'Factory reset keycard button not visible'
+                              configs.timeouts.UI_LOAD_TIMEOUT_MSEC), f'Factory reset keycard button not visible'
 
 
 class WalletSettingsView(QObject):
@@ -461,7 +463,24 @@ class SyncingSettingsView(QObject):
 
     def __init__(self):
         super().__init__('mainWindow_SyncingView')
-        self._setup_syncing_button = Button('settingsContentBaseScrollView_Setup_Syncing_StatusButton')
+        self._setup_syncing_button = Button('settings_Setup_Syncing_StatusButton')
+        self._backup_data_button = Button('settings_Backup_Data_StatusButton')
+        self._sync_new_device_instructions_header = TextLabel('settings_Sync_New_Device_Header')
+        self._sync_new_device_instructions_subtitle = TextLabel('settings_Sync_New_Device_SubTitle')
+
+    @allure.step('Checking instructions elements: back up button presence')
+    def is_backup_button_present(self):
+        assert self._backup_data_button.is_visible, f"Backup button is not visible"
+
+    @allure.step('Checking instructions elements: header presence')
+    def is_instructions_header_present(self):
+        assert (self._sync_new_device_instructions_header.text
+                == SyncingSettings.SYNC_A_NEW_DEVICE_INSTRUCTIONS_HEADER), f"Sync a new device title is incorrect"
+
+    @allure.step('Checking instructions elements: subtitle presence')
+    def is_instructions_subtitle_present(self):
+        assert (self._sync_new_device_instructions_subtitle.text
+                == SyncingSettings.SYNC_A_NEW_DEVICE_INSTRUCTIONS_SUBTITLE), f"Sync a new device subtitle is incorrect"
 
     @allure.step('Setup syncing')
     def set_up_syncing(self, password: str):
