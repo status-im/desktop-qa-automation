@@ -68,4 +68,7 @@ addMoreSocialLinks = {"container": statusDesktop_mainWindow, "objectName": "addM
 
 # Syncing Settings View
 mainWindow_SyncingView = {"container": statusDesktop_mainWindow, "type": "SyncingView", "unnamed": 1, "visible": True}
-settingsContentBaseScrollView_Setup_Syncing_StatusButton = {"checkable": False, "container": settingsContentBase_ScrollView, "text": "Setup Syncing", "type": "StatusButton", "unnamed": 1, "visible": True}
+settings_Setup_Syncing_StatusButton = {"container": statusDesktop_mainWindow, "objectName": "setupSyncingStatusButton", "type": "StatusButton", "visible": True}
+settings_Backup_Data_StatusButton = {"container": settingsContentBase_ScrollView, "objectName": "setupSyncBackupDataButton", "type": "StatusButton", "visible": True}
+settings_Sync_New_Device_Header = {"container": settingsContentBase_ScrollView, "objectName": "syncNewDeviceTextLabel", "type": "StatusBaseText", "visible": True}
+settings_Sync_New_Device_SubTitle = {"container": settingsContentBase_ScrollView, "objectName": "syncNewDeviceSubTitleTextLabel", "type": "StatusBaseText", "visible": True}

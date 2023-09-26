@@ -3,7 +3,6 @@ import pyperclip
 
 from gui.components.base_popup import BasePopup
 from gui.elements.qt.button import Button
-from gui.elements.qt.object import QObject
 from gui.elements.qt.text_edit import TextEdit
 
 
@@ -11,8 +10,8 @@ class SyncNewDevicePopup(BasePopup):
 
     def __init__(self):
         super().__init__()
-        self._copy_button = Button('copy_StatusButton')
-        self._done_button = Button('add_StatusButton')
+        self._copy_button = Button('copy_SyncCodeStatusButton')
+        self._done_button = Button('done_SyncCodeStatusButton')
         self._sync_code_field = TextEdit('syncCodeInput_StatusPasswordInput')
 
     @property
