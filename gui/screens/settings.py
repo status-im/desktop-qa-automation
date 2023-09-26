@@ -17,6 +17,7 @@ from gui.components.settings.send_contact_request_popup import SendContactReques
 from gui.components.settings.sync_new_device_popup import SyncNewDevicePopup
 from gui.components.social_links_popup import SocialLinksPopup
 from gui.components.wallet.testnet_mode_popup import TestnetModePopup
+from gui.components.wallet.wallet_account_popups import AccountPopup
 from gui.elements.qt.button import Button
 from gui.elements.qt.list import List
 from gui.elements.qt.object import QObject
@@ -343,8 +344,14 @@ class WalletSettingsView(QObject):
 
     def __init__(self):
         super().__init__('mainWindow_WalletView')
+        self._wallet_settings_add_new_account_button = Button('settings_Wallet_MainView_AddNewAccountButton')
         self._wallet_network_button = Button('settings_Wallet_MainView_Networks')
         self._account_order_button = Button('settingsContentBaseScrollView_accountOrderItem_StatusListItem')
+
+    @allure.step('Open add account pop up in wallet settings')
+    def open_add_account_pop_up(self):
+        self._wallet_settings_add_new_account_button.click()
+        return AccountPopup().wait_until_appears()
 
     @allure.step('Open networks in wallet settings')
     def open_networks(self):

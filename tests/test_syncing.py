@@ -23,12 +23,6 @@ def test_sync_device_during_onboarding(multiple_instance, user_data):
     main_window = MainWindow()
 
     with (multiple_instance() as aut_one, multiple_instance() as aut_two):
-        with step('Launch two instances of the app'):
-            for aut, account in zip([aut_one, aut_two], [user, user]):
-                aut.attach()
-                main_window.wait_until_appears(configs.timeouts.APP_LOAD_TIMEOUT_MSEC).prepare()
-                main_window.hide()
-
         with step('Get syncing code in first instance'):
             aut_one.attach()
             main_window.prepare()
