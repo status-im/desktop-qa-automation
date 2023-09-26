@@ -482,12 +482,12 @@ class SyncingSettingsView(QObject):
     @allure.step('Checking instructions elements: header presence')
     def is_instructions_header_present(self):
         assert (self._sync_new_device_instructions_header.text
-                == SyncingSettings.SYNC_A_NEW_DEVICE_INSTRUCTIONS_HEADER), f"Sync a new device title is incorrect"
+                == SyncingSettings.SYNC_A_NEW_DEVICE_INSTRUCTIONS_HEADER.value), f"Sync a new device title is incorrect"
 
     @allure.step('Checking instructions elements: subtitle presence')
     def is_instructions_subtitle_present(self):
         assert (self._sync_new_device_instructions_subtitle.text
-                == SyncingSettings.SYNC_A_NEW_DEVICE_INSTRUCTIONS_SUBTITLE), f"Sync a new device subtitle is incorrect"
+                == SyncingSettings.SYNC_A_NEW_DEVICE_INSTRUCTIONS_SUBTITLE.value), f"Sync a new device subtitle is incorrect"
 
     @allure.step('Setup syncing')
     def set_up_syncing(self, password: str):
