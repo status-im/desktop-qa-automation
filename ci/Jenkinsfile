@@ -55,12 +55,6 @@ pipeline {
     }
 
     stages {
-        stage('Clean') {
-            steps {
-                sh "rm -rf ${env.WORKSPACE}/tmp/"
-                sh "rm -rf ${env.WORKSPACE}/allure-results"
-            }
-        }
 
         stage('Download') {
             steps { script {
@@ -125,5 +119,6 @@ pipeline {
                 reportBuildPolicy: 'ALWAYS',
             ])
         }}
+        cleanup { cleanWs() }
     }
 }
