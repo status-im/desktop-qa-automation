@@ -20,7 +20,7 @@ pipeline {
         )
         string(
           name: 'BUILD',
-          description: 'Paste a number of build that you want to test.',
+          description: 'Paste a number of PR that you want to test.',
           defaultValue: 'PR-'
         )
         string(
