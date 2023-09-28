@@ -13,9 +13,6 @@ pipeline {
 
         CREDS = credentials('test-rail-api-devops')
         TESTRAIL_URL = "https://ethstatus.testrail.net"
-        TESTRAIL_USER = "${CREDS_USER}"
-        TESTRAIL_PWD = "${CREDS_PSW}"
-        TESTRAIL_RUN_ID = "${params.TESTRAIL_RUN_ID}"
     }
 
     parameters {
@@ -40,7 +37,7 @@ pipeline {
           defaultValue: ''
         )
         string(
-          name: 'TEST_RUN_ID',
+          name: 'TESTRAIL_RUN_ID',
           description: 'Test run ID in Test Rail',
           defaultValue: ''
         )
@@ -88,6 +85,9 @@ pipeline {
                 parallelBuild: false,
                 screen: '1920x1080x24',
                 ]) { script {
+                    env.TESTRAIL_USR = "${CREDS_USR}"
+                    env.TESTRAIL_PWD = "${CREDS_PSW}"
+                    env.TESTRAIL_RUN_ID = "${params.TESTRAIL_RUN_ID}"
                     def cmd = ''
                     if (params.TEST_NAME != "") {
                         cmd = cmd + "-k ${params.TEST_NAME}"
