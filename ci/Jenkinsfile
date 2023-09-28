@@ -68,7 +68,7 @@ pipeline {
         def pkg_path = "${env.WORKSPACE}/${utils.findFile('tmp/pkg/*-x86_64.tar.gz')}"
         sh "tar -zxvf '${pkg_path}' -C '${env.WORKSPACE}/tmp'"
         def app_dir = "${env.WORKSPACE}/${utils.findFile('tmp/*.AppImage')}"
-        env.APP_DIR=app_dir
+        env.APP_DIR = app_dir
       } }
     }
 
@@ -87,7 +87,6 @@ pipeline {
       ]) { script {
         env.TESTRAIL_USR = "${CREDS_USR}"
         env.TESTRAIL_PWD = "${CREDS_PSW}"
-        env.TESTRAIL_RUN_ID = "${params.TESTRAIL_RUN_ID}"
         def cmd = ''
         if (params.TEST_NAME != "") {
           cmd = cmd + " -k ${params.TEST_NAME}"
