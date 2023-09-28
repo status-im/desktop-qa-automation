@@ -63,11 +63,11 @@ pipeline {
                     projectName: "status-desktop/branches/linux/x86_64/package/${params.BUILD}/",
                     filter: 'pkg/*-x86_64.tar.gz',
                     selector: lastWithArtifacts(),
-                    target: "${env.WORKSPACE}"
+                    target: "${env.WORKSPACE}/tmp"
                 )
-                pkg_path = "${env.WORKSPACE}/${utils.findFile('pkg/*-x86_64.tar.gz')}"
-                sh "tar -zxvf '${pkg_path}' -C '${env.WORKSPACE}'"
-                app_dir = "${env.WORKSPACE}/${utils.findFile('*.AppImage')}"
+                def pkg_path = "${env.WORKSPACE}/${utils.findFile('tmp/pkg/*-x86_64.tar.gz')}"
+                sh "tar -zxvf '${pkg_path}' -C '${env.WORKSPACE}/tmp'"
+                def app_dir = "${env.WORKSPACE}/${utils.findFile('tmp/*.AppImage')}"
                 env.APP_DIR=app_dir
             } }
         }
