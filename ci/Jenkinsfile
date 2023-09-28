@@ -10,6 +10,12 @@ pipeline {
         SQUISH_DIR = "/opt/squish-runner-7.1-20230222-1555"
         PYTHONPATH = "${SQUISH_DIR}/lib:${SQUISH_DIR}/lib/python:${PYTHONPATH}"
         LD_LIBRARY_PATH = "${SQUISH_DIR}/lib:${SQUISH_DIR}/python3/lib:${LD_LIBRARY_PATH}"
+
+        CREDS = credentials('test-rail-api-devops')
+        TESTRAIL_URL = "https://ethstatus.testrail.net"
+        TESTRAIL_USER = "${CREDS_USER}"
+        TESTRAIL_PWD = "${CREDS_PSW}"
+        TESTRAIL_RUN_ID = "${params.TESTRAIL_RUN_ID}"
     }
 
     parameters {
@@ -28,13 +34,11 @@ pipeline {
           description: 'Paste test name/part of test name to run specific test',
           defaultValue: ''
         )
-
         string(
           name: 'TEST_SCOPE',
           description: 'Paste tag to run specific scope of tests',
           defaultValue: ''
         )
-
         string(
           name: 'TEST_RUN_ID',
           description: 'Test run ID in Test Rail',
@@ -78,35 +82,22 @@ pipeline {
         }
 
         stage('Test') {
-            steps {
-                withCredentials([
-                    usernamePassword(
-                    credentialsId:  'test-rail-api-devops',
-                    usernameVariable: 'TESTRAIL_USER',
-                    passwordVariable: 'TESTRAIL_PWD'
-                )]) { wrap([
-                        $class: 'Xvfb',
-                        autoDisplayName: true,
-                        parallelBuild: false,
-                        screen: '1920x1080x24',
-                    ]) { script {
-                        if (params.TEST_RUN != '') {
-                            env.TESTRAIL_RUN_ID = "${params.TEST_RUN_ID}"
-                            env.TESTRAIL_URL = "https://ethstatus.testrail.net"
-                            env.TESTRAIL_USER = "${TESTRAIL_USER}"
-                            env.TESTRAIL_PWD = "${TESTRAIL_PWD}"
-                        }
-                        def cmd = ''
-                        if (params.TEST_NAME != "") {
-                            cmd = cmd + "-k ${params.TEST_NAME}"
-                        }
-                        if (params.TEST_SCOPE != "") {
-                            cmd = cmd + "-m ${params.TEST_SCOPE}"
-                        }
-                        sh "cp -f '${env.WORKSPACE}'/configs/_local.py.ci '${env.WORKSPACE}'/configs/_local.py"
-                        sh "python3 -m pytest ${cmd} --disable-warnings --alluredir=${env.WORKSPACE}/allure-results"
-                    }}
-                }
+            steps { wrap([
+                $class: 'Xvfb',
+                autoDisplayName: true,
+                parallelBuild: false,
+                screen: '1920x1080x24',
+                ]) { script {
+                    def cmd = ''
+                    if (params.TEST_NAME != "") {
+                        cmd = cmd + "-k ${params.TEST_NAME}"
+                    }
+                    if (params.TEST_SCOPE != "") {
+                        cmd = cmd + "-m ${params.TEST_SCOPE}"
+                    }
+                    sh "cp -f '${env.WORKSPACE}'/configs/_local.py.ci '${env.WORKSPACE}'/configs/_local.py"
+                    sh "python3 -m pytest ${cmd} --disable-warnings --alluredir=${env.WORKSPACE}/allure-results"
+                }}
             }
         }
     }
