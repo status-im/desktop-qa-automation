@@ -7,11 +7,11 @@ from allure import step
 import configs
 import constants
 import driver
+from constants.wallet import WalletNetworkSettings
 from gui.components.signing_phrase_popup import SigningPhrasePopup
 from gui.components.wallet.authenticate_popup import AuthenticatePopup
 from gui.components.wallet.testnet_mode_banner import TestnetModeBanner
 from gui.components.wallet.wallet_toast_message import WalletToastMessage
-from constants.wallet import WalletNetworkSettings
 from gui.main_window import MainWindow
 from scripts.tools import image
 
