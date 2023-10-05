@@ -21,11 +21,6 @@ pipeline {
 
   parameters {
     string(
-      name: 'BRANCH',
-      description: 'Paste a branch name from test repository.',
-      defaultValue: 'master'
-    )
-    string(
       name: 'BUILD',
       description: 'Paste a number of PR that you want to test.',
       defaultValue: 'PR-'
@@ -71,8 +66,7 @@ pipeline {
         )
         def pkg_path = "${env.WORKSPACE}/${utils.findFile('tmp/pkg/*-x86_64.tar.gz')}"
         sh "tar -zxvf '${pkg_path}' -C '${env.WORKSPACE}/tmp'"
-        def app_dir = "${env.WORKSPACE}/${utils.findFile('tmp/*.AppImage')}"
-        env.APP_DIR = app_dir
+        env.APP_DIR = "${env.WORKSPACE}/${utils.findFile('tmp/*.AppImage')}"
       } }
     }
 
@@ -86,9 +80,10 @@ pipeline {
       steps { wrap([
         $class: 'Xvfb',
         autoDisplayName: true,
-        parallelBuild: false,
+        parallelBuild: true,
         screen: '1920x1080x24',
       ]) { script {
+        sh "fluxbox &"
         env.TESTRAIL_USR = "${CREDS_USR}"
         env.TESTRAIL_PWD = "${CREDS_PSW}"
         def cmd = ''
