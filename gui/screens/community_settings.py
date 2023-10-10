@@ -217,10 +217,37 @@ class PermissionsIntroView(QObject):
     def __init__(self):
         super(PermissionsIntroView, self).__init__('o_IntroPanel')
         self._add_new_permission_button = Button('add_new_permission_button')
+        self._welcome_image = QObject('community_welcome_screen_image')
+        self._welcome_title = TextLabel('community_welcome_screen_title')
+        self._welcome_subtitle = TextLabel('community_welcome_screen_subtitle')
+        self._welcome_checklist_1 = TextLabel('community_welcome_screen_checkList_element1')
+        self._welcome_checklist_2 = TextLabel('community_welcome_screen_checkList_element2')
+        self._welcome_checklist_3 = TextLabel('community_welcome_screen_checkList_element3')
 
     @property
+    @allure.step('Get permission welcome image')
+    def permission_welcome_image(self) -> Image:
+        return self._welcome_image.image
+
+    @property
+    @allure.step('Get permission welcome title')
+    def permission_welcome_title(self) -> str:
+        return self._welcome_title.text
+
+    @property
+    @allure.step('Get permission welcome subtitle')
+    def permission_welcome_subtitle(self) -> str:
+        return self._welcome_subtitle.text
+
+    @property
+    @allure.step('Get permission checklist')
+    def permission_checklist(self) -> typing.List[str]:
+        permission_checklist = [str(self._welcome_checklist_1.object.text), str(self._welcome_checklist_2.object.text),
+                                str(self._welcome_checklist_3.object.text)]
+        return permission_checklist
+
     @allure.step('Click add new permission button')
-    def add_new_permission(self):
+    def add_new_permission(self) -> 'PermissionsSettingsView':
         self._add_new_permission_button.click()
         return PermissionsSettingsView().wait_until_appears()
 
@@ -250,12 +277,12 @@ class PermissionsSettingsView(QObject):
 
     @allure.step('Set state of who holds checkbox')
     def set_who_holds_checkbox_state(self, state):
-        if state == 'Off':
-            self._who_holds_checkbox.set(False)
+        if state is False:
+            self._who_holds_checkbox.set(state)
 
     @allure.step('Set asset and amount')
     def set_who_holds_asset_and_amount(self, asset: str, amount: str):
-        if asset != 'No':
+        if asset is not False:
             self.open_who_holds_context_menu()
             self._who_holds_asset_field.clear().text = asset
             self._asset_item.click()
