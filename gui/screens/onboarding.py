@@ -203,7 +203,7 @@ class SeedPhraseInputView(OnboardingView):
                                           configs.timeouts.UI_LOAD_TIMEOUT_MSEC).enabled
 
     @allure.step('Input seed phrase')
-    def input_seed_phrase(self, seed_phrase: typing.List[str]):
+    def input_seed_phrase(self, seed_phrase: typing.List[str], autocomplete: bool):
         if len(seed_phrase) == 12:
             if not self._12_words_tab_button.is_checked:
                 self._12_words_tab_button.click()
@@ -218,7 +218,12 @@ class SeedPhraseInputView(OnboardingView):
 
         for index, word in enumerate(seed_phrase, start=1):
             self._seed_phrase_input_text_edit.real_name['objectName'] = f'statusSeedPhraseInputField{index}'
-            self._seed_phrase_input_text_edit.text = word
+            if autocomplete:
+                word_to_put = word[:-1]
+                self._seed_phrase_input_text_edit.text = word_to_put
+                driver.type(self._seed_phrase_input_text_edit.object, "<Return>")
+            else:
+                self._seed_phrase_input_text_edit.text = word
 
     @allure.step('Click import button')
     def import_seed_phrase(self):
