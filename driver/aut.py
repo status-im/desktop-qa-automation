@@ -3,6 +3,7 @@ from datetime import datetime
 
 import allure
 import squish
+from PIL import ImageGrab
 
 import configs
 import driver
@@ -37,7 +38,14 @@ class AUT:
     def __enter__(self):
         return self.launch()
 
-    def __exit__(self, *args):
+    def __exit__(self, exc_type, exc_value, traceback):
+        if exc_type:
+            screenshot = configs.testpath.RUN / 'screenshot.png'
+            if screenshot.exists():
+                screenshot = configs.testpath.RUN / f'screenshot_{datetime.now():%H%M%S}.png'
+            ImageGrab.grab().save(screenshot)
+            allure.attach(
+                name='Screenshot on fail',  body=screenshot.read_bytes(), attachment_type=allure.attachment_type.PNG)
         self.detach().stop()
 
     @allure.step('Attach Squish to Test Application')
@@ -83,13 +91,13 @@ class AUT:
                     f'"{self.path}"',
                     f'-d={self.app_data}'
                 ]
-                self.attach()
+                local_system.execute(command)
             else:
                 SquishServer().add_executable_aut(self.aut_id, self.path.parent)
                 command = [self.aut_id, f'-d={self.app_data}']
                 self.ctx = squish.startApplication(' '.join(command), configs.timeouts.PROCESS_TIMEOUT_SEC)
 
-            local_system.execute(command)
+            self.attach()
             self.pid = self.ctx.pid
             assert squish.waitFor(lambda: self.ctx.isRunning, configs.timeouts.PROCESS_TIMEOUT_SEC)
             return self
