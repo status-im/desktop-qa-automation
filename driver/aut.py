@@ -61,12 +61,13 @@ class AUT:
 
     @allure.step('Close application')
     def stop(self):
-        if self.pid:
+        if self.pid is not None:
             local_system.kill_process(self.pid, verify=True)
             self.pid = None
-        if self.port:
+        if self.port is not None:
             assert driver.waitFor(lambda: local_system.find_process_by_port(self.port) is None,
-                                  configs.timeouts.PROCESS_TIMEOUT_SEC), f'Port {self.port} still in use.'
+                                  configs.timeouts.PROCESS_TIMEOUT_SEC), \
+                f'Port {self.port} still in use by process: {local_system.find_process_by_port(self.port)}'
             self.port = None
 
     @allure.step("Start application")
@@ -82,13 +83,13 @@ class AUT:
                     f'"{self.path}"',
                     f'-d={self.app_data}'
                 ]
-                local_system.execute(command)
                 self.attach()
             else:
                 SquishServer().add_executable_aut(self.aut_id, self.path.parent)
                 command = [self.aut_id, f'-d={self.app_data}']
                 self.ctx = squish.startApplication(' '.join(command), configs.timeouts.PROCESS_TIMEOUT_SEC)
 
+            local_system.execute(command)
             self.pid = self.ctx.pid
             assert squish.waitFor(lambda: self.ctx.isRunning, configs.timeouts.PROCESS_TIMEOUT_SEC)
             return self
