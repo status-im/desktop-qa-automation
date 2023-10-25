@@ -54,9 +54,9 @@ pipeline {
     timeout(time: 120, unit: 'MINUTES')
     /* manage how many builds we keep */
     buildDiscarder(logRotator(
-      numToKeepStr: '10',
-      daysToKeepStr: '30',
-      artifactNumToKeepStr: '3',
+      daysToKeepStr: '60',
+      numToKeepStr: '50',
+      artifactNumToKeepStr: '50',
     ))
   }
 
@@ -73,16 +73,22 @@ pipeline {
   }
 
   stages {
-    stage('Setup') {
+    stage('Prep') {
       steps { script {
         currentBuild.displayName = getNewBuildName()
+        updateGitHubStatus()
+      } }
+    }
+
+    stage('Deps') {
+      steps { script {
         sh 'pip3 install --user -r requirements.txt'
       } }
     }
 
     stage('Download') {
       when { expression { params.BUILD_SOURCE.startsWith('http') } }
-      steps { script {
+      steps { timeout(5) { script {
         sh 'mkdir -p ./tmp/pkg/'
         fileOperations([
           fileDownloadOperation(
@@ -93,30 +99,30 @@ pipeline {
             password:       '',
           )
         ])
-      } }
+      } } }
     }
 
     stage('Copy') {
       when { expression { ! params.BUILD_SOURCE.startsWith('http') } }
-      steps { script {
+      steps { timeout(5) { script {
         copyArtifacts(
           projectName: params.BUILD_SOURCE,
           filter:      'pkg/*-x86_64.tar.gz',
           selector:    lastWithArtifacts(),
           target:      './tmp'
         )
-      } }
+      } } }
     }
 
     stage('Unpack') {
-      steps { script {
+      steps { timeout(5) { script {
         sh "tar -zxvf '${utils.findFile('tmp/pkg/*tar.gz')}' -C './tmp'"
         env.APP_DIR = utils.findFile('tmp/*.AppImage')
-      } }
+      } } }
     }
 
     stage('Test') {
-      steps { script {
+      steps { timeout(90) { script {
         def flags = []
         if (params.TEST_NAME)  { flags.add("-k=${params.TEST_NAME}")  }
         if (params.TEST_SCOPE) { flags.add("-m=${params.TEST_SCOPE}") }
@@ -143,7 +149,7 @@ pipeline {
             """
           }
         }
-      } }
+      } } }
     }
   }
   post {
@@ -154,14 +160,7 @@ pipeline {
         properties: [],
         jdk: '',
       ])
-      /* For PR builds update check status. */
-      if (params.BUILD_SOURCE ==~ /.*\/PR-[0-9]+\/?$/) {
-        github.statusUpdate(
-          context: 'jenkins/prs/tests/e2e-new',
-          commit: jenkins.getJobCommitByPath(params.BUILD_SOURCE),
-          repo_url: 'https://github.com/status-im/status-desktop'
-        )
-      }
+      updateGitHubStatus()
     } }
     cleanup { cleanWs() }
   }
@@ -176,5 +175,16 @@ def getNewBuildName() {
     ].grep().join('-')
   } else {
     return utils.baseName(params.BUILD_SOURCE)
+  }
+}
+
+def updateGitHubStatus() {
+  /* For PR builds update check status. */
+  if (params.BUILD_SOURCE ==~ /.*\/PR-[0-9]+\/?$/) {
+    github.statusUpdate(
+      context: 'jenkins/prs/tests/e2e-new',
+      commit: jenkins.getJobCommitByPath(params.BUILD_SOURCE),
+      repo_url: 'https://github.com/status-im/status-desktop'
+    )
   }
 }
