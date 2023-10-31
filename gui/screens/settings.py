@@ -68,6 +68,11 @@ class LeftPanel(QObject):
     def sign_out_and_quit(self):
         self._open_settings('16-ExtraMenuItem')
 
+    @allure.step('Open keycard settings')
+    def open_keycard_settings(self):
+        self._open_settings('13-MainMenuItem')
+        return KeycardSettingsView()
+
 
 class SettingsScreen(QObject):
 
