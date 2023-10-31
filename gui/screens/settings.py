@@ -3,6 +3,7 @@ import allure
 from gui.components.back_up_your_seed_phrase_popup import BackUpYourSeedPhrasePopUp
 from gui.elements.object import QObject
 from gui.screens.settings_communities import CommunitiesSettingsView
+from gui.screens.settings_keycard import KeycardSettingsView
 from gui.screens.settings_messaging import MessagingSettingsView
 from gui.screens.settings_profile import ProfileSettingsView
 from gui.screens.settings_syncing import SyncingSettingsView
@@ -54,13 +55,14 @@ class LeftPanel(QObject):
         self._open_settings('8-MainMenuItem')
         return SyncingSettingsView()
 
+    @allure.step('Open keycard settings')
+    def open_keycard_settings(self):
+        self._open_settings('13-MainMenuItem')
+        return KeycardSettingsView()
+
 
 class SettingsScreen(QObject):
 
     def __init__(self):
         super().__init__('mainWindow_ProfileLayout')
         self.left_panel = LeftPanel()
-
-
-
-
