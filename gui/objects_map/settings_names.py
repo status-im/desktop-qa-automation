@@ -11,6 +11,7 @@ mainWindow_LeftTabView = {"container": mainWindow_StatusSectionLayout_ContentIte
 mainWindow_Settings_StatusNavigationPanelHeadline = {"container": mainWindow_LeftTabView, "type": "StatusNavigationPanelHeadline", "unnamed": 1, "visible": True}
 mainWindow_scrollView_StatusScrollView = {"container": mainWindow_LeftTabView, "id": "scrollView", "type": "StatusScrollView", "unnamed": 1, "visible": True}
 scrollView_MenuItem_StatusNavigationListItem = {"container": mainWindow_scrollView_StatusScrollView, "type": "StatusNavigationListItem", "visible": True}
+scrollView_Flickable = {"container": mainWindow_scrollView_StatusScrollView, "type": "Flickable", "unnamed": 1, "visible": True}
 
 # Communities View
 mainWindow_CommunitiesView = {"container": statusDesktop_mainWindow, "type": "CommunitiesView", "unnamed": 1, "visible": True}
@@ -73,7 +74,7 @@ settingsWalletAccountDelegate = {"container": settingsContentBase_ScrollView, "o
 walletAccountViewEditAccountButton = {"container": statusDesktop_mainWindow, "objectName": "walletAccountViewEditAccountButton", "type": "StatusButton"}
 walletAccountViewAccountName = {"container": statusDesktop_mainWindow, "objectName": "walletAccountViewAccountName", "type": "StatusBaseText"}
 walletAccountViewAccountEmoji = {"container": statusDesktop_mainWindow, "objectName": "walletAccountViewAccountImage", "type": "StatusEmoji", "visible": True}
-walletAccountViewDeleteAccountButton = {"container": statusDesktop_mainWindow, "objectName": "deleteAccountButton", "type": "StatusButton"}
+walletAccountViewRemoveAccountButton = {"container": statusDesktop_mainWindow, "objectName": "deleteAccountButton", "type": "StatusButton"}
 walletAccountViewDetailsLabel = {"container": settingsContentBase_ScrollView, "objectName": "AccountDetails_TextLabel", "type": "StatusBaseText"}
 walletAccountViewBalance = {"container": settingsContentBase_ScrollView, "objectName": "Balance_ListItem", "type": "WalletAccountDetailsListItem"}
 walletAccountViewAddress = {"container": settingsContentBase_ScrollView, "objectName": "Address_ListItem", "type": "WalletAccountDetailsListItem"}
