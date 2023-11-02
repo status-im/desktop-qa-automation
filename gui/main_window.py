@@ -151,8 +151,8 @@ class MainWindow(Window):
         if configs.system.IS_MAC:
             BiometricsView().wait_until_appears().prefer_password()
         SplashScreen().wait_until_appears().wait_until_hidden()
-        if not configs.DEV_BUILD:
-            BetaConsentPopup().confirm()
+        # if not configs.DEV_BUILD:
+        #     BetaConsentPopup().confirm()
         return self
 
     @allure.step('Log in user')

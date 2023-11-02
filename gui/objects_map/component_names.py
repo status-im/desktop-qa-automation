@@ -336,3 +336,7 @@ edit_TextEdit = {"container": statusDesktop_mainWindow_overlay, "type": "TextEdi
 o_KeyPairItem = {"container": statusDesktop_mainWindow_overlay, "type": "KeyPairItem", "unnamed": 1, "visible": True}
 o_StatusListItemTag = {"container": statusDesktop_mainWindow_overlay, "type": "StatusListItemTag", "unnamed": 1, "visible": True}
 statusSeedPhraseInputField_TextEdit = {"container": statusDesktop_mainWindow_overlay, "objectName": "statusSeedPhraseInputField", "type": "TextEdit", "visible": True}
+switchTabBar_StatusSwitchTabBar = {"container": statusDesktop_mainWindow_overlay, "id": "switchTabBar", "type": "StatusSwitchTabBar", "unnamed": 1, "visible": True}
+switchTabBar_12_words_StatusSwitchTabButton = {"checkable": True, "container": switchTabBar_StatusSwitchTabBar, "objectName": "12SeedButton", "text": "12 words", "type": "StatusSwitchTabButton", "visible": True}
+switchTabBar_18_words_StatusSwitchTabButton = {"checkable": True, "container": switchTabBar_StatusSwitchTabBar, "objectName": "18SeedButton", "text": "18 words", "type": "StatusSwitchTabButton", "visible": True}
+switchTabBar_24_words_StatusSwitchTabButton = {"checkable": True, "container": switchTabBar_StatusSwitchTabBar, "objectName": "24SeedButton", "text": "24 words", "type": "StatusSwitchTabButton", "visible": True}

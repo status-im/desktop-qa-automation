@@ -23,7 +23,7 @@ def test_import_restore_keycard_via_seed_phrase(main_screen: MainWindow, user_ac
 
     with (step('Verify displayed keycard popup instructions are correct')):
         with step('Verify header is correct'):
-            assert keycard_popup.keycard_header == Keycard.KEYCARD_POPUP_HEADER.value, "The header is incorrect"
+            assert keycard_popup.keycard_header == Keycard.KEYCARD_POPUP_HEADER_IMPORT.value, "The header is incorrect"
         with step('Verify instructions are correct'):
             assert Keycard.KEYCARD_INSTRUCTIONS_PLUG_IN.value in keycard_popup.keycard_instructions, \
                 "There is no correct keycard instruction"
@@ -49,27 +49,15 @@ def test_import_restore_keycard_via_seed_phrase(main_screen: MainWindow, user_ac
         with step('Verify keycard is recognized'):
             assert driver.waitFor(lambda: Keycard.KEYCARD_RECOGNIZED.value in keycard_popup.keycard_instructions,
                                   configs.timeouts.UI_LOAD_TIMEOUT_MSEC), "There is no correct keycard instruction"
-        with step('Verify that asked to choose PIN'):
-            assert driver.waitFor(lambda: Keycard.KEYCARD_CHOOSE_PIN.value in keycard_popup.keycard_instructions,
-                                  configs.timeouts.UI_LOAD_TIMEOUT_MSEC), "There is no correct keycard instruction"
-            assert Keycard.KEYCARD_NOTE.value in keycard_popup.keycard_instructions
-
-    with step('Insert PIN and repeat PIN and verify keycard popup instructions are correct'):
-        pin = Keycard.KEYCARD_PIN.value
-        keycard_popup.input_pin(pin)
-        assert driver.waitFor(lambda: Keycard.KEYCARD_REPEAT_PIN.value in keycard_popup.keycard_instructions), \
-            "There is no correct keycard instruction"
-        keycard_popup.input_pin(pin)
-        assert driver.waitFor(lambda: Keycard.KEYCARD_PIN_SET.value in keycard_popup.keycard_instructions), \
-            "There is no correct keycard instruction"
 
     with step('Import keycard via seed phrase'):
+        pin = Keycard.KEYCARD_PIN.value
         keycard_name = Keycard.KEYCARD_NAME.value
         account_name = Keycard.ACCOUNT_NAME.value
-        keycard_popup.import_keycard_via_seed_phrase(keycard_name, account_name)
+        keycard_popup.import_keycard_via_seed_phrase(user_account.seed_phrase, pin, keycard_name, account_name)
 
     with step('Verify that preview shows correct keycard and account name and color and instructions are correct'):
-        assert driver.waitFor(lambda: Keycard.KEYCARD_NEW_ACCOUNT_CREATED.value in keycard_popup.keycard_instructions), \
+        assert driver.waitFor(lambda: Keycard.KEYCARD_READY.value in keycard_popup.keycard_instructions), \
             "There is no correct keycard instruction"
 
         assert keycard_popup.keycard_preview_name == keycard_name, "Keycard name in preview is incorrect"
