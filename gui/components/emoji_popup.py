@@ -23,7 +23,7 @@ class EmojiPopup(QObject):
         self._emoji_item.real_name['objectName'] = 'statusEmoji_' + name
         try:
             self._emoji_item.click()
-        except AssertionError as err:
+        except LookupError as err:
             if attempts:
                 return self.select(name, attempts - 1)
             else:
