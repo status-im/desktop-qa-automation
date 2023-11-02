@@ -335,3 +335,4 @@ word2_StatusInput = {"container": statusDesktop_mainWindow_overlay, "id": "word2
 edit_TextEdit = {"container": statusDesktop_mainWindow_overlay, "type": "TextEdit", "unnamed": 1, "visible": True}
 o_KeyPairItem = {"container": statusDesktop_mainWindow_overlay, "type": "KeyPairItem", "unnamed": 1, "visible": True}
 o_StatusListItemTag = {"container": statusDesktop_mainWindow_overlay, "type": "StatusListItemTag", "unnamed": 1, "visible": True}
+statusSeedPhraseInputField_TextEdit = {"container": statusDesktop_mainWindow_overlay, "objectName": "statusSeedPhraseInputField", "type": "TextEdit", "visible": True}
