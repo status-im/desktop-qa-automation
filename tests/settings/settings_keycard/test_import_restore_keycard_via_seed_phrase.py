@@ -5,7 +5,7 @@ from allure import step
 import configs
 import constants
 import driver
-from constants import ColorCodes
+from constants import ColorCodes, aut_options
 from constants.keycard import Keycard
 from gui.main_window import MainWindow
 from gui.mocked_keycard_controller import MockedKeycardController
@@ -15,8 +15,9 @@ from gui.mocked_keycard_controller import MockedKeycardController
                  'Import or restore a Keycard via a seed phrase')
 @pytest.mark.case(703625)
 @pytest.mark.parametrize('user_account', [constants.user.user_account_one])
-@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/256")
-def test_import_restore_keycard_via_seed_phrase(main_screen: MainWindow, user_account):
+@pytest.mark.parametrize('options', [aut_options.MOCK_KEYCARD])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/274")
+def test_import_restore_keycard_via_seed_phrase(main_screen: MainWindow, user_account, options):
     with step('Choose option Import or restore account via seed phrase in settings'):
         main_screen.prepare()
         keycard_settings = main_screen.left_panel.open_settings().left_panel.open_keycard_settings()
@@ -66,4 +67,3 @@ def test_import_restore_keycard_via_seed_phrase(main_screen: MainWindow, user_ac
         assert keycard_popup.preview_color == ColorCodes.BLUE.value, "Color in preview is incorrect"
 
         keycard_popup.click_next()
-
