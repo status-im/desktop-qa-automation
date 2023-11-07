@@ -137,6 +137,7 @@ class MainWindow(Window):
     def __init__(self):
         super(MainWindow, self).__init__('statusDesktop_mainWindow')
         self.left_panel = LeftPanel()
+        self._transaction_notification = QObject('statusToastMessage_Transaction_pending_StatusBaseText')
 
     # TODO: we need to handle all the issues with keycard mock var before using keycard  window in tests
     def prepare(self) -> 'Window':
@@ -184,3 +185,8 @@ class MainWindow(Window):
         create_community_form = communities_portal.open_create_community_popup()
         app_screen = create_community_form.create(params)
         return app_screen
+
+    @allure.step('Wait for notification and get text')
+    def wait_for_notification(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC) -> str:
+        self._transaction_notification.wait_until_appears(timeout_msec)
+        return str(self._transaction_notification.object.text)

@@ -41,7 +41,7 @@ class WalletSettingsView(QObject):
         return AccountPopup().wait_until_appears()
 
     @allure.step('Open networks in wallet settings')
-    def open_networks(self, attempts: int = 2):
+    def open_networks(self, attempts: int = 2) -> 'NetworkWalletSettings':
         self._wallet_network_button.click()
         try:
             return NetworkWalletSettings().wait_until_appears()
@@ -210,12 +210,18 @@ class NetworkWalletSettings(WalletSettingsView):
         return items_amount
 
     @allure.step('Switch testnet mode toggle')
-    def switch_testnet_mode_toggle(self):
+    def switch_testnet_mode_toggle(self) -> TestnetModePopup:
         self._testnet_mode_toggle.click()
         return TestnetModePopup().wait_until_appears()
 
+    @allure.step('Set testnet mode {1}')
+    def set_testnet_mode(self, value: bool):
+        if self.is_testnet_mode_toggle_checked() is not value:
+            self.switch_testnet_mode_toggle()
+        TestnetModePopup().accept()
+
     @allure.step('Get testnet mode toggle status')
-    def is_testnet_mode_toggle_checked(self):
+    def is_testnet_mode_toggle_checked(self) -> bool:
         return self._testnet_mode_toggle.is_checked
 
 

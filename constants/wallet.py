@@ -1,5 +1,7 @@
 from enum import Enum
 
+ARBITRUM_ADDRESS = 'arb:0xd02ca8f0d5bd27cc871bb5f0f530a7fdf778f5f5'
+TXN_RECEIVER_ADDRESS = '0xd02ca8f0d5bd27cc871bb5f0f530a7fdf778f5f5'
 
 class DerivationPath(Enum):
     CUSTOM = 'Custom'

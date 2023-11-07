@@ -38,3 +38,4 @@ class TextEdit(QObject):
                 f'Clear text field failed, value in field: "{self.text}"'
         LOG.info(f'{self}: cleared')
         return self
+    

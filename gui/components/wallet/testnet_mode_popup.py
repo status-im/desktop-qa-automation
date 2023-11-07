@@ -11,6 +11,7 @@ class TestnetModePopup(BasePopup):
         self._close_cross_button = Button('testnet_mode_closeCrossButton')
         self._turn_on_button = Button('turn_on_testnet_mode_StatusButton')
         self._turn_off_button = Button('turn_off_testnet_mode_StatusButton')
+        self._accept_button = Button('testnet_mode_accept_StatusButton')
 
     @allure.step('Close testnet mode modal with cross button')
     def close_testnet_modal_with_cross_button(self):
@@ -18,7 +19,7 @@ class TestnetModePopup(BasePopup):
         self.wait_until_hidden()
 
     @allure.step('Choose turn on option in the testnet modal')
-    def click_turn_on_testnet_mode_in_testnet_modal(self):
+    def turn_on_testnet_mode_in_testnet_modal(self):
         self._turn_on_button.click()
         self.wait_until_hidden()
 
@@ -29,4 +30,9 @@ class TestnetModePopup(BasePopup):
 
     def click_cancel_button_in_testnet_modal(self):
         self._cancel_button.click()
+        self.wait_until_hidden()
+
+    @allure.step('Accept changes')
+    def accept(self):
+        self._accept_button.click()
         self.wait_until_hidden()
