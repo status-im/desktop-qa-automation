@@ -69,6 +69,7 @@ networkSettingsNetworks_Mainnet_Goerli_sensor = {"container": networkSettingsNet
 networkSettingsNetowrks_Mainnet_Testlabel = {"container": networkSettingsNetworks_Mainnet_Goerli_sensor, "objectName": "testnetLabel_Mainnet", "type": "StatusBaseText", "visible": True}
 settingsWalletAccountDelegate_Status_account = {"container": settingsContentBase_ScrollView, "objectName": "Status account", "type": "WalletAccountDelegate", "visible": True}
 settingsWalletAccountDelegate = {"container": settingsContentBase_ScrollView, "objectName": RegularExpression("*"), "type": "WalletAccountDelegate", "visible": True}
+settingsWalletKeyPairDelegate = {"container": settingsContentBase_ScrollView, "objectName": "walletKeyPairDelegate", "type": "StatusListItem", "visible": True}
 
 # Wallet Account Details view
 walletAccountViewEditAccountButton = {"container": statusDesktop_mainWindow, "objectName": "walletAccountViewEditAccountButton", "type": "StatusButton"}
