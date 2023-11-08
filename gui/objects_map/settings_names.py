@@ -70,6 +70,8 @@ networkSettingsNetowrks_Mainnet_Testlabel = {"container": networkSettingsNetwork
 settingsWalletAccountDelegate_Status_account = {"container": settingsContentBase_ScrollView, "objectName": "Status account", "type": "WalletAccountDelegate", "visible": True}
 settingsWalletAccountDelegate = {"container": settingsContentBase_ScrollView, "objectName": RegularExpression("*"), "type": "WalletAccountDelegate", "visible": True}
 settingsWalletKeyPairDelegate = {"container": settingsContentBase_ScrollView, "objectName": "walletKeyPairDelegate", "type": "StatusListItem", "visible": True}
+settingsWalletAccountTotalBalance = {"container": settingsContentBase_ScrollView, "objectName": "includeTotalBalanceListItem", "type": "StatusListItem", "visible": True}
+settingsWalletAccountTotalBalanceToggle = {"checkable": True, "container": settingsWalletAccountTotalBalance, "type": "StatusSwitch", "visible": True}
 
 # Wallet Account Details view
 walletAccountViewEditAccountButton = {"container": statusDesktop_mainWindow, "objectName": "walletAccountViewEditAccountButton", "type": "StatusButton"}

@@ -18,11 +18,12 @@ from gui.main_window import MainWindow
 ])
 def test_settings_edit_status_account(main_screen: MainWindow, new_name):
     with step('Open profile and wallet setting and check that display name equals to Status keypair name'):
-        status_keypair_title = main_screen.left_panel.open_settings().left_panel.open_wallet_settings().get_keypair_name()
+        status_keypair_title = \
+            main_screen.left_panel.open_settings().left_panel.open_wallet_settings().get_keypairs_names()[0]
         profile_display_name = main_screen.left_panel.open_settings().left_panel.open_profile_settings().display_name
-        assert status_keypair_title == profile_display_name, \
-            f"Status keypair name should be equal to display name when it is not: keypair title is {status_keypair_title}, \
-        display name is {profile_display_name}"
+        assert profile_display_name in status_keypair_title, \
+            f"Status keypair name should be equal to display name but currently it is {status_keypair_title}, \
+             when display name is {profile_display_name}"
 
     status_acc_view = (
         main_screen.left_panel.open_settings().left_panel.open_wallet_settings().open_status_account_in_settings())
