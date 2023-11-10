@@ -119,9 +119,7 @@ class AccountDetailsView(WalletSettingsView):
 
     @allure.step('Get account balance value')
     def get_account_balance_value(self):
-        time.sleep(3)
-        raw_value = str(getattr(self._wallet_account_balance, 'subTitle'))
-        balance = raw_value[:-4]
+        balance = str(getattr(self._wallet_account_balance, 'subTitle'))[:-4]
         return balance
 
     @allure.step("Get account address value")

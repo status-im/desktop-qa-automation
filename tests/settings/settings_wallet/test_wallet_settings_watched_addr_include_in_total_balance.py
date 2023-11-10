@@ -5,6 +5,8 @@ import allure
 import pytest
 from allure_commons._allure import step
 
+import configs
+import driver
 from constants.wallet import WalletAccountSettings
 from gui.components.signing_phrase_popup import SigningPhrasePopup
 from gui.main_window import MainWindow
@@ -45,8 +47,9 @@ def test_settings_include_in_total_balance(main_screen: MainWindow, name, watche
         acc_view = WalletSettingsView().open_account_in_settings(name)
 
     with step('Verify details view for the watched address'):
-        assert float(acc_view.get_account_balance_value().replace("\xa0", "").replace(",", "")) > 0.0, \
-            f"Watched address {watched_address} should have positive balance in account view"
+        assert driver.waitFor(
+            lambda: acc_view.get_account_balance_value() != '0,00', configs.timeouts.UI_LOAD_TIMEOUT_MSEC), \
+                f"Watched address {watched_address} should have positive balance in account view"
 
         assert acc_view.get_account_name_value() == name, \
             f"Watched address name is incorrect, current name is {acc_view.get_account_name_value()}, expected {name}"
