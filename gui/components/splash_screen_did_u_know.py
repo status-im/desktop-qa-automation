@@ -1,13 +1,14 @@
 import allure
 
 import configs
+import driver
 from gui.elements.object import QObject
 
 
-class SplashScreen(QObject):
+class SplashScreenDidYouKnow(QObject):
 
     def __init__(self):
-        super(SplashScreen, self).__init__('splashScreen')
+        super(SplashScreenDidYouKnow, self).__init__('splashScreenDidYouKnow')
 
     @allure.step('Wait until appears {0}')
     def wait_until_appears(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
@@ -17,3 +18,4 @@ class SplashScreen(QObject):
     @allure.step('Wait until hidden {0}')
     def wait_until_hidden(self, timeout_msec: int = configs.timeouts.APP_LOAD_TIMEOUT_MSEC):
         super().wait_until_hidden(timeout_msec)
+

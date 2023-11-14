@@ -1,3 +1,5 @@
+import time
+
 import allure
 import pytest
 from allure_commons._allure import step
@@ -7,7 +9,8 @@ import constants
 from driver.aut import AUT
 from gui.components.onboarding.before_started_popup import BeforeStartedPopUp
 from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
-from gui.components.splash_screen import SplashScreen
+from gui.components.splash_screen_did_u_know import SplashScreenDidYouKnow
+from gui.components.splash_screen_main_loader import SplashScreenMainLoader
 from gui.screens.onboarding import BiometricsView, AllowNotificationsView, WelcomeToStatusView, KeysView
 
 
@@ -40,9 +43,8 @@ def test_import_seed_phrase(aut: AUT, keys_screen, main_window, user_account, au
         create_password_view = details_view.next()
         confirm_password_view = create_password_view.create_password(user_account.password)
         confirm_password_view.confirm_password(user_account.password)
-        if configs.system.IS_MAC:
-            BiometricsView().wait_until_appears().prefer_password()
-        SplashScreen().wait_until_appears().wait_until_hidden()
+        SplashScreenMainLoader().wait_until_appears()
+        SplashScreenMainLoader().wait_until_hidden()
         if not configs.DEV_BUILD:
             BetaConsentPopup().confirm()
 

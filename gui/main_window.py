@@ -10,7 +10,8 @@ from constants import UserAccount
 from gui.components.community.invite_contacts import InviteContactsPopup
 from gui.components.onboarding.before_started_popup import BeforeStartedPopUp
 from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
-from gui.components.splash_screen import SplashScreen
+from gui.components.splash_screen_did_u_know import SplashScreenDidYouKnow
+from gui.components.splash_screen_main_loader import SplashScreenMainLoader
 from gui.components.user_canvas import UserCanvas
 from gui.elements.button import Button
 from gui.elements.object import QObject
@@ -150,7 +151,7 @@ class MainWindow(Window):
         confirm_password_view.confirm_password(user_account.password)
         if configs.system.IS_MAC:
             BiometricsView().wait_until_appears().prefer_password()
-        SplashScreen().wait_until_appears().wait_until_hidden()
+        SplashScreenMainLoader().wait_until_appears().wait_until_hidden()
         if not configs.DEV_BUILD:
             if driver.waitFor(lambda: BetaConsentPopup().exists, configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
                 BetaConsentPopup().confirm()
@@ -159,7 +160,7 @@ class MainWindow(Window):
     @allure.step('Log in user')
     def log_in(self, user_account: UserAccount):
         LoginView().log_in(user_account)
-        SplashScreen().wait_until_appears().wait_until_hidden()
+        SplashScreenMainLoader().wait_until_appears().wait_until_hidden()
         if not configs.DEV_BUILD:
             if driver.waitFor(lambda: BetaConsentPopup().exists, configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
                 BetaConsentPopup().confirm()
