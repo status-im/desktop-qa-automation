@@ -10,7 +10,7 @@ from constants import UserAccount
 from constants.syncing import SyncingSettings
 from gui.components.onboarding.before_started_popup import BeforeStartedPopUp
 from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
-from gui.components.splash_screen import SplashScreen
+from gui.components.splash_screen_main_loader import SplashScreenMainLoader
 from gui.main_window import MainWindow
 from gui.screens.onboarding import AllowNotificationsView, WelcomeToStatusView, SyncResultView, \
     SyncCodeView, SyncDeviceFoundView
@@ -74,7 +74,7 @@ def test_sync_device_during_onboarding(multiple_instance, user_data):
 
         with step('Sign in to synced account'):
             sync_result.sign_in()
-            SplashScreen().wait_until_hidden()
+            SplashScreenMainLoader().wait_until_hidden()
             if not configs.DEV_BUILD:
                 if driver.waitFor(lambda: BetaConsentPopup().exists, configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
                     BetaConsentPopup().confirm()

@@ -8,7 +8,7 @@ from constants.onboarding import very_weak_lower_elements, very_weak_upper_eleme
     very_weak_numbers_elements, very_weak_symbols_elements, weak_elements, so_so_elements, good_elements, great_elements
 from gui.components.onboarding.before_started_popup import BeforeStartedPopUp
 from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
-from gui.components.splash_screen import SplashScreen
+from gui.components.splash_screen_main_loader import SplashScreenMainLoader
 from gui.screens.onboarding import AllowNotificationsView, WelcomeToStatusView, KeysView, BiometricsView
 
 
@@ -56,7 +56,7 @@ def test_check_password_strength_and_login(keys_screen, main_window, user_accoun
         confirm_password_view.confirm_password(password)
         if configs.system.IS_MAC:
             BiometricsView().wait_until_appears().prefer_password()
-        SplashScreen().wait_until_appears().wait_until_hidden()
+        SplashScreenMainLoader().wait_until_appears().wait_until_hidden()
         if not configs.DEV_BUILD:
             BetaConsentPopup().confirm()
 

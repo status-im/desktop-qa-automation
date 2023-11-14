@@ -12,7 +12,8 @@ from constants import ColorCodes
 from driver.objects_access import walk_children
 from gui.components.os.open_file_dialogs import OpenFileDialog
 from gui.components.picture_edit_popup import PictureEditPopup
-from gui.components.splash_screen import SplashScreen
+from gui.components.splash_screen_did_u_know import SplashScreenDidYouKnow
+from gui.components.splash_screen_main_loader import SplashScreenMainLoader
 from gui.elements.button import Button
 from gui.elements.object import QObject
 from gui.elements.text_edit import TextEdit
@@ -187,7 +188,7 @@ class SyncResultView(OnboardingView):
     def sign_in(self, attempts: int = 2):
         self._sign_in_button.click()
         try:
-            return SplashScreen().wait_until_appears()
+            return SplashScreenMainLoader().wait_until_appears()
         except:
             assert attempts > 0, f'Next button was not clicked'
             self.sign_in(attempts - 1)
@@ -479,6 +480,9 @@ class ConfirmPasswordView(OnboardingView):
     def confirm_password(self, value: str):
         self.set_password(value)
         self._confirm_button.click()
+        if configs.system.IS_MAC:
+            BiometricsView().wait_until_appears().prefer_password()
+        return SplashScreenMainLoader().wait_until_appears()
 
     @allure.step('Go back')
     def back(self):
