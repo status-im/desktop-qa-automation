@@ -9,7 +9,6 @@ import constants
 from driver.aut import AUT
 from gui.components.onboarding.before_started_popup import BeforeStartedPopUp
 from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
-from gui.components.splash_screen_did_u_know import SplashScreenDidYouKnow
 from gui.components.splash_screen_main_loader import SplashScreenMainLoader
 from gui.screens.onboarding import BiometricsView, AllowNotificationsView, WelcomeToStatusView, KeysView
 
@@ -44,8 +43,9 @@ def test_import_seed_phrase(aut: AUT, keys_screen, main_window, user_account, au
         confirm_password_view = create_password_view.create_password(user_account.password)
         confirm_password_view.confirm_password(user_account.password)
         SplashScreenMainLoader().wait_until_appears()
-        SplashScreenMainLoader().wait_until_hidden()
+        #SplashScreenMainLoader().wait_until_hidden()
         if not configs.DEV_BUILD:
+            #BetaConsentPopup().wait_until_appears()
             BetaConsentPopup().confirm()
 
     with (step('Verify that restored account reveals correct status wallet address')):

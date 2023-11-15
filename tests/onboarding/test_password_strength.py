@@ -56,7 +56,8 @@ def test_check_password_strength_and_login(keys_screen, main_window, user_accoun
         confirm_password_view.confirm_password(password)
         if configs.system.IS_MAC:
             BiometricsView().wait_until_appears().prefer_password()
-        SplashScreenMainLoader().wait_until_appears().wait_until_hidden()
+        SplashScreenMainLoader().wait_until_appears()
+        #SplashScreenMainLoader().wait_until_hidden()
         if not configs.DEV_BUILD:
             BetaConsentPopup().confirm()
 

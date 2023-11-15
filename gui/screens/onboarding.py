@@ -12,7 +12,6 @@ from constants import ColorCodes
 from driver.objects_access import walk_children
 from gui.components.os.open_file_dialogs import OpenFileDialog
 from gui.components.picture_edit_popup import PictureEditPopup
-from gui.components.splash_screen_did_u_know import SplashScreenDidYouKnow
 from gui.components.splash_screen_main_loader import SplashScreenMainLoader
 from gui.elements.button import Button
 from gui.elements.object import QObject

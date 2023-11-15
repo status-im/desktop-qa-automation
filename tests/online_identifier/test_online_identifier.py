@@ -6,8 +6,6 @@ import constants
 from driver.aut import AUT
 from gui.main_window import MainWindow
 
-pytestmark = allure.suite("Settings")
-
 
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/703007',
                  'Change own display name from online identifier')

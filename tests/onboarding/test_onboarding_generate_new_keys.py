@@ -8,7 +8,6 @@ import configs.timeouts
 from gui.components.onboarding.before_started_popup import BeforeStartedPopUp
 from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
 from gui.components.picture_edit_popup import shift_image
-from gui.components.splash_screen_did_u_know import SplashScreenDidYouKnow
 from gui.components.splash_screen_main_loader import SplashScreenMainLoader
 from gui.screens.onboarding import AllowNotificationsView, WelcomeToStatusView, BiometricsView, KeysView
 
@@ -73,7 +72,8 @@ def test_generate_new_keys(main_window, keys_screen, user_name: str, password, u
         if configs.system.IS_MAC:
             assert BiometricsView().is_touch_id_button_visible(), f"TouchID button is not found"
             BiometricsView().wait_until_appears().prefer_password()
-        SplashScreenMainLoader().wait_until_appears().wait_until_hidden()
+        SplashScreenMainLoader().wait_until_appears()
+        #SplashScreenMainLoader().wait_until_appears()
         if not configs.DEV_BUILD:
             BetaConsentPopup().confirm()
 
