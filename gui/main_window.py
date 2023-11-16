@@ -114,7 +114,7 @@ class LeftPanel(QObject):
         InviteContactsPopup().wait_until_appears().invite(contacts, message)
 
     @allure.step('Open settings')
-    def open_settings(self) -> CommunitiesPortal:
+    def open_settings(self) -> SettingsScreen:
         self._settings_button.click()
         return SettingsScreen().wait_until_appears()
 
