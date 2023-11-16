@@ -1,7 +1,7 @@
 from gui.objects_map.main_names import statusDesktop_mainWindow
 from objectmaphelper import *
 
-mainWindow_ProfileLayout = {"container": statusDesktop_mainWindow, "type": "ProfileLayout", "unnamed": 1, "visible": True}
+mainWindow_ProfileLayout = {"container": statusDesktop_mainWindow, "objectName": "profileStatusSectionLayout", "type": "StatusSectionLayout", "visible": True}
 mainWindow_StatusSectionLayout_ContentItem = {"container": mainWindow_ProfileLayout, "objectName": "StatusSectionLayout", "type": "ContentItem", "visible": True}
 settingsContentBase_ScrollView = {"container": statusDesktop_mainWindow, "objectName": "settingsContentBaseScrollView", "type": "StatusScrollView", "visible": True}
 settingsContentBaseScrollView_Flickable = {"container": settingsContentBase_ScrollView, "type": "Flickable", "unnamed": 1, "visible": True}
