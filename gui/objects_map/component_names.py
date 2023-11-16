@@ -66,10 +66,10 @@ copy_icon_StatusIcon = {"container": statusDesktop_mainWindow_overlay, "objectNa
 
 
 # Welcome Status Popup
-agreeToUse_StatusCheckBox = {"checkable": True, "container": statusDesktop_mainWindow_overlay, "id": "agreeToUse", "type": "StatusCheckBox", "unnamed": 1, "visible": True}
-readyToUse_StatusCheckBox = {"checkable": True, "container": statusDesktop_mainWindow_overlay, "id": "readyToUse", "type": "StatusCheckBox", "unnamed": 1, "visible": True}
-i_m_ready_to_use_Status_Desktop_Beta_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "type": "StatusButton", "unnamed": 1, "visible": True}
-
+betaConsent_StatusModal = {"container": statusDesktop_mainWindow_overlay, "objectName": "desktopBetaStatusModal", "type": "StatusModal", "visible": True}
+agreeToUse_StatusCheckBox = {"checkable": True, "container": statusDesktop_mainWindow_overlay, "objectName": "desktopBetaAgreeCheckBox", "type": "StatusCheckBox", "visible": True}
+readyToUse_StatusCheckBox = {"checkable": True, "container": statusDesktop_mainWindow_overlay, "objectName": "desktopBetaReadyCheckBox", "type": "StatusCheckBox", "visible": True}
+i_m_ready_to_use_Status_Desktop_Beta_StatusButton = {"container": statusDesktop_mainWindow_overlay, "type": "StatusButton", "objectName": "desktopBetaStatusButton", "visible": True}
 
 """ Communities """
 
@@ -344,3 +344,5 @@ switchTabBar_12_words_StatusSwitchTabButton = {"checkable": True, "container": s
 switchTabBar_18_words_StatusSwitchTabButton = {"checkable": True, "container": switchTabBar_StatusSwitchTabBar, "objectName": "18SeedButton", "text": "18 words", "type": "StatusSwitchTabButton", "visible": True}
 switchTabBar_24_words_StatusSwitchTabButton = {"checkable": True, "container": switchTabBar_StatusSwitchTabBar, "objectName": "24SeedButton", "text": "24 words", "type": "StatusSwitchTabButton", "visible": True}
 i_understand_the_key_pair_on_this_Keycard_will_be_deleted_StatusCheckBox = {"checkable": True, "container": statusDesktop_mainWindow_overlay, "id": "confirmation", "type": "StatusCheckBox", "visible": True}
+statusSmartIdenticonLetter_StatusLetterIdenticon = {"container": statusDesktop_mainWindow_overlay, "objectName": "statusSmartIdenticonLetter", "type": "StatusLetterIdenticon", "visible": True}
+add_another_account_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "id": "secondaryButton", "type": "StatusButton", "unnamed": 1, "visible": True}
