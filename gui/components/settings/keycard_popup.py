@@ -40,6 +40,9 @@ class KeycardPopup(BasePopup):
         self._cancel_button = Button('cancel_StatusButton')
         self._understand_keypair_deleted_checkbox = CheckBox(
             'i_understand_the_key_pair_on_this_Keycard_will_be_deleted_StatusCheckBox')
+        self._emoji_button = QObject('statusSmartIdenticonLetter_StatusLetterIdenticon')
+        self._secondary_button = Button('secondary_StatusButton')
+        self._color_radiobutton = QObject('color_StatusColorRadioButton')
 
     @property
     @allure.step('Get keycard image source path')
@@ -118,7 +121,7 @@ class KeycardPopup(BasePopup):
         return self
 
     @allure.step('Set pin')
-    def input_pin(self, pin):
+    def input_pin_or_puk(self, pin):
         driver.nativeType(pin)
 
     @allure.step('Click Next button')
@@ -156,6 +159,12 @@ class KeycardPopup(BasePopup):
     @allure.step('Name keycard')
     def name_keycard(self, name: str):
         driver.type(self.get_text_fields[0], name)
+        self.click_next()
+        return self
+
+    @allure.step('Add another account')
+    def add_account(self):
+        self._secondary_button.click()
         return self
 
     @allure.step('Name account')
@@ -185,8 +194,8 @@ class KeycardPopup(BasePopup):
     @allure.step('Import keycard via seed phrase')
     def import_keycard_via_seed_phrase(self, seed_phrase_words: list, pin: str, keycard_name: str, account_name: str):
         self.input_seed_phrase(seed_phrase_words)
-        self.input_pin(pin)
-        self.input_pin(pin)
+        self.input_pin_or_puk(pin)
+        self.input_pin_or_puk(pin)
         self.click_next()
         self.name_keycard_and_account(keycard_name, account_name)
 
@@ -212,3 +221,8 @@ class KeycardPopup(BasePopup):
     @allure.step('Confirm that understand that keypair will be deleted in checkbox')
     def confirm_keypair_will_be_deleted(self, value: bool):
         self._understand_keypair_deleted_checkbox.set(value)
+
+    @allure.step('Click Unlock using PUK')
+    def click_unlock_puk(self):
+        self._secondary_button.click()
+        return self
