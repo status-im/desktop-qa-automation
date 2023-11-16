@@ -16,6 +16,7 @@ from gui.components.user_canvas import UserCanvas
 from gui.elements.button import Button
 from gui.elements.object import QObject
 from gui.elements.window import Window
+from gui.mocked_keycard_controller import MockedKeycardController
 from gui.screens.community import CommunityScreen
 from gui.screens.community_portal import CommunitiesPortal
 from gui.screens.messages import MessagesScreen
@@ -137,6 +138,10 @@ class MainWindow(Window):
         super(MainWindow, self).__init__('statusDesktop_mainWindow')
         self.left_panel = LeftPanel()
 
+    def prepare(self) -> 'Window':
+        MockedKeycardController().wait_until_appears().hide()
+        return super().prepare()
+
     @allure.step('Sign Up user')
     def sign_up(self, user_account: UserAccount = constants.user.user_account_one):
         if configs.system.IS_MAC:
@@ -154,6 +159,7 @@ class MainWindow(Window):
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()
+        MockedKeycardController().wait_until_appears().hide()
         return self
 
     @allure.step('Log in user')
@@ -162,6 +168,7 @@ class MainWindow(Window):
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()
+        MockedKeycardController().wait_until_appears().hide()
         return self
 
     @allure.step('Authorize user')
