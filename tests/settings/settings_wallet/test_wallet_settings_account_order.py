@@ -2,10 +2,11 @@ import allure
 import pytest
 from allure_commons._allure import step
 
+import configs
 import driver
 from gui.components.signing_phrase_popup import SigningPhrasePopup
 from gui.components.wallet.authenticate_popup import AuthenticatePopup
-from gui.main_window import MainWindow
+from gui.main_window import MainWindow, LeftPanel
 from scripts.tools import image
 
 
@@ -53,14 +54,16 @@ def test_change_account_order_by_drag_and_drop(main_screen: MainWindow, user_acc
 
     with step('Verify the account order'):
         with step('Account order is correct in wallet settings'):
-            assert driver.waitFor(lambda: account_order.accounts[0].name == name)
-            assert driver.waitFor(lambda: account_order.accounts[1].name == second_name)
-            assert driver.waitFor(lambda: account_order.accounts[2].name == default_name)
+            assert driver.waitFor(lambda: account_order.accounts[0].name == name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+            assert driver.waitFor(lambda: account_order.accounts[1].name == second_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+            assert driver.waitFor(lambda: account_order.accounts[2].name == default_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+
         with step('Account order is correct in wallet'):
             wallet = main_screen.left_panel.open_wallet()
-            assert driver.waitFor(lambda: wallet.left_panel.accounts[0].name == name)
-            assert driver.waitFor(lambda: wallet.left_panel.accounts[1].name == second_name)
-            assert driver.waitFor(lambda: wallet.left_panel.accounts[2].name == default_name)
+            wallet.left_panel.select_account(default_name)
+            assert driver.waitFor(lambda: wallet.left_panel.accounts[0].name == name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+            assert driver.waitFor(lambda: wallet.left_panel.accounts[1].name == second_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+            assert driver.waitFor(lambda: wallet.left_panel.accounts[2].name == default_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
 
     with step('Drag second account to the top of the list'):
         account_order = main_screen.left_panel.open_settings().left_panel.open_wallet_settings().open_account_order()
@@ -68,14 +71,16 @@ def test_change_account_order_by_drag_and_drop(main_screen: MainWindow, user_acc
 
     with step('Verify the account order'):
         with step('Account order is correct in wallet settings'):
-            assert driver.waitFor(lambda: account_order.accounts[0].name == second_name)
-            assert driver.waitFor(lambda: account_order.accounts[1].name == name)
-            assert driver.waitFor(lambda: account_order.accounts[2].name == default_name)
+            assert driver.waitFor(lambda: account_order.accounts[0].name == second_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+            assert driver.waitFor(lambda: account_order.accounts[1].name == name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+            assert driver.waitFor(lambda: account_order.accounts[2].name == default_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+
         with step('Account order is correct in wallet'):
             wallet = main_screen.left_panel.open_wallet()
-            assert driver.waitFor(lambda: wallet.left_panel.accounts[0].name == second_name)
-            assert driver.waitFor(lambda: wallet.left_panel.accounts[1].name == name)
-            assert driver.waitFor(lambda: wallet.left_panel.accounts[2].name == default_name)
+            wallet.left_panel.select_account(default_name)
+            assert driver.waitFor(lambda: wallet.left_panel.accounts[0].name == second_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+            assert driver.waitFor(lambda: wallet.left_panel.accounts[1].name == name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+            assert driver.waitFor(lambda: wallet.left_panel.accounts[2].name == default_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
 
 
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/edit/703416',
