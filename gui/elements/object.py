@@ -98,18 +98,11 @@ class QObject:
         return self._image
 
     @allure.step('Click {0}')
-    def click(
-            self,
-            x: int = None,
-            y: int = None,
-            button=None
-    ):
-        driver.mouseClick(
-            self.object,
-            x or self.width // 2,
-            y or self.height // 2,
-            button or driver.Qt.LeftButton
-        )
+    def click(self, x: int = None, y: int = None, button: driver.MouseButton = driver.MouseButton.LeftButton):
+        if x is not None or y is not None:
+            driver.mouseClick( self.object, x or self.width // 2, y or self.height // 2, button)
+        else:
+            driver.mouseClick(self.object)
         _logger.info(f'{self}: clicked')
 
     @allure.step('Hover {0}')
