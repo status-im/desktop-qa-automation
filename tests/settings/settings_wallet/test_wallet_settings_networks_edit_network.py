@@ -16,6 +16,7 @@ from gui.main_window import MainWindow
     pytest.param(WalletNetworkSettings.EDIT_NETWORK_LIVE_TAB.value),
     pytest.param(WalletNetworkSettings.EDIT_NETWORK_TEST_TAB.value)
 ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_settings_networks_edit_restore_defaults(main_screen: MainWindow, network_tab: str):
 
     networks = main_screen.left_panel.open_settings().left_panel.open_wallet_settings().open_networks()

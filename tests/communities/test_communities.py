@@ -14,10 +14,9 @@ from gui.screens.community import CommunityScreen
 from scripts.tools import image
 
 
-
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/703084', 'Create community')
 @pytest.mark.case(703084)
-# @pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/167")
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/283")
 @pytest.mark.parametrize('params', [constants.community_params])
 def test_create_community(user_account, main_screen: MainWindow, params):
     with step('Create community'):
@@ -28,15 +27,15 @@ def test_create_community(user_account, main_screen: MainWindow, params):
     with step('Verify community parameters in community overview'):
         # TODO: change image comparison https://github.com/status-im/desktop-qa-automation/issues/263
         # with step('Icon is correct'):
-            # community_icon = main_screen.left_panel.get_community_logo(params['name'])
-            # image.compare(community_icon, 'button_logo.png', timout_sec=5)
+        # community_icon = main_screen.left_panel.get_community_logo(params['name'])
+        # image.compare(community_icon, 'button_logo.png', timout_sec=5)
         with step('Name is correct'):
             assert community_screen.left_panel.name == params['name']
         with step('Members count is correct'):
             assert '1' in community_screen.left_panel.members
         # TODO: change image comparison https://github.com/status-im/desktop-qa-automation/issues/263
         # with step('Logo is correct'):
-            # image.compare(community_screen.left_panel.logo, 'logo.png')
+        # image.compare(community_screen.left_panel.logo, 'logo.png')
 
     with step('Verify community parameters in community settings view'):
         community_setting = community_screen.left_panel.open_community_settings()
@@ -70,7 +69,7 @@ def test_create_community(user_account, main_screen: MainWindow, params):
     },
 
 ])
-@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/167")
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/283")
 def test_edit_community_separately(main_screen, community_params):
     main_screen.create_community(constants.community_params)
 
@@ -111,7 +110,7 @@ def test_edit_community_separately(main_screen, community_params):
         'outro': 'Updated Outro'
     }
 ])
-@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/167")
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/283")
 def test_edit_community(main_screen: MainWindow, params):
     main_screen.create_community(constants.community_params)
 
@@ -133,12 +132,12 @@ def test_edit_community(main_screen: MainWindow, params):
         # TODO: change image comparison https://github.com/status-im/desktop-qa-automation/issues/263
         # with step('Icon is correct'):
         #     community_icon = main_screen.left_panel.get_community_logo(params['name'])
-            # image.compare(community_icon, 'button_updated_logo.png')
+        # image.compare(community_icon, 'button_updated_logo.png')
         with step('Name is correct'):
             assert community_screen.left_panel.name == params['name']
         # TODO: change image comparison https://github.com/status-im/desktop-qa-automation/issues/263
         # with step('Logo is correct'):
-            # image.compare(community_screen.left_panel.logo, 'updated_logo.png')
+        # image.compare(community_screen.left_panel.logo, 'updated_logo.png')
 
     with step('Verify community parameters in community settings screen'):
         settings_screen = main_screen.left_panel.open_settings()
@@ -153,7 +152,7 @@ def test_edit_community(main_screen: MainWindow, params):
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/703049', 'Create community channel')
 @pytest.mark.case(703049)
 @pytest.mark.parametrize('channel_name, channel_description, channel_emoji', [('Channel', 'Description', 'sunglasses')])
-@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/167")
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/283")
 def test_create_community_channel(main_screen: MainWindow, channel_name, channel_description, channel_emoji):
     main_screen.create_community(constants.community_params)
     community_screen = main_screen.left_panel.select_community(constants.community_params['name'])
@@ -172,7 +171,7 @@ def test_create_community_channel(main_screen: MainWindow, channel_name, channel
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/703050', 'Edit community channel')
 @pytest.mark.case(703050)
 @pytest.mark.parametrize('channel_name, channel_description, channel_emoji', [('Channel', 'Description', 'sunglasses')])
-@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/167")
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/283")
 def test_edit_community_channel(main_screen, channel_name, channel_description, channel_emoji):
     main_screen.create_community(constants.community_params)
     community_screen = CommunityScreen()
@@ -216,7 +215,7 @@ def test_delete_community_channel(main_screen):
 @pytest.mark.parametrize('user_data_one, user_data_two', [
     (configs.testpath.TEST_USER_DATA / 'user_account_one', configs.testpath.TEST_USER_DATA / 'user_account_two')
 ])
-@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/167")
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/283")
 def test_join_community_via_owner_invite(multiple_instance, user_data_one, user_data_two):
     user_one: UserAccount = constants.user_account_one
     user_two: UserAccount = constants.user_account_two

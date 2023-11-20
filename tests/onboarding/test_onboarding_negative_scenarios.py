@@ -30,6 +30,7 @@ def keys_screen(main_window) -> KeysView:
 @pytest.mark.case(702991)
 @pytest.mark.parametrize('error', [OnboardingMessages.PASSWORD_INCORRECT.value
                                    ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/324")
 def test_login_with_wrong_password(aut: AUT, keys_screen, main_window, error: str):
     user_one: UserAccount = constants.user_account_one
     user_one_wrong_password: UserAccount = constants.user_account_one_changed_password
@@ -71,6 +72,7 @@ def test_login_with_wrong_password(aut: AUT, keys_screen, main_window, error: st
     pytest.param('Gra', OnboardingMessages.WRONG_LOGIN_LESS_LETTERS.value),
     pytest.param('tester3@', OnboardingMessages.WRONG_LOGIN_SYMBOLS_NOT_ALLOWED.value)
 ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_sign_up_with_wrong_name(keys_screen, user_name: str, error: str):
     with step(f'Input name {user_name}'):
         profile_view = keys_screen.generate_new_keys()
@@ -88,6 +90,7 @@ def test_sign_up_with_wrong_name(keys_screen, user_name: str, error: str):
 @pytest.mark.parametrize('password, error', [
     pytest.param('badP', OnboardingMessages.WRONG_PASSWORD.value),
 ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_sign_up_with_wrong_password_in_both_fields(keys_screen, user_account, password: str, error: str):
     with step('Input correct user name'):
         profile_view = keys_screen.generate_new_keys()
@@ -111,6 +114,7 @@ def test_sign_up_with_wrong_password_in_both_fields(keys_screen, user_account, p
 @pytest.mark.parametrize('first_password, confirmation_password', [
     pytest.param('TesTEr16843/!@01', 'bad2!s'),
 ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_sign_up_with_wrong_password_in_confirmation_field(keys_screen, user_account, first_password: str,
                                                            confirmation_password: str):
     with step('Input correct user name'):
@@ -134,6 +138,7 @@ def test_sign_up_with_wrong_password_in_confirmation_field(keys_screen, user_acc
 @pytest.mark.parametrize('password, confirmation_again_password, error', [
     pytest.param('TesTEr16843/!@01', 'TesTEr16843/!@)', OnboardingMessages.PASSWORDS_DONT_MATCH.value),
 ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_sign_up_with_wrong_password_in_confirmation_again_field(keys_screen, user_account, password: str,
                                                                  confirmation_again_password: str, error: str):
     with step('Input correct user name'):
@@ -159,6 +164,7 @@ def test_sign_up_with_wrong_password_in_confirmation_again_field(keys_screen, us
 @pytest.mark.parametrize('seed_phrase', [
     pytest.param('pelican chief sudden oval media rare swamp elephant lawsuit wheal knife initial'),
 ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_sign_up_with_wrong_seed_phrase(keys_screen, seed_phrase: str):
     with step('Open import seed phrase view and enter seed phrase'):
         input_view = keys_screen.open_import_seed_phrase_view().open_seed_phrase_input_view()

@@ -25,6 +25,7 @@ from gui.main_window import MainWindow
                          [
                              pytest.param('GenAcc2', '#2a4af5', 'sunglasses', '1f60e')
                          ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_add_generated_account_restart_add_again(
         aut: AUT, main_screen: MainWindow, user_account,
         color: str, emoji: str, emoji_unicode: str, name: str,

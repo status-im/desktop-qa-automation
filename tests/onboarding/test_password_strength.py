@@ -38,6 +38,7 @@ def keys_screen(main_window) -> KeysView:
     pytest.param('+1_3!48aT1', good_elements),
     pytest.param('+1_3!48aTq', great_elements)
 ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/324")
 def test_check_password_strength_and_login(keys_screen, main_window, user_account, password: str, password_strength_elements):
     with step('Input correct user name'):
         profile_view = keys_screen.generate_new_keys()

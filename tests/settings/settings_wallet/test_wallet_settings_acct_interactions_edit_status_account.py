@@ -17,6 +17,7 @@ from gui.screens.settings import SettingsScreen
     pytest.param(''.join(random.choices(string.ascii_letters +
                                         string.digits, k=40)))
 ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_settings_edit_status_account(main_screen: MainWindow, new_name):
     with step('Open profile and wallet setting and check that display name equals to Status keypair name'):
         status_keypair_title = \

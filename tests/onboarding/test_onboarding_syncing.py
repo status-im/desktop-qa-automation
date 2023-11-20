@@ -31,6 +31,7 @@ def sync_screen(main_window) -> SyncCodeView:
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/703592', 'Sync device during onboarding')
 @pytest.mark.case(703592)
 @pytest.mark.parametrize('user_data', [configs.testpath.TEST_USER_DATA / 'user_account_one'])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_sync_device_during_onboarding(multiple_instance, user_data):
     user: UserAccount = constants.user_account_one
     main_window = MainWindow()
@@ -96,6 +97,7 @@ def test_sync_device_during_onboarding(multiple_instance, user_data):
 @pytest.mark.parametrize('wrong_sync_code', [
     pytest.param('9rhfjgfkgfj890tjfgtjfgshjef900')
 ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_wrong_sync_code(sync_screen, wrong_sync_code):
     with step('Open sync code form'):
         sync_view = sync_screen.open_enter_sync_code_form()

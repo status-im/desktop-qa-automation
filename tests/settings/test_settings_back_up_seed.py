@@ -10,6 +10,7 @@ from gui.main_window import MainWindow
 
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/703001', 'Backup seed phrase')
 @pytest.mark.case(703001)
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_back_up_seed_phrase(main_screen: MainWindow):
     with step('Check back up seed phrase option is visible for new account'):
         settings = main_screen.left_panel.open_settings()

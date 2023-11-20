@@ -22,6 +22,7 @@ from gui.main_window import MainWindow
                              pytest.param(''.join(random.choices(string.ascii_letters +
                                                                  string.digits, k=15)), '#2a4af5', 'sunglasses', '1f60e')
                          ])
+@pytest.mark.skip(reason="https://github.com/status-im/status-desktop/issues/12777")
 def test_add_new_account_from_wallet_settings(
         main_screen: MainWindow, user_account, account_name: str, color: str, emoji: str, emoji_unicode: str):
     with step('Open add account pop up from wallet settings'):

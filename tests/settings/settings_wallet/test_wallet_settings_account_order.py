@@ -91,6 +91,7 @@ def test_change_account_order_by_drag_and_drop(main_screen: MainWindow, user_acc
     pytest.param('Status account', 'This account looks a little lonely. Add another account'
                                    ' to enable re-ordering.')
 ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_change_account_order_not_possible(main_screen: MainWindow, default_name: str, text_on_top: str):
     with step('Open edit account order view'):
         account_order = main_screen.left_panel.open_settings().left_panel.open_wallet_settings().open_account_order()

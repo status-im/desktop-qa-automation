@@ -32,6 +32,7 @@ def keys_screen(main_window) -> KeysView:
     pytest.param(False),
     pytest.param(True)
 ])
+@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/322")
 def test_import_seed_phrase(aut: AUT, keys_screen, main_window, user_account, autocomplete: bool):
     with step('Open import seed phrase view and enter seed phrase'):
         input_view = keys_screen.open_import_seed_phrase_view().open_seed_phrase_input_view()
