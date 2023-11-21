@@ -440,6 +440,10 @@ class CreatePasswordView(OnboardingView):
     def create_password(self, value: str) -> 'ConfirmPasswordView':
         self.set_password_in_first_field(value)
         self.set_password_in_confirmation_field(value)
+        self.click_create_password()
+        return ConfirmPasswordView().wait_until_appears()
+
+    def click_create_password(self):
         self._create_button.click()
         time.sleep(1)
         return ConfirmPasswordView().wait_until_appears()
