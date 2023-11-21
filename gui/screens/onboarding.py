@@ -263,6 +263,7 @@ class YourProfileView(OnboardingView):
         self._erros_text_label = TextLabel('mainWindow_errorMessage_StatusBaseText')
         self._next_button = Button('mainWindow_Next_StatusButton')
         self._login_input_object = QObject('mainWindow_nameInput_StatusInput')
+        self._clear_icon = QObject('mainWindow_clear_icon_StatusIcon')
 
     @property
     @allure.step('Get next button enabled state')
@@ -282,6 +283,15 @@ class YourProfileView(OnboardingView):
     @allure.step('Set user display name')
     def set_display_name(self, value: str):
         self._display_name_text_field.clear().text = value
+        return self
+
+    @allure.step('Get user display name')
+    def get_display_name(self) -> str:
+        return str(self._display_name_text_field.object.text)
+
+    @allure.step('Click clear button')
+    def clear_field(self):
+        self._clear_icon.click()
         return self
 
     @allure.step('Set user image')
