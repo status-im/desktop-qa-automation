@@ -46,13 +46,13 @@ class WelcomeToStatusView(QObject):
     def get_keys(self) -> 'KeysView':
         self._i_am_new_to_status_button.click()
         time.sleep(1)
-        return KeysView().wait_until_appears()
+        return KeysView()
 
     @allure.step('Open Sign by syncing form')
     def sync_existing_user(self) -> 'SignBySyncingView':
         self._i_already_use_status_button.click()
         time.sleep(1)
-        return SignBySyncingView().wait_until_appears()
+        return SignBySyncingView()
 
 
 class OnboardingView(QObject):
@@ -77,22 +77,22 @@ class KeysView(OnboardingView):
     @allure.step('Open Profile view')
     def generate_new_keys(self) -> 'YourProfileView':
         self._generate_key_button.click()
-        return YourProfileView().wait_until_appears()
+        return YourProfileView()
 
     @allure.step('Open Keycard Init view')
     def generate_key_for_new_keycard(self) -> 'KeycardInitView':
         self._generate_key_for_new_keycard_button.click()
-        return KeycardInitView().wait_until_appears()
+        return KeycardInitView()
 
     @allure.step('Open Import Seed Phrase view')
     def open_import_seed_phrase_view(self) -> 'ImportSeedPhraseView':
         self._import_seed_phrase_button.click()
-        return ImportSeedPhraseView().wait_until_appears()
+        return ImportSeedPhraseView()
 
     @allure.step('Go back')
     def back(self) -> WelcomeToStatusView:
         self._back_button.click()
-        return WelcomeToStatusView().wait_until_appears()
+        return WelcomeToStatusView()
 
 
 class ImportSeedPhraseView(OnboardingView):
@@ -104,12 +104,12 @@ class ImportSeedPhraseView(OnboardingView):
     @allure.step('Open seed phrase input view')
     def open_seed_phrase_input_view(self):
         self._import_seed_phrase_button.click()
-        return SeedPhraseInputView().wait_until_appears()
+        return SeedPhraseInputView()
 
     @allure.step('Go back')
     def back(self) -> KeysView:
         self._back_button.click()
-        return KeysView().wait_until_appears()
+        return KeysView()
 
 
 class SignBySyncingView(OnboardingView):
@@ -121,7 +121,7 @@ class SignBySyncingView(OnboardingView):
     @allure.step('Open sync code view')
     def open_sync_code_view(self):
         self._scan_or_enter_sync_code_button.click()
-        return SyncCodeView().wait_until_appears()
+        return SyncCodeView()
 
 
 class SyncCodeView(OnboardingView):
@@ -178,11 +178,6 @@ class SyncResultView(OnboardingView):
             device_synced_notifications.append(str(obj.text))
         return device_synced_notifications
 
-    @allure.step('Wait until appears {0}')
-    def wait_until_appears(self, timeout_msec: int = 10000):
-        self._sign_in_button.wait_until_appears(timeout_msec)
-        return self
-
     @allure.step('Sign in')
     def sign_in(self, attempts: int = 2):
         self._sign_in_button.click()
@@ -235,7 +230,7 @@ class SeedPhraseInputView(OnboardingView):
     @allure.step('Click import button')
     def import_seed_phrase(self):
         self._import_button.click()
-        return YourProfileView().wait_until_appears()
+        return YourProfileView()
 
 
 class KeycardInitView(OnboardingView):
@@ -250,7 +245,7 @@ class KeycardInitView(OnboardingView):
 
     def back(self) -> KeysView:
         self._back_button.click()
-        return KeysView().wait_until_appears()
+        return KeysView()
 
 
 class YourProfileView(OnboardingView):
@@ -289,15 +284,15 @@ class YourProfileView(OnboardingView):
         allure.attach(name='User image', body=fp.read_bytes(), attachment_type=allure.attachment_type.PNG)
         self._upload_picture_button.hover()
         self._upload_picture_button.click()
-        file_dialog = OpenFileDialog().wait_until_appears()
+        file_dialog = OpenFileDialog()
         file_dialog.open_file(fp)
-        return PictureEditPopup().wait_until_appears()
+        return PictureEditPopup()
 
     @allure.step('Open Emoji and Icon view')
     def next(self, attempts: int = 2) -> 'EmojiAndIconView':
         self._next_button.click()
         try:
-            return EmojiAndIconView().wait_until_appears()
+            return EmojiAndIconView()
         except AssertionError as err:
             if attempts:
                 return self.next(attempts - 1)
@@ -307,7 +302,7 @@ class YourProfileView(OnboardingView):
     @allure.step('Go back')
     def back(self):
         self._back_button.click()
-        return KeysView().wait_until_appears()
+        return KeysView()
 
 
 class EmojiAndIconView(OnboardingView):
@@ -353,15 +348,14 @@ class EmojiAndIconView(OnboardingView):
         return self._identicon_ring.is_visible
 
     @allure.step('Open Create password view')
-    def next(self) -> 'CreatePasswordView':
+    def next(self):
         self._next_button.click()
-        time.sleep(1)
-        return CreatePasswordView().wait_until_appears()
+        return CreatePasswordView()
 
     @allure.step('Go back')
     def back(self):
         self._back_button.click()
-        return YourProfileView().wait_until_appears()
+        return YourProfileView()
 
     @allure.step
     @allure.step('Verify: User image contains text')
@@ -437,17 +431,22 @@ class CreatePasswordView(OnboardingView):
         self._confirm_password_text_field.clear().text = value
 
     @allure.step('Set password and open Confirmation password view')
-    def create_password(self, value: str) -> 'ConfirmPasswordView':
+    def create_password(self, value: str, attempts: int = 2):
         self.set_password_in_first_field(value)
         self.set_password_in_confirmation_field(value)
         self._create_button.click()
-        time.sleep(1)
-        return ConfirmPasswordView().wait_until_appears()
+        try:
+            return ConfirmPasswordView()
+        except (AssertionError, LookupError) as err:
+            if attempts:
+                return self.create_password(attempts - 1)
+            else:
+                raise err
 
     @allure.step('Go back')
     def back(self):
         self._back_button.click()
-        return EmojiAndIconView().wait_until_appears()
+        return EmojiAndIconView()
 
 
 class ConfirmPasswordView(OnboardingView):
@@ -483,7 +482,7 @@ class ConfirmPasswordView(OnboardingView):
     @allure.step('Go back')
     def back(self):
         self._back_button.click()
-        return CreatePasswordView().wait_until_appears()
+        return CreatePasswordView()
 
 
 class BiometricsView(OnboardingView):

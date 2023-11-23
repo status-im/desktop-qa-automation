@@ -27,27 +27,27 @@ class KeycardSettingsView(QObject):
     @allure.step('Choose create new keycard account with new seed phrase')
     def click_create_new_account_with_new_seed_phrase(self):
         self._create_new_keycard_account_button.click()
-        return KeycardPopup().wait_until_appears()
+        return KeycardPopup()
 
     @allure.step('Choose import or restore keycard via seed phrase')
     def click_import_restore_via_seed_phrase(self):
         self._import_restore_via_seed_phrase_button.click()
-        return KeycardPopup().wait_until_appears()
+        return KeycardPopup()
 
     @allure.step('Choose setup keycard with an existing account')
     def click_setup_keycard_with_existing_account(self):
         self._setup_keycard_with_existing_account_button.click()
-        return KeycardPopup().wait_until_appears()
+        return KeycardPopup()
 
     @allure.step('Choose check whats on keycard')
     def click_check_whats_on_keycard(self):
         self._check_whats_on_keycard_button.click()
-        return KeycardPopup().wait_until_appears()
+        return KeycardPopup()
 
     @allure.step('Choose factory reset a keycard')
     def click_factory_reset_keycard(self):
         self._factory_reset_keycard_button.click()
-        return KeycardPopup().wait_until_appears()
+        return KeycardPopup()
 
     @allure.step('Check that all keycard options displayed')
     def all_keycard_options_available(self):

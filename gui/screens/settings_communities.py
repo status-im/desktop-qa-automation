@@ -72,4 +72,4 @@ class CommunitiesSettingsView(QObject):
     @allure.step('Open community overview settings')
     def open_community_overview_settings(self, name: str):
         driver.mouseClick(self._get_community_item(name))
-        return CommunitySettingsScreen().wait_until_appears()
+        return CommunitySettingsScreen()

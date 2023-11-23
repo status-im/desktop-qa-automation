@@ -12,11 +12,6 @@ class EmojiPopup(QObject):
         self._search_text_edit = TextEdit('mainWallet_AddEditAccountPopup_AccountEmojiSearchBox')
         self._emoji_item = QObject('mainWallet_AddEditAccountPopup_AccountEmoji')
 
-    @allure.step('Wait until appears {0}')
-    def wait_until_appears(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
-        self._search_text_edit.wait_until_appears(timeout_msec)
-        return self
-
     @allure.step('Select emoji')
     def select(self, name: str, attempts: int = 2):
         self._search_text_edit.text = name

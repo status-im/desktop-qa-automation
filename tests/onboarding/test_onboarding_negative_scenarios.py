@@ -20,9 +20,9 @@ from gui.screens.onboarding import AllowNotificationsView, WelcomeToStatusView, 
 def keys_screen(main_window) -> KeysView:
     with step('Open Generate new keys view'):
         if configs.system.IS_MAC:
-            AllowNotificationsView().wait_until_appears().allow()
+            AllowNotificationsView().allow()
         BeforeStartedPopUp().get_started()
-        wellcome_screen = WelcomeToStatusView().wait_until_appears()
+        wellcome_screen = WelcomeToStatusView()
         return wellcome_screen.get_keys()
 
 
@@ -44,7 +44,7 @@ def test_login_with_wrong_password(aut: AUT, keys_screen, main_window, error: st
         confirm_password_view = create_password_view.create_password(user_one.password)
         confirm_password_view.confirm_password(user_one.password)
         if configs.system.IS_MAC:
-            BiometricsView().wait_until_appears().prefer_password()
+            BiometricsView().prefer_password()
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()

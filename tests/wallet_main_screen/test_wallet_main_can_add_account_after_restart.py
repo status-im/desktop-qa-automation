@@ -32,10 +32,10 @@ def test_add_generated_account_restart_add_again(
 ):
     with step('Add the first generated wallet account'):
         wallet = main_screen.left_panel.open_wallet()
-        SigningPhrasePopup().wait_until_appears().confirm_phrase()
+        SigningPhrasePopup().confirm_phrase()
         account_popup = wallet.left_panel.open_add_account_popup()
         account_popup.set_name(name).set_emoji(emoji).set_color(color).save()
-        AuthenticatePopup().wait_until_appears().authenticate(user_account.password)
+        AuthenticatePopup().authenticate(user_account.password)
         account_popup.wait_until_hidden()
 
     with step('Verify toast message notification when adding account'):
@@ -62,7 +62,7 @@ def test_add_generated_account_restart_add_again(
             f"Signing phrase should not be present because it has been hidden in the first step"
         account_popup = wallet.left_panel.open_add_account_popup()
         account_popup.set_name(name2).set_emoji(emoji2).set_color(color2).save()
-        AuthenticatePopup().wait_until_appears().authenticate(user_account.password)
+        AuthenticatePopup().authenticate(user_account.password)
         account_popup.wait_until_hidden()
 
     with step('Verify toast message notification when adding account'):

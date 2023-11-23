@@ -14,4 +14,4 @@ class CommunitiesPortal(QObject):
     @allure.step('Open create community popup')
     def open_create_community_popup(self) -> CreateCommunityPopup:
         self._create_community_button.click()
-        return CreateCommunitiesBanner().wait_until_appears().open_create_community_popup()
+        return CreateCommunitiesBanner().open_create_community_popup()

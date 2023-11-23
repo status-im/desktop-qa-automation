@@ -50,13 +50,13 @@ class LeftPanel(QObject):
     def _open_context_menu_for_chat(self, chat_name: str) -> ContextMenu:
         self._contact_item.real_name['objectName'] = chat_name
         self._contact_item.open_context_menu()
-        return ContextMenu().wait_until_appears()
+        return ContextMenu()
 
     @allure.step('Open leave popup')
     def open_leave_group_popup(self, chat_name: str, attempt: int = 2) -> LeaveGroupPopup:
         try:
             self._open_context_menu_for_chat(chat_name).select('Leave group')
-            return LeaveGroupPopup().wait_until_appears()
+            return LeaveGroupPopup()
         except:
             if attempt:
                 return self.open_leave_group_popup(chat_name, attempt - 1)
@@ -110,7 +110,7 @@ class Message:
     def join_community(self):
         assert self._join_community_button is not None, 'Join button not found'
         self._join_community_button.click()
-        return CommunityScreen().wait_until_appears()
+        return CommunityScreen()
 
 
 class ChatView(QObject):
@@ -167,7 +167,7 @@ class CreateChatView(QObject):
             time.sleep(0.2)
             self.select_contact(member)
         self._confirm_button.click()
-        return ChatMessagesView().wait_until_appears()
+        return ChatMessagesView()
 
 
 class ChatMessagesView(QObject):
@@ -205,7 +205,7 @@ class ChatMessagesView(QObject):
         self.open_more_options()
         time.sleep(2)
         self._edit_menu_item.click()
-        return EditGroupNameAndImagePopup().wait_until_appears()
+        return EditGroupNameAndImagePopup()
 
     @allure.step('Choose leave group option')
     def leave_group(self):
@@ -213,7 +213,7 @@ class ChatMessagesView(QObject):
         self.open_more_options()
         time.sleep(2)
         self._leave_group_item.click()
-        return LeaveGroupPopup().wait_until_appears()
+        return LeaveGroupPopup()
 
     @allure.step('Send message to group chat')
     def send_message_to_group_chat(self, message: str):

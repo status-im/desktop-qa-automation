@@ -34,7 +34,7 @@ def test_delete_generated_account_from_wallet_settings(
 
     with step('Add a new generated account from wallet settings screen'):
         add_account_popup.set_name(account_name).set_emoji(emoji).set_color(color).save()
-        AuthenticatePopup().wait_until_appears().authenticate(user_account.password)
+        AuthenticatePopup().authenticate(user_account.password)
         add_account_popup.wait_until_hidden()
 
     with step('Open account details view for the generated account'):
@@ -67,7 +67,7 @@ def test_delete_generated_account_from_wallet_settings(
 
     with step('Verify the removed account is not displayed in accounts list on main wallet screen'):
         wallet = main_screen.left_panel.open_wallet()
-        SigningPhrasePopup().wait_until_appears().confirm_phrase()
+        SigningPhrasePopup().confirm_phrase()
         assert driver.waitFor(
             lambda: account_name not in [account.name for account in wallet.left_panel.accounts], 10000), \
             f'Account with {account_name} is still displayed even it should not be'

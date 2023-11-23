@@ -39,13 +39,13 @@ class WalletSettingsView(QObject):
     @allure.step('Open add account pop up in wallet settings')
     def open_add_account_pop_up(self):
         self._wallet_settings_add_new_account_button.click()
-        return AccountPopup().wait_until_appears()
+        return AccountPopup()
 
     @allure.step('Open networks in wallet settings')
     def open_networks(self, attempts: int = 2):
         self._wallet_network_button.click()
         try:
-            return NetworkWalletSettings().wait_until_appears()
+            return NetworkWalletSettings()
         except AssertionError as err:
             if attempts:
                 return self.open_networks(attempts - 1)
@@ -55,12 +55,12 @@ class WalletSettingsView(QObject):
     @allure.step('Open account order in wallet settings')
     def open_account_order(self):
         self._account_order_button.click()
-        return EditAccountOrderSettings().wait_until_appears()
+        return EditAccountOrderSettings()
 
     @allure.step('Open Status account view in wallet settings')
     def open_status_account_in_settings(self):
         self._status_account_in_keypair.click()
-        return AccountDetailsView().wait_until_appears()
+        return AccountDetailsView()
 
     @allure.step('Get keypair names')
     def get_keypairs_names(self):
@@ -71,7 +71,7 @@ class WalletSettingsView(QObject):
     def open_account_in_settings(self, name):
         self._wallet_account_from_keypair.real_name['objectName'] = name
         self._wallet_account_from_keypair.click()
-        return AccountDetailsView().wait_until_appears()
+        return AccountDetailsView()
 
     @allure.step('Check Include in total balance item is visible')
     def is_include_in_total_balance_visible(self):
@@ -102,12 +102,12 @@ class AccountDetailsView(WalletSettingsView):
     @allure.step('Click Edit button')
     def click_edit_account_button(self):
         self._edit_account_button.click()
-        return EditAccountFromSettingsPopup().wait_until_appears()
+        return EditAccountFromSettingsPopup()
 
     @allure.step('Click Remove account button')
     def click_remove_account_button(self):
         self._remove_account_button.click()
-        return RemoveAccountConfirmationSettings().wait_until_appears()
+        return RemoveAccountConfirmationSettings()
 
     @allure.step('Check if Remove account button is visible')
     def is_remove_account_button_visible(self):
@@ -191,7 +191,7 @@ class NetworkWalletSettings(WalletSettingsView):
         self._wallet_network_item_template.real_name['objectName'] \
             = RegularExpression(f'walletNetworkDelegate_.*_{network_id}')
         self._wallet_network_item_template.click()
-        return EditNetworkSettings().wait_until_appears()
+        return EditNetworkSettings()
 
     @allure.step('Verify Testnet toggle subtitle')
     def get_testnet_toggle_subtitle(self):
@@ -213,7 +213,7 @@ class NetworkWalletSettings(WalletSettingsView):
     @allure.step('Switch testnet mode toggle')
     def switch_testnet_mode_toggle(self):
         self._testnet_mode_toggle.click()
-        return TestnetModePopup().wait_until_appears()
+        return TestnetModePopup()
 
     @allure.step('Get testnet mode toggle status')
     def is_testnet_mode_toggle_checked(self):
@@ -253,7 +253,7 @@ class EditNetworkSettings(WalletSettingsView):
         self._network_edit_scroll.vertical_down_to(self._network_revert_to_default)
         self._network_revert_to_default.click()
         try:
-            return NetworkWalletSettings().wait_until_appears()
+            return NetworkWalletSettings()
         except AssertionError:
             if attempts:
                 return self.click_revert_to_default_and_go_to_networks_main_screen(attempts - 1)
@@ -393,8 +393,8 @@ class EditNetworkSettings(WalletSettingsView):
     def click_revert_to_default_and_go_to_networks_main_screen(self):
         self._network_edit_scroll.vertical_down_to(self._network_revert_to_default)
         self._network_revert_to_default.click()
-        return NetworkWalletSettings().wait_until_appears()
-
+        return NetworkWalletSettings()
+    
     @allure.step('Get value from Main json rpc input')
     def get_edit_network_main_json_rpc_url_value(self):
         return self._network_main_json_rpc_url.text

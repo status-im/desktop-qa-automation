@@ -35,7 +35,7 @@ def test_switch_testnet_mode(main_screen: MainWindow):
         assert message == WalletNetworkSettings.TESTNET_ENABLED_TOAST_MESSAGE.value, \
             f"Toast message is incorrect, current message is {message}"
         if not configs.system.TEST_MODE:
-            TestnetModeBanner().wait_until_appears()
+            TestnetModeBanner()
         assert networks.is_testnet_mode_toggle_checked(), f"Testnet toggle if off when it should not"
 
     with step('Verify networks are switched to testnets'):
@@ -110,7 +110,7 @@ def test_switch_testnet_off_by_toggle_and_cancel_in_confirmation(main_screen: Ma
         assert message == WalletNetworkSettings.TESTNET_ENABLED_TOAST_MESSAGE.value, \
             f"Toast message is incorrect, current message is {message}"
         if not configs.system.TEST_MODE:
-            assert TestnetModeBanner().wait_until_appears(), f"Testnet banner is not present when it should"
+            assert TestnetModeBanner(), f"Testnet banner is not present when it should"
 
         assert networks.is_testnet_mode_toggle_checked(), f"testnet toggle is off"
 
@@ -123,4 +123,4 @@ def test_switch_testnet_off_by_toggle_and_cancel_in_confirmation(main_screen: Ma
 
     with step('Verify that Testnet mode is not turned off'):
         if not configs.system.TEST_MODE:
-            assert TestnetModeBanner().wait_until_appears(), f"Testnet banner is not present when it should"
+            assert TestnetModeBanner(), f"Testnet banner is not present when it should"

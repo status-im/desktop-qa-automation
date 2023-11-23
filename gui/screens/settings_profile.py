@@ -104,7 +104,7 @@ class ProfileSettingsView(QObject):
     def open_social_links_popup(self):
         self._scroll_view.vertical_scroll_to(self._add_more_links_label)
         self._add_more_links_label.click()
-        return SocialLinksPopup().wait_until_appears()
+        return SocialLinksPopup()
 
     @allure.step('Save changes')
     def save_changes(self):
@@ -113,4 +113,4 @@ class ProfileSettingsView(QObject):
     @allure.step('Open change password form')
     def open_change_password_popup(self):
         self._change_password_button.click()
-        return ChangePasswordPopup().wait_until_appears()
+        return ChangePasswordPopup()

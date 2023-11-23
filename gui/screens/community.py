@@ -96,7 +96,7 @@ class ToolBar(QObject):
     def open_delete_channel_popup(self):
         self._more_options_button.click()
         self._delete_channel_context_item.click()
-        return DeletePopup().wait_until_appears()
+        return DeletePopup()
 
 
 class LeftPanel(QObject):
@@ -157,7 +157,7 @@ class LeftPanel(QObject):
     @allure.step('Open community settings')
     def open_community_settings(self):
         self._community_info_button.click()
-        return CommunitySettingsScreen().wait_until_appears()
+        return CommunitySettingsScreen()
 
     @allure.step('Open create channel popup')
     def open_create_channel_popup(self) -> NewChannelPopup:
@@ -176,7 +176,7 @@ class LeftPanel(QObject):
     @allure.step('Open join community popup')
     def open_welcome_community_popup(self):
         self._join_community_button.click()
-        return WelcomeCommunityPopup().wait_until_appears()
+        return WelcomeCommunityPopup()
 
 
 class Chat(QObject):

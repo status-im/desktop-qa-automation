@@ -25,7 +25,7 @@ class CreateCommunitiesBanner(BasePopup):
 
     def open_create_community_popup(self) -> 'CreateCommunityPopup':
         self._crete_community_button.click()
-        return CreateCommunityPopup().wait_until_appears()
+        return CreateCommunityPopup()
 
 
 class CreateCommunityPopup(BasePopup):
@@ -75,7 +75,7 @@ class CreateCommunityPopup(BasePopup):
     def _open_logo_file_dialog(self, attempt: int = 2):
         self._add_logo_button.click()
         try:
-            return OpenFileDialog().wait_until_appears()
+            return OpenFileDialog()
         except LookupError as err:
             if attempt:
                 _logger.debug(err)
@@ -87,7 +87,7 @@ class CreateCommunityPopup(BasePopup):
     @allure.step('Set community logo')
     def logo(self, kwargs: dict):
         self._open_logo_file_dialog().open_file(kwargs['fp'])
-        PictureEditPopup().wait_until_appears().make_picture(kwargs.get('zoom', None), kwargs.get('shift', None))
+        PictureEditPopup().make_picture(kwargs.get('zoom', None), kwargs.get('shift', None))
 
     @property
     @allure.step('Get community banner')
@@ -98,8 +98,8 @@ class CreateCommunityPopup(BasePopup):
     @allure.step('Set community banner')
     def banner(self, kwargs: dict):
         self._add_banner_button.click()
-        OpenFileDialog().wait_until_appears().open_file(kwargs['fp'])
-        PictureEditPopup().wait_until_appears().make_picture(kwargs.get('zoom', None), kwargs.get('shift', None))
+        OpenFileDialog().open_file(kwargs['fp'])
+        PictureEditPopup().make_picture(kwargs.get('zoom', None), kwargs.get('shift', None))
 
     @property
     @allure.step('Get community color')
@@ -123,7 +123,7 @@ class CreateCommunityPopup(BasePopup):
     def tags(self, values: typing.List[str]):
         self._scroll.vertical_scroll_to(self._choose_tag_button)
         self._choose_tag_button.click()
-        TagsSelectPopup().wait_until_appears().select_tags(values)
+        TagsSelectPopup().select_tags(values)
 
     @property
     @allure.step('Get community intro')
@@ -157,4 +157,4 @@ class CreateCommunityPopup(BasePopup):
             setattr(self, key, kwargs.get(key))
         self._create_community_button.click()
         self.wait_until_hidden()
-        return CommunityScreen().wait_until_appears()
+        return CommunityScreen()

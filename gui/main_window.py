@@ -56,7 +56,7 @@ class LeftPanel(QObject):
     @allure.step('Open messages screen')
     def open_messages_screen(self) -> MessagesScreen:
         self._messages_button.click()
-        return MessagesScreen().wait_until_appears()
+        return MessagesScreen()
 
     @allure.step('Open user canvas')
     def open_user_canvas(self) -> UserCanvas:
@@ -90,7 +90,7 @@ class LeftPanel(QObject):
     @allure.step('Open community portal')
     def open_communities_portal(self) -> CommunitiesPortal:
         self._communities_portal_button.click()
-        return CommunitiesPortal().wait_until_appears()
+        return CommunitiesPortal()
 
     def _get_community(self, name: str):
         community_names = []
@@ -103,7 +103,7 @@ class LeftPanel(QObject):
     @allure.step('Open community')
     def select_community(self, name: str) -> CommunityScreen:
         driver.mouseClick(self._get_community(name))
-        return CommunityScreen().wait_until_appears()
+        return CommunityScreen()
 
     @allure.step('Get community logo')
     def get_community_logo(self, name: str) -> Image:
@@ -113,18 +113,18 @@ class LeftPanel(QObject):
     def invite_people_in_community(self, contacts: typing.List[str], message: str, community_name: str):
         driver.mouseClick(self._get_community(community_name), driver.Qt.RightButton)
         self._community_invite_people_context_item.click()
-        InviteContactsPopup().wait_until_appears().invite(contacts, message)
+        InviteContactsPopup().invite(contacts, message)
 
     @allure.step('Open settings')
     def open_settings(self) -> SettingsScreen:
         self._settings_button.click()
-        return SettingsScreen().wait_until_appears()
+        return SettingsScreen()
 
     @allure.step('Open Wallet section')
     def open_wallet(self, attempts: int = 2) -> WalletScreen:
         self._wallet_button.click()
         try:
-            return WalletScreen().wait_until_appears()
+            return WalletScreen()
         except AssertionError as err:
             if attempts:
                 return self.open_wallet(attempts - 1)
@@ -146,9 +146,9 @@ class MainWindow(Window):
     @allure.step('Sign Up user')
     def sign_up(self, user_account: UserAccount = constants.user.user_account_one):
         if configs.system.IS_MAC:
-            AllowNotificationsView().wait_until_appears().allow()
+            AllowNotificationsView().allow()
         BeforeStartedPopUp().get_started()
-        wellcome_screen = WelcomeToStatusView().wait_until_appears()
+        wellcome_screen = WelcomeToStatusView()
         profile_view = wellcome_screen.get_keys().generate_new_keys()
         profile_view.set_display_name(user_account.name)
         details_view = profile_view.next()
@@ -156,7 +156,7 @@ class MainWindow(Window):
         confirm_password_view = create_password_view.create_password(user_account.password)
         confirm_password_view.confirm_password(user_account.password)
         if configs.system.IS_MAC:
-            BiometricsView().wait_until_appears().prefer_password()
+            BiometricsView().prefer_password()
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()
@@ -165,7 +165,7 @@ class MainWindow(Window):
     @allure.step('Log in user')
     def log_in(self, user_account: UserAccount):
         LoginView().log_in(user_account)
-        SplashScreen().wait_until_appears().wait_until_hidden()
+        SplashScreen().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()
         return self

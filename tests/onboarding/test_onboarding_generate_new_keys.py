@@ -19,9 +19,9 @@ _logger = logging.getLogger(__name__)
 def keys_screen(main_window) -> KeysView:
     with step('Open Generate new keys view'):
         if configs.system.IS_MAC:
-            AllowNotificationsView().wait_until_appears().allow()
+            AllowNotificationsView().allow()
         BeforeStartedPopUp().get_started()
-        welcome_screen = WelcomeToStatusView().wait_until_appears()
+        welcome_screen = WelcomeToStatusView()
         return welcome_screen.get_keys()
 
 
@@ -72,7 +72,7 @@ def test_generate_new_keys(main_window, keys_screen, user_name: str, password, u
         confirm_password_view.confirm_password(password)
         if configs.system.IS_MAC:
             assert BiometricsView().is_touch_id_button_visible(), f"TouchID button is not found"
-            BiometricsView().wait_until_appears().prefer_password()
+            BiometricsView().prefer_password()
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()

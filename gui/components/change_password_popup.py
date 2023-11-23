@@ -21,4 +21,4 @@ class ChangePasswordPopup(BasePopup):
         self._new_password_text_field.text = new_pwd
         self._confirm_password_text_field.text = new_pwd
         self._submit_button.click()
-        self._quit_button.wait_until_appears(15000).click()
+        self._quit_button.click()

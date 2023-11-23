@@ -17,10 +17,6 @@ class TagsSelectPopup(BasePopup):
         self._tag_template = QObject('o_StatusCommunityTag')
         self._save_button = Button('confirm_Community_Tags_StatusButton')
 
-    @allure.step('Wait until appears {0}')
-    def wait_until_appears(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
-        self._tag_template.wait_until_appears()
-        return self
 
     @allure.step('Select tags')
     def select_tags(self, values: typing.List[str]):

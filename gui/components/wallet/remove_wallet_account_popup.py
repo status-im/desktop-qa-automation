@@ -14,11 +14,6 @@ class RemoveWalletAccountPopup(BasePopup):
         self._cancel_button = Button('mainWallet_Remove_Account_Popup_CancelButton')
         self._have_pen_paper_checkbox = CheckBox('mainWallet_Remove_Account_Popup_HavePenPaperCheckBox')
 
-    @allure.step('Wait until appears {0}')
-    def wait_until_appears(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
-        self._cancel_button.wait_until_appears(timeout_msec)
-        return self
-
     @allure.step('Confirm removing account')
     def confirm(self):
         self._confirm_button.click()
@@ -26,5 +21,5 @@ class RemoveWalletAccountPopup(BasePopup):
 
     @allure.step('Agree and confirm removing account')
     def agree_and_confirm(self):
-        self._have_pen_paper_checkbox.wait_until_appears().set(True)
+        self._have_pen_paper_checkbox.set(True)
         self.confirm()

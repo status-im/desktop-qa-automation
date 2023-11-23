@@ -51,8 +51,3 @@ class Window(QObject):
     def hide(self):
         driver.waitForObjectExists(self.real_name).setVisible(False)
         _logger.info(f'{self} hidden')
-
-    def wait_until_appears(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
-        super().wait_until_appears(timeout_msec)
-        _logger.info(f'Window {getattr(self.object, "title", "")} appears')
-        return self

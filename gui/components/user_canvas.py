@@ -34,7 +34,7 @@ class UserCanvas(QObject):
 
     @allure.step('Wait until appears {0}')
     def wait_until_appears(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
-        super(UserCanvas, self).wait_until_appears(timeout_msec)
+        super(UserCanvas, self)
         time.sleep(1)
         return self
 
@@ -54,9 +54,15 @@ class UserCanvas(QObject):
         self.wait_until_hidden()
 
     @allure.step('Open Profile popup')
-    def open_profile_popup(self) -> ProfilePopup:
+    def open_profile_popup(self, attempts = 2):
         self._view_my_profile_button.click()
-        return ProfilePopup().wait_until_appears()
+        try:
+            return ProfilePopup()
+        except LookupError:
+            if attempts:
+                return self.open_profile_popup(attempts - 1)
+            else:
+                raise f"Sync settings was not opened"
 
     @allure.step('Verify: User image contains text')
     def is_user_image_contains(self, text: str):

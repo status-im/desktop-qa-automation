@@ -4,6 +4,8 @@ import typing
 import allure
 
 import configs
+import constants
+from constants import wallet
 from constants.wallet import *
 import driver
 from gui.screens.settings_wallet import *
@@ -63,7 +65,7 @@ class AccountPopup(BasePopup):
     @allure.step('Set emoji for account')
     def set_emoji(self, value: str):
         self._emoji_button.click()
-        EmojiPopup().wait_until_appears().select(value)
+        EmojiPopup().select(value)
         return self
 
     @allure.step('Set eth address for account added from context menu')
@@ -83,28 +85,28 @@ class AccountPopup(BasePopup):
     def set_origin_private_key(self, value: str):
         self._origin_combobox.click()
         self._new_master_key_origin_item.click()
-        AddNewAccountPopup().wait_until_appears().import_private_key(value)
+        AddNewAccountPopup().import_private_key(value)
         return self
 
     @allure.step('Set new seed phrase for account')
     def set_origin_new_seed_phrase(self, value: str):
         self._origin_combobox.click()
         self._new_master_key_origin_item.click()
-        AddNewAccountPopup().wait_until_appears().generate_new_master_key(value)
+        AddNewAccountPopup().generate_new_master_key(value)
         return self
 
     @allure.step('Set seed phrase')
     def set_origin_seed_phrase(self, value: typing.List[str]):
         self._origin_combobox.click()
         self._new_master_key_origin_item.click()
-        AddNewAccountPopup().wait_until_appears().import_new_seed_phrase(value)
+        AddNewAccountPopup().import_new_seed_phrase(value)
         return self
 
     @allure.step('Set derivation path for account')
     def set_derivation_path(self, value: str, index: int, password: str):
         self._edit_derivation_path_button.hover().click()
-        AuthenticatePopup().wait_until_appears().authenticate(password)
-        if value in [_.value for _ in constants.wallet.DerivationPath]:
+        AuthenticatePopup().authenticate(password)
+        if value in [_.value for _ in wallet.DerivationPath]:
             self._derivation_path_combobox_button.click()
             self._derivation_path_list_item.real_name['title'] = value
             self._derivation_path_list_item.click()
@@ -127,7 +129,7 @@ class AccountPopup(BasePopup):
 
     @allure.step('Save added account')
     def save(self):
-        self._add_account_button.wait_until_appears().click()
+        self._add_account_button.click()
         return self
 
 
@@ -162,10 +164,9 @@ class EditAccountFromSettingsPopup(BasePopup):
     @allure.step('Click emoji button')
     def select_random_emoji_for_account(self):
         self._emoji_selector.click()
-        EmojiPopup().wait_until_appears()
         emojis = [str(item.objectName) for item in driver.findAllObjects(self._emoji_item.real_name)]
         value = ((random.choice(emojis)).split('_', 1))[1]
-        EmojiPopup().wait_until_appears().select(value)
+        EmojiPopup().select(value)
         return self
 
 
@@ -216,7 +217,7 @@ class AddNewAccountPopup(BasePopup):
     @allure.step('Generate new seed phrase')
     def generate_new_master_key(self, name: str):
         self._generate_master_key_button.click()
-        BackUpYourSeedPhrasePopUp().wait_until_appears().generate_seed_phrase(name)
+        BackUpYourSeedPhrasePopUp().generate_seed_phrase(name)
 
 
 class GeneratedAddressesList(QObject):

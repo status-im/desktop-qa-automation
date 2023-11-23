@@ -30,7 +30,7 @@ def test_add_new_account_from_wallet_settings(
 
     with step('Add a new generated account from wallet settings screen'):
         add_account_popup.set_name(account_name).set_emoji(emoji).set_color(color).save()
-        AuthenticatePopup().wait_until_appears().authenticate(user_account.password)
+        AuthenticatePopup().authenticate(user_account.password)
         add_account_popup.wait_until_hidden()
 
     with step('Verify toast message notification when adding account'):
@@ -42,7 +42,7 @@ def test_add_new_account_from_wallet_settings(
     with step('Verify that the account is correctly displayed in accounts list on main wallet screen'):
 
         wallet = main_screen.left_panel.open_wallet()
-        SigningPhrasePopup().wait_until_appears().confirm_phrase()
+        SigningPhrasePopup().confirm_phrase()
         expected_account = constants.user.account_list_item(account_name, color.lower(), emoji_unicode)
         started_at = time.monotonic()
         while expected_account not in wallet.left_panel.accounts:

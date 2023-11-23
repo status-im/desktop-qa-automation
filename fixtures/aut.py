@@ -56,7 +56,7 @@ def multiple_instance():
 @pytest.fixture
 def main_window(aut: AUT, user_data, options):
     aut.launch(options)
-    yield MainWindow().wait_until_appears().prepare()
+    yield MainWindow().prepare()
     aut.stop()
 
 

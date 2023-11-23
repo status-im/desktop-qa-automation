@@ -15,11 +15,6 @@ class AuthenticatePopup(BasePopup):
         self._passwort_text_edit = TextEdit('password_PlaceholderText')
         self._authenticate_button = Button('authenticate_StatusButton')
 
-    @allure.step('Wait until appears {0}')
-    def wait_until_appears(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
-        self._content.wait_until_appears(timeout_msec)
-        return self
-
     @allure.step('Authenticate actions with password {0}')
     def authenticate(self, password: str):
         self._passwort_text_edit.type_text(password)

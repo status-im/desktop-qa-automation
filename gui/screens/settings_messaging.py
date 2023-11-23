@@ -24,7 +24,7 @@ class MessagingSettingsView(QObject):
     @allure.step('Open contacts settings')
     def open_contacts_settings(self) -> 'ContactsSettingsView':
         self._contacts_button.click()
-        return ContactsSettingsView().wait_until_appears()
+        return ContactsSettingsView()
 
 
 class PendingRequest:
@@ -57,7 +57,7 @@ class PendingRequest:
     def accept(self) -> MessagesScreen:
         assert self._accept_button is not None, 'Button not found'
         self._accept_button.click()
-        return MessagesScreen().wait_until_appears()
+        return MessagesScreen()
 
 
 class ContactsSettingsView(QObject):
@@ -77,7 +77,7 @@ class ContactsSettingsView(QObject):
     @allure.step('Open contacts request form')
     def open_contact_request_form(self) -> SendContactRequest:
         self._contact_request_button.click()
-        return SendContactRequest().wait_until_appears()
+        return SendContactRequest()
 
     @allure.step('Open contacts request form')
     def send_contacts_request(self):

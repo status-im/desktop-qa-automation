@@ -15,5 +15,5 @@ class SplashScreen(QObject):
         return self
 
     @allure.step('Wait until hidden {0}')
-    def wait_until_hidden(self, timeout_msec: int = configs.timeouts.APP_LOAD_TIMEOUT_MSEC):
+    def wait_until_hidden(self, timeout_msec: int = 120000):
         super().wait_until_hidden(timeout_msec)

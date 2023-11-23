@@ -88,7 +88,7 @@ class QObject:
     def is_visible(self) -> bool:
         try:
             return driver.waitForObject(self.real_name, 0).visible
-        except (AttributeError, LookupError, RuntimeError):
+        except (AttributeError, LookupError, RuntimeError, SystemError):
             return False
 
     @property
@@ -98,18 +98,11 @@ class QObject:
         return self._image
 
     @allure.step('Click {0}')
-    def click(
-            self,
-            x: int = None,
-            y: int = None,
-            button=None
-    ):
-        driver.mouseClick(
-            self.object,
-            x or self.width // 2,
-            y or self.height // 2,
-            button or driver.Qt.LeftButton
-        )
+    def click(self, x: int = None, y: int = None, button: driver.MouseButton = driver.MouseButton.LeftButton):
+        if x is not None or y is not None:
+            driver.mouseClick( self.object, x or self.width // 2, y or self.height // 2, button)
+        else:
+            driver.mouseClick(self.object)
         _logger.info(f'{self}: clicked')
 
     @allure.step('Hover {0}')
@@ -139,12 +132,6 @@ class QObject:
             driver.Qt.RightButton
         )
         _logger.info(f'{self}: clicked via Right Mouse Button')
-
-    @allure.step('Wait until appears {0}')
-    def wait_until_appears(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
-        assert driver.waitFor(lambda: self.is_visible, timeout_msec), f'Object {self} is not visible'
-        _logger.info(f'{self}: is visible')
-        return self
 
     @allure.step('Wait until hidden {0}')
     def wait_until_hidden(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC):

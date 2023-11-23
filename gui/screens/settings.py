@@ -42,7 +42,7 @@ class LeftPanel(QObject):
     @allure.step('Open wallet settings')
     def open_wallet_settings(self):
         self._open_settings('4-AppMenuItem')
-        return WalletSettingsView().wait_until_appears()
+        return WalletSettingsView()
 
     @allure.step('Open profile settings')
     def open_profile_settings(self):
@@ -58,7 +58,7 @@ class LeftPanel(QObject):
     def open_syncing_settings(self, attempts: int = 2):
         self._open_settings('8-MainMenuItem')
         try:
-            return SyncingSettingsView().wait_until_appears()
+            return SyncingSettingsView()
         except AssertionError:
             if attempts:
                 return self.open_syncing_settings(attempts - 1)

@@ -7,17 +7,16 @@ import driver
 from gui.components.signing_phrase_popup import SigningPhrasePopup
 from gui.main_window import MainWindow
 
-
+#pytest.param('Ens name before', 'nastya.stateofus.eth', 'Ens name after')
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/703021', 'Manage a saved address')
 @pytest.mark.case(703021)
 @pytest.mark.parametrize('name, address, new_name', [
-    pytest.param('Saved address name before', '0x8397bc3c5a60a1883174f722403d63a8833312b7', 'Saved address name after'),
-    pytest.param('Ens name before', 'nastya.stateofus.eth', 'Ens name after')
+    pytest.param('Saved address name before', '0x8397bc3c5a60a1883174f722403d63a8833312b7', 'Saved address name after')
 ])
 def test_manage_saved_address(main_screen: MainWindow, name: str, address: str, new_name: str):
     with step('Add new address'):
         wallet = main_screen.left_panel.open_wallet()
-        SigningPhrasePopup().wait_until_appears().confirm_phrase()
+        SigningPhrasePopup().confirm_phrase()
         wallet.left_panel.open_saved_addresses().open_add_address_popup().add_saved_address(name, address)
 
     with step('Verify that saved address is in the list of saved addresses'):

@@ -43,28 +43,28 @@ class LeftPanel(QObject):
     def open_overview(self) -> 'OverviewView':
         if not self._overview_button.is_selected:
             self._overview_button.click()
-        return OverviewView().wait_until_appears()
+        return OverviewView()
 
     @allure.step('Open community members')
     def open_members(self) -> 'MembersView':
         if not self._members_button.is_selected:
             self._members_button.click()
-        return MembersView().wait_until_appears()
+        return MembersView()
 
     @allure.step('Open permissions')
     def open_permissions(self) -> 'PermissionsIntroView':
         self._permissions_button.click()
-        return PermissionsIntroView().wait_until_appears()
+        return PermissionsIntroView()
 
     @allure.step('Open tokens')
     def open_tokens(self) -> 'TokensView':
         self._tokens_button.click()
-        return TokensView().wait_until_appears()
+        return TokensView()
 
     @allure.step('Open airdrops')
     def open_airdrops(self) -> 'AirdropsView':
         self._airdrops_button.click()
-        return AirdropsView().wait_until_appears()
+        return AirdropsView()
 
 
 class OverviewView(QObject):
@@ -88,7 +88,7 @@ class OverviewView(QObject):
     @allure.step('Open edit community view')
     def open_edit_community_view(self) -> 'EditCommunityView':
         self._edit_button.click()
-        return EditCommunityView().wait_until_appears()
+        return EditCommunityView()
 
 
 class EditCommunityView(QObject):
@@ -141,8 +141,8 @@ class EditCommunityView(QObject):
     @allure.step('Set community description')
     def logo(self, kwargs: dict):
         self._add_logo_button.click()
-        OpenFileDialog().wait_until_appears().open_file(kwargs['fp'])
-        PictureEditPopup().wait_until_appears().make_picture(kwargs.get('zoom', None), kwargs.get('shift', None))
+        OpenFileDialog().open_file(kwargs['fp'])
+        PictureEditPopup().make_picture(kwargs.get('zoom', None), kwargs.get('shift', None))
 
     @property
     @allure.step('Get community banner')
@@ -153,8 +153,8 @@ class EditCommunityView(QObject):
     @allure.step('Set community description')
     def banner(self, kwargs: dict):
         self._add_banner_button.click()
-        OpenFileDialog().wait_until_appears().open_file(kwargs['fp'])
-        PictureEditPopup().wait_until_appears().make_picture(kwargs.get('zoom', None), kwargs.get('shift', None))
+        OpenFileDialog().open_file(kwargs['fp'])
+        PictureEditPopup().make_picture(kwargs.get('zoom', None), kwargs.get('shift', None))
 
     @property
     @allure.step('Get community color')
@@ -373,7 +373,7 @@ class PermissionsIntroView(QObject):
     @allure.step('Click add new permission button')
     def add_new_permission(self) -> 'PermissionsSettingsView':
         self._add_new_permission_button.click()
-        return PermissionsSettingsView().wait_until_appears()
+        return PermissionsSettingsView()
 
 
 class PermissionsSettingsView(QObject):
@@ -419,7 +419,7 @@ class PermissionsSettingsView(QObject):
     def set_is_allowed_to(self, name):
         self.open_is_allowed_to_context_menu()
         self._is_allowed_to_option_button.real_name['objectName'] = name
-        self._is_allowed_to_option_button.wait_until_appears().click()
+        self._is_allowed_to_option_button.click()
         self._add_button.click()
         self._add_button.wait_until_hidden()
 
@@ -427,7 +427,7 @@ class PermissionsSettingsView(QObject):
     def set_in(self, in_general):
         if in_general == '#general':
             self.open_in_context_menu()
-            self._in_general_button.wait_until_appears().click()
+            self._in_general_button.click()
             self._add_button.click()
             self._add_button.wait_until_hidden()
 

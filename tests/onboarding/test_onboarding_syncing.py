@@ -22,9 +22,9 @@ from gui.screens.onboarding import AllowNotificationsView, WelcomeToStatusView, 
 def sync_screen(main_window) -> SyncCodeView:
     with step('Open Syncing view'):
         if configs.system.IS_MAC:
-            AllowNotificationsView().wait_until_appears().allow()
+            AllowNotificationsView().allow()
         BeforeStartedPopUp().get_started()
-        wellcome_screen = WelcomeToStatusView().wait_until_appears()
+        wellcome_screen = WelcomeToStatusView()
         return wellcome_screen.sync_existing_user().open_sync_code_view()
 
 
@@ -60,9 +60,9 @@ def test_sync_device_during_onboarding(multiple_instance, user_data):
             aut_two.attach()
             main_window.prepare()
             if configs.system.IS_MAC:
-                AllowNotificationsView().wait_until_appears().allow()
+                AllowNotificationsView().allow()
             BeforeStartedPopUp().get_started()
-            wellcome_screen = WelcomeToStatusView().wait_until_appears()
+            wellcome_screen = WelcomeToStatusView()
             sync_view = wellcome_screen.sync_existing_user().open_sync_code_view()
 
         with step('Paste sync code on second instance and wait until device is synced'):
@@ -71,7 +71,7 @@ def test_sync_device_during_onboarding(multiple_instance, user_data):
             sync_device_found = SyncDeviceFoundView()
             assert driver.waitFor(
                 lambda: 'Device found!' in sync_device_found.device_found_notifications, 15000)
-            sync_result = SyncResultView().wait_until_appears()
+            sync_result = SyncResultView()
             assert driver.waitFor(
                 lambda: 'Device synced!' in sync_result.device_synced_notifications, 15000)
             assert user.name in sync_device_found.device_found_notifications

@@ -33,7 +33,7 @@ def test_settings_networks_edit_restore_defaults(main_screen: MainWindow, networ
             WalletNetworkNaming.ETHEREUM_MAINNET_NETWORK_ID.value)
 
     with step('Check the elements on the form'):
-        edit_network_form.wait_until_appears().check_available_elements_on_edit_view(network_tab)
+        edit_network_form.check_available_elements_on_edit_view(network_tab)
 
     with step('Click in Main JSON RPC URL and paste incorrect URL'):
         edit_network_form.edit_network_main_json_rpc_url_input("https://google.com", network_tab)

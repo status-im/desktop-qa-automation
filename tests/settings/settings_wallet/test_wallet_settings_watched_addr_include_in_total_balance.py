@@ -23,7 +23,7 @@ from gui.screens.settings_wallet import WalletSettingsView
 def test_settings_include_in_total_balance(main_screen: MainWindow, name, watched_address):
     with (step('Open wallet on main screen and check the total balance for new account is 0')):
         wallet_main_screen = main_screen.left_panel.open_wallet()
-        SigningPhrasePopup().wait_until_appears().confirm_phrase()
+        SigningPhrasePopup().confirm_phrase()
         total_balance_before = float(wallet_main_screen.left_panel.get_total_balance_value().replace("\xa0", ""
                                                                                                      ).replace(",",
                                                                                                                ""))
@@ -77,7 +77,7 @@ def test_settings_include_in_total_balance(main_screen: MainWindow, name, watche
 
         assert driver.waitFor(
             lambda: float(wallet_main_screen.left_panel.get_total_balance_value().replace("\xa0", "")
-                          .replace(",", "")) > 0, configs.timeouts.UI_LOAD_TIMEOUT_MSEC), \
+                          .replace(",", "")) > 0, configs.timeouts.APP_LOAD_TIMEOUT_MSEC), \
             f"Balance after adding watched address can't be 0"
 
     with step('Right click the watched address and select Exclude from total balance option'):
@@ -87,5 +87,5 @@ def test_settings_include_in_total_balance(main_screen: MainWindow, name, watche
         main_screen.left_panel.open_wallet()
         assert driver.waitFor(
             lambda: float(wallet_main_screen.left_panel.get_total_balance_value().replace("\xa0", "")
-                          .replace(",", "")) == 0, configs.timeouts.UI_LOAD_TIMEOUT_MSEC), \
+                          .replace(",", "")) == 0, configs.timeouts.APP_LOAD_TIMEOUT_MSEC), \
             f"Balance after removing watched address should be back to 0"
