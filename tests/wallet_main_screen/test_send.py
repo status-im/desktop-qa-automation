@@ -24,4 +24,4 @@ def test_wallet_main_screen_send_0_eth(main_screen: MainWindow):
         wallet_account.open_send_popup().send(ARBITRUM_ADDRESS, 0, 'Ether')
         AuthenticatePopup().wait_until_appears().authenticate(constants.user_account_one.password)
     with step('Verify transaction pending'):
-        assert 'Transaction pending' in main_screen.wait_for_notification()
+        assert 'Transaction pending' in ' '.join(main_screen.wait_for_notification())

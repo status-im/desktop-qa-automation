@@ -22,8 +22,3 @@ invite_People_StatusMenuItem = {"container": statusDesktop_mainWindow_overlay, "
 
 # Banners
 secureYourSeedPhraseBanner_ModuleWarning = {"container": statusDesktop_mainWindow, "objectName": "secureYourSeedPhraseBanner", "type": "ModuleWarning", "visible": True}
-
-# Notifications
-mainWindow_ephemeralNotificationList_StatusListView = {"container": mainWindow_StatusWindow, "objectName": "ephemeralNotificationList", "type": "StatusListView", "visible": True}
-ephemeralNotificationList_statusToastMessage_StatusToastMessage = {"container": mainWindow_ephemeralNotificationList_StatusListView, "index": 0, "objectName": "statusToastMessage", "type": "StatusToastMessage", "visible": True}
-statusToastMessage_Transaction_pending_StatusBaseText = {"container": ephemeralNotificationList_statusToastMessage_StatusToastMessage, "type": "StatusBaseText", "unnamed": 1, "visible": True}

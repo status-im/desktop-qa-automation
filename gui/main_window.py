@@ -1,5 +1,6 @@
 import logging
 import os
+import time
 import typing
 
 import allure
@@ -12,6 +13,7 @@ from gui.components.community.invite_contacts import InviteContactsPopup
 from gui.components.onboarding.before_started_popup import BeforeStartedPopUp
 from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
 from gui.components.splash_screen import SplashScreen
+from gui.components.toast_message import ToastMessage
 from gui.components.user_canvas import UserCanvas
 from gui.elements.button import Button
 from gui.elements.object import QObject
@@ -137,7 +139,6 @@ class MainWindow(Window):
     def __init__(self):
         super(MainWindow, self).__init__('statusDesktop_mainWindow')
         self.left_panel = LeftPanel()
-        self._transaction_notification = QObject('statusToastMessage_Transaction_pending_StatusBaseText')
 
     # TODO: we need to handle all the issues with keycard mock var before using keycard  window in tests
     def prepare(self) -> 'Window':
@@ -187,6 +188,11 @@ class MainWindow(Window):
         return app_screen
 
     @allure.step('Wait for notification and get text')
-    def wait_for_notification(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC) -> str:
-        self._transaction_notification.wait_until_appears(timeout_msec)
-        return str(self._transaction_notification.object.text)
+    def wait_for_notification(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_SEC) -> str:
+        started_at = time.monotonic()
+        while True:
+            try:
+                return ToastMessage().get_toast_messages
+            except LookupError as err:
+                _logger.info(err)
+                assert time.monotonic() - started_at < timeout_msec, str(err)
