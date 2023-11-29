@@ -1,4 +1,5 @@
 import logging
+import time
 import typing
 
 import allure
@@ -156,5 +157,4 @@ class CreateCommunityPopup(BasePopup):
                 self._next_button.click()
             setattr(self, key, kwargs.get(key))
         self._create_community_button.click()
-        self.wait_until_hidden()
         return CommunityScreen().wait_until_appears()

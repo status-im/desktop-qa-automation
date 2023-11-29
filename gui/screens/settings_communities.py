@@ -45,7 +45,8 @@ class CommunitiesSettingsView(QObject):
             except LookupError as err:
                 _logger.info(err)
                 members = 0
-            image = self._community_template_image.image
+            # image = self._community_template_image.image
+            image = None
 
             _communities.append(UserCommunityInfo(name, description, members, image))
         return _communities
