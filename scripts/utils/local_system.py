@@ -31,79 +31,67 @@ def find_free_port(start: int, step: int):
         start+=step
     return start
 
-
 def wait_for_close(pid: int, timeout_sec: int = configs.timeouts.PROCESS_TIMEOUT_SEC):
     started_at = time.monotonic()
-    while True:
-        for proc in psutil.process_iter():
-            try:
-                if proc.pid == pid:
-                    return True
-            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-                pass
+    while psutil.pid_exists(pid):
         time.sleep(1)
         if time.monotonic() - started_at > timeout_sec:
             raise RuntimeError(f'Process with PID: {pid} not closed')
-        else:
-            break
-
+    return True
 
 @allure.step('Kill process')
-def kill_process(pid, verify: bool = False, timeout_sec: int = configs.timeouts.PROCESS_TIMEOUT_SEC, attempt: int = 2):
+def kill_process(pid, sig: signal.Signals = signal.SIGKILL):
     try:
-        os.kill(pid, signal.SIGILL if IS_WIN else signal.SIGKILL)
+        os.kill(pid, sig)
     except ProcessLookupError as err:
-        _logger.debug(err)
-    if verify:
-        try:
-            wait_for_close(pid, timeout_sec)
-        except RuntimeError as err:
-            if attempt:
-                kill_process(pid, verify, timeout_sec, attempt - 1)
-            else:
-                raise err
+        _logger.error('Failed to find process %d: %s', pid, err)
+        raise err
 
+@allure.step('Kill process with retries')
+def kill_process_with_retries(pid, sig: signal.Signals = signal.SIGTERM, attempts: int = 3):
+    try:
+        p = psutil.Process(pid)
+    except psutil.NoSuchProcess:
+        return
+
+    p.terminate()
+
+    while attempts > 0:
+        attempts -= 1
+        try:
+            p.wait()
+        except TimeoutError as err:
+            p.kill()
+        else:
+            return
+
+    raise RuntimeError('Failed to kill proicess: %d' % pid)
 
 @allure.step('System execute command')
 def execute(
         command: list,
-        shell=False if IS_WIN else True,
-        stderr=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        check=False
+        stderr=subprocess.STDOUT,
+        stdout=subprocess.STDOUT,
+        shell=False,
 ):
-    def _is_process_exists(_process) -> bool:
-        return _process.poll() is None
-
-    def _wait_for_execution(_process):
-        while _is_process_exists(_process):
-            time.sleep(1)
-
-    def _get_output(_process):
-        _wait_for_execution(_process)
-        return _process.communicate()
-
-    command = " ".join(str(atr) for atr in command)
-    _logger.info(f'Execute: {command}')
+    _logger.info(f'Execute: %s', command)
     process = subprocess.Popen(command, shell=shell, stderr=stderr, stdout=stdout)
-    if check and process.returncode != 0:
-        stdout, stderr = _get_output(process)
-        raise RuntimeError(stderr)
     return process.pid
-
 
 @allure.step('System run command')
 def run(
         command: list,
-        shell=False if IS_WIN else True,
-        stderr=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        timeout_sec=configs.timeouts.PROCESS_TIMEOUT_SEC,
-        check=True
+        stderr=subprocess.STDOUT,
+        stdout=subprocess.STDOUT,
+        shell=False,
+        timeout_sec=configs.timeouts.PROCESS_TIMEOUT_SEC
 ):
-    command = " ".join(str(atr) for atr in command)
-    _logger.info(f'Execute: {command}')
-    process = subprocess.run(command, shell=shell, stderr=stderr, stdout=stdout, timeout=timeout_sec)
-    if check and process.returncode != 0:
-        raise subprocess.CalledProcessError(process.returncode, command, process.stdout, process.stderr)
-    _logger.debug(f'stdout: {process.stdout}')
+    _logger.info(f'Execute: %s', command)
+    process = subprocess.run(
+        command,
+        shell=shell,
+        stderr=stderr,
+        stdout=stdout,
+        timeout=timeout_sec,
+        check=True
+    )
