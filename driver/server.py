@@ -54,17 +54,5 @@ class SquishServer:
             [f'"{cls.path}"', '--configfile', str(cls.config), '--config', action, ' '.join(options)])
 
     @classmethod
-    def add_executable_aut(cls, aut_id, app_dir):
-        cls.configuring('addAUT', [aut_id, f'"{app_dir}"'])
-
-    @classmethod
     def add_attachable_aut(cls, aut_id: str, port: int):
         cls.configuring('addAttachableAUT', [aut_id, f'localhost:{port}'])
-
-    @classmethod
-    def set_aut_timeout(cls, value: int = configs.timeouts.PROCESS_TIMEOUT_SEC):
-        cls.configuring('setAUTTimeout', [str(value)])
-
-    @classmethod
-    def set_cursor_animation(cls, value: bool = configs.squish.CURSOR_ANIMATION):
-        cls.configuring('setCursorAnimation', [str(value)])
