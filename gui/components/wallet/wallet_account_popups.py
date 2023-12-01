@@ -1,11 +1,7 @@
 import random
-import typing
 
-import allure
 
-import configs
 from constants.wallet import *
-import driver
 from gui.screens.settings_wallet import *
 from gui.components.base_popup import BasePopup
 from gui.components.emoji_popup import EmojiPopup
@@ -104,7 +100,7 @@ class AccountPopup(BasePopup):
     def set_derivation_path(self, value: str, index: int, password: str):
         self._edit_derivation_path_button.hover().click()
         AuthenticatePopup().wait_until_appears().authenticate(password)
-        if value in [_.value for _ in constants.wallet.DerivationPath]:
+        if value in [_.value for _ in DerivationPath]:
             self._derivation_path_combobox_button.click()
             self._derivation_path_list_item.real_name['title'] = value
             self._derivation_path_list_item.click()
