@@ -68,10 +68,10 @@ class AUT:
 
         self.stop()
 
-    def detach_context(self):
+    def detach(self):
         if self.ctx is None:
             return
-        squish.currentApplicationContext().detach()
+        self.ctx.detach()
         self.ctx = None
 
     def kill_process(self):
@@ -121,7 +121,7 @@ class AUT:
     @allure.step('Close application')
     def stop(self):
         LOG.info('Stoping AUT: %s', self.path)
-        self.detach_context()
+        self.detach()
         self.kill_process()
 
     @allure.step("Start and attach AUT")
