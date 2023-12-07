@@ -25,7 +25,7 @@ class SquishServer:
 
     @classmethod
     def start(cls):
-        cls.port = local_system.find_free_port(configs.squish.SERVER_PORT, 100)
+        cls.port = local_system.find_free_port(configs.squish.SERVER_PORT, 10)
         LOG.info('Starting Squish Server on port: %d', cls.port)
         cmd = [
             str(cls.path),
