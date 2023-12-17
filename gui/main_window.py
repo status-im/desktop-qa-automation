@@ -165,7 +165,7 @@ class MainWindow(Window):
         return super().prepare()
 
     @allure.step('Sign Up user')
-    def sign_up(self, user_account: UserAccount = constants.user.user_account_one):
+    def create_new_user_password_auth(self, user_account: UserAccount = constants.user.user_account_one):
         if configs.system.IS_MAC:
             AllowNotificationsView().wait_until_appears().allow()
         BeforeStartedPopUp().get_started()
@@ -178,26 +178,18 @@ class MainWindow(Window):
         confirm_password_view.confirm_password(user_account.password)
         if configs.system.IS_MAC:
             BiometricsView().wait_until_appears().prefer_password()
-        SplashScreen().wait_until_appears().wait_until_hidden()
+        SplashScreen().wait_until_appears()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()
         return self
 
     @allure.step('Log in user')
-    def log_in(self, user_account: UserAccount):
+    def log_in_returning_user_password_auth(self, user_account: UserAccount):
         LoginView().log_in(user_account)
-        SplashScreen().wait_until_appears().wait_until_hidden()
+        SplashScreen().wait_until_appears()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()
         return self
-
-    @allure.step('Authorize user')
-    def authorize_user(self, user_account) -> 'MainWindow':
-        assert isinstance(user_account, UserAccount)
-        if LoginView().is_visible:
-            return self.log_in(user_account)
-        else:
-            return self.sign_up(user_account)
 
     @allure.step('Create community')
     def create_community(self, params: dict) -> CommunityScreen:

@@ -31,7 +31,7 @@ class QObject:
     @property
     @allure.step('Get object {0}')
     def object(self):
-        return driver.waitForObject(self.real_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+        return driver.waitForObject(self.real_name, configs.timeouts.APP_LOAD_TIMEOUT_MSEC)
 
     @property
     @allure.step('Get object exists {0}')
@@ -87,9 +87,12 @@ class QObject:
     @allure.step('Get visible {0}')
     def is_visible(self) -> bool:
         try:
-            return driver.waitForObject(self.real_name, 0).visible
-        except (AttributeError, LookupError, RuntimeError):
-            return False
+            if driver.waitForObject(self.real_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC).visible:
+                return True
+            else:
+                return False
+        except (AttributeError, LookupError, RuntimeError) as ex:
+            raise ex
 
     @property
     @allure.step('Get image {0}')

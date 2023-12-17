@@ -10,6 +10,7 @@ import constants.tesseract
 import driver
 from constants import ColorCodes
 from driver.objects_access import walk_children
+from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
 from gui.components.os.open_file_dialogs import OpenFileDialog
 from gui.components.picture_edit_popup import PictureEditPopup
 from gui.components.splash_screen import SplashScreen
@@ -32,7 +33,6 @@ class AllowNotificationsView(QObject):
     @allure.step("Allow Notifications")
     def allow(self):
         self._allow_button.click()
-        self.wait_until_hidden()
 
 
 class WelcomeToStatusView(QObject):
@@ -541,7 +541,6 @@ class BiometricsView(OnboardingView):
     @allure.step('Select prefer password')
     def prefer_password(self):
         self._prefer_password_button.click()
-        self.wait_until_hidden()
 
     @allure.step('Verify TouchID button')
     def is_touch_id_button_visible(self):
@@ -573,7 +572,6 @@ class LoginView(QObject):
 
         self._password_text_edit.text = account.password
         self._arrow_right_button.click()
-        self.wait_until_hidden()
 
     @allure.step('Select user')
     def select_user_name(self, user_name, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
