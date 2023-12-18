@@ -59,10 +59,17 @@ class ContactItem:
                 self._chat_button = Button(name='', real_name=driver.objectMap.realName(child))
 
     @allure.step('Accept request')
-    def accept(self) -> MessagesScreen:
+    def accept(self, attempt: int = 2) -> MessagesScreen:
         assert self._accept_button is not None, 'Button not found'
-        self._accept_button.click()
-        return MessagesScreen().wait_until_appears()
+        try:
+            self._accept_button.click()
+            return MessagesScreen().wait_until_appears()
+        except:
+            if attempt:
+                self._accept_button.click(attempt - 1)
+                return MessagesScreen().wait_until_appears()
+            else:
+                raise f"Messages screen did not appear"
 
     @allure.step('Reject request')
     def reject(self):

@@ -382,6 +382,7 @@ fiatFees_StatusBaseText = {"container": statusDesktop_mainWindow_overlay, "id": 
 send_StatusFlatButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "objectName": "sendModalFooterSendButton", "type": "StatusFlatButton", "visible": True}
 o_SearchBoxWithRightIcon = {"container": statusDesktop_mainWindow_overlay, "type": "SearchBoxWithRightIcon", "unnamed": 1, "visible": True}
 search_TextEdit = {"container": o_SearchBoxWithRightIcon, "id": "edit", "type": "TextEdit", "unnamed": 1, "visible": True}
+o_CollectibleNestedDelegate_template = {"container": statusDesktop_mainWindow_overlay, "type": "CollectibleNestedDelegate", "unnamed": 1, "visible": True}
 
 # Verify identity popup
 profileSendContactRequestModal_sayWhoYouAreInput_TextEdit = {"container": statusDesktop_mainWindow_overlay, "objectName": "ProfileSendContactRequestModal_sayWhoYouAreInput", "type": "TextEdit", "visible": True}

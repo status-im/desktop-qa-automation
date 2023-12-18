@@ -21,6 +21,7 @@ class SendPopup(BasePopup):
         self._tab_item_template = QObject('tab_Status_template')
         self._search_field = TextEdit('search_TextEdit')
         self._asset_list_item = QObject('o_TokenBalancePerChainDelegate_template')
+        self._collectible_list_item = QObject('o_CollectibleNestedDelegate_template')
         self._amount_text_edit = TextEdit('amountInput_TextEdit')
         self._paste_button = Button('paste_StatusButton')
         self._ens_address_text_edit = TextEdit('ens_or_address_TextEdit')
@@ -31,8 +32,12 @@ class SendPopup(BasePopup):
         self._fiat_fees_label = TextLabel('fiatFees_StatusBaseText')
         self._send_button = Button('send_StatusFlatButton')
 
-    def _select_asset(self, asset: str):
-        item = wait_for_template(self._asset_list_item.real_name, asset, 'title')
+    def _select_asset_or_collectible(self, asset: str, tab: str):
+        if tab == 'Assets':
+            list_item = self._asset_list_item.real_name
+        elif tab == 'Collectibles':
+            list_item = self._collectible_list_item.real_name
+        item = wait_for_template(list_item, asset, 'title')
         driver.mouseClick(item)
 
     def _open_tab(self, name: str):
@@ -40,10 +45,10 @@ class SendPopup(BasePopup):
         driver.mouseClick(assets_tab)
 
     @allure.step('Send {2} {3} to {1}')
-    def send(self, address: str, amount: int, asset: str):
-        self._open_tab('Assets')
+    def send(self, tab: str, address: str, amount: int, asset: str):
+        self._open_tab(tab)
         self._search_field.type_text(asset)
-        self._select_asset(asset)
+        self._select_asset_or_collectible(asset, tab)
         self._amount_text_edit.text = str(amount)
         self._ens_address_text_edit.type_text(address)
         driver.waitFor(lambda: self._send_button.is_visible, timeout_msec=6000)
