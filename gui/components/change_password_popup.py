@@ -34,8 +34,8 @@ class ChangePasswordPopup(BasePopup):
         this wait_until_appears method is barely working, I suggest this solution for now
         """
         try:
-            assert driver.waitFor(lambda: self._quit_button.is_visible, 15000), \
-                f'Sign out and quit button is not visible within 15 seconds'
+            assert driver.waitForObjectExists(self._quit_button.real_name, 5000), \
+                f'Sign out and quit button is not present within 15 seconds'
             self._quit_button.click()
         except (Exception, AssertionError) as ex:
             raise ex

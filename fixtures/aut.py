@@ -72,8 +72,3 @@ def user_account(request) -> UserAccount:
         user_account = constants.user.user_account_one
     yield user_account
 
-
-@pytest.fixture
-def main_screen(user_account: UserAccount, main_window: MainWindow) -> MainWindow:
-    main_window.authorize_user(user_account)
-    return main_window

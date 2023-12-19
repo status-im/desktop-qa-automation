@@ -19,7 +19,7 @@ class BeforeStartedPopUp(BasePopup):
     @property
     @allure.step('Get visible attribute')
     def is_visible(self) -> bool:
-        return self._get_started_button.is_visible
+        return self._get_started_button.exists
 
     @allure.step('Allow all and get started')
     def get_started(self):
