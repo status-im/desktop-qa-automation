@@ -10,6 +10,7 @@ import constants.tesseract
 import driver
 from constants import ColorCodes
 from driver.objects_access import walk_children
+from gui.components.onboarding.before_started_popup import BeforeStartedPopUp
 from gui.components.os.open_file_dialogs import OpenFileDialog
 from gui.components.picture_edit_popup import PictureEditPopup
 from gui.components.splash_screen import SplashScreen
@@ -562,6 +563,21 @@ class LoginView(QObject):
     @allure.step('Get login error message')
     def login_error_message(self) -> str:
         return str(self._password_object.object.validationError)
+
+    @allure.step('Create new user')
+    def create_user(self, user_account):
+        if configs.system.IS_MAC:
+            AllowNotificationsView().wait_until_appears().allow()
+        BeforeStartedPopUp().get_started()
+        wellcome_screen = WelcomeToStatusView().wait_until_appears()
+        profile_view = wellcome_screen.get_keys().generate_new_keys()
+        profile_view.set_display_name(user_account.name)
+        details_view = profile_view.next()
+        create_password_view = details_view.next()
+        confirm_password_view = create_password_view.create_password(user_account.password)
+        confirm_password_view.confirm_password(user_account.password)
+        if configs.system.IS_MAC:
+            BiometricsView().wait_until_appears().prefer_password()
 
     @allure.step('Log in user')
     def log_in(self, account):

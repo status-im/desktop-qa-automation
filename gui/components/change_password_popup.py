@@ -27,14 +27,14 @@ class ChangePasswordPopup(BasePopup):
     @allure.step('Wait for Sign out and quit button and click it')
     def click_sign_out_and_quit_button(self):
         """
-        Timeout is set as rough estimation of 15 seconds. What is happening when changing password is
+        Timeout is set as rough estimation of 10 seconds. What is happening when changing password is
         the process of re-hasing DB initiated. Taking into account the user is new , so DB is relatively small
         I assume, 15 seconds should be enough to finish re-hashing and show the Sign-out and quit button
         This time is not really predictable, especially for huge DBs. We might implement other solution, but since
         this wait_until_appears method is barely working, I suggest this solution for now
         """
         try:
-            assert driver.waitForObjectExists(self._quit_button.real_name, 5000), \
+            assert driver.waitForObjectExists(self._quit_button.real_name, 15000), \
                 f'Sign out and quit button is not present within 15 seconds'
             self._quit_button.click()
         except (Exception, AssertionError) as ex:

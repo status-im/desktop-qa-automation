@@ -164,26 +164,15 @@ class MainWindow(Window):
         #   MockedKeycardController().wait_until_appears().hide()
         return super().prepare()
 
-    @allure.step('Sign Up user')
-    def create_new_user_password_auth(self, user_account: UserAccount = constants.user.user_account_one):
-        if configs.system.IS_MAC:
-            AllowNotificationsView().wait_until_appears().allow()
-        BeforeStartedPopUp().get_started()
-        wellcome_screen = WelcomeToStatusView().wait_until_appears()
-        profile_view = wellcome_screen.get_keys().generate_new_keys()
-        profile_view.set_display_name(user_account.name)
-        details_view = profile_view.next()
-        create_password_view = details_view.next()
-        confirm_password_view = create_password_view.create_password(user_account.password)
-        confirm_password_view.confirm_password(user_account.password)
-        if configs.system.IS_MAC:
-            BiometricsView().wait_until_appears().prefer_password()
+    @allure.step('Create new user')
+    def create_new_user_password_auth(self, user_account: UserAccount = constants.user.user_account_one) -> 'MainWindow':
+        LoginView().create_user(user_account)
         #SplashScreen().wait_until_appears()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()
         return self
 
-    @allure.step('Log in user')
+    @allure.step('Log in returning user')
     def log_in_returning_user_password_auth(self, user_account: UserAccount):
         LoginView().log_in(user_account)
         SplashScreen().wait_until_appears()

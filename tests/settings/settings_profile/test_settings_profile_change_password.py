@@ -24,7 +24,7 @@ pytestmark = marks
 # reason = 'https://github.com/status-im/status-desktop/issues/13013
 def test_change_password_and_login(aut: AUT, main_window: MainWindow, user_account, user_account_changed_password):
     with step('Open profile settings'):
-        main_window.create_new_user_password_auth()
+        main_window.create_new_user_password_auth(user_account)
         settings_scr = main_window.left_panel.open_settings().left_panel.open_profile_settings()
 
     with step('Open change password popup'):
