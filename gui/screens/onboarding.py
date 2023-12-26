@@ -313,8 +313,8 @@ class YourProfileView(OnboardingView):
     def next(self, attempts: int = 2) -> 'YourEmojihashAndIdenticonRingView':
         self._next_button.click()
         try:
-            return YourEmojihashAndIdenticonRingView().wait_until_appears()
-        except AssertionError as err:
+            return YourEmojihashAndIdenticonRingView().wait_to_be_present()
+        except Exception as err:
             if attempts:
                 return self.next(attempts - 1)
             else:
@@ -387,13 +387,21 @@ class YourEmojihashAndIdenticonRingView(OnboardingView):
         )
         return self.profile_image.has_text(text, constants.tesseract.text_on_profile_image, crop=crop)
 
-    @allure.step
     @allure.step('Verify: User image background color')
     def is_user_image_background_white(self):
         crop = driver.UiTypes.ScreenRectangle(
             20, 20, self._profile_image.image.width - 40, self._profile_image.image.height - 40
         )
         return self.profile_image.has_color(constants.Color.WHITE, crop=crop)
+
+    @allure.step
+    def wait_to_be_present(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
+        try:
+            driver.waitForObjectExists(self.real_name, timeout_msec)
+            LOG.info('%s: is present', self)
+            return self
+        except Exception as ex:
+            raise ex
 
 
 class CreatePasswordView(OnboardingView):
