@@ -1,0 +1,6 @@
+=============== Jan 25, 2024 (+07) ===============
+13:53:24.964530 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+13:53:24.979169 db@open opening
+13:53:24.980025 version@stat F·[] S·0B[] Sc·[]
+13:53:24.984269 db@janitor F·2 G·0
+13:53:24.984300 db@open done T·5.108042ms
