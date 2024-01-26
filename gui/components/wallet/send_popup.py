@@ -44,6 +44,7 @@ class SendPopup(BasePopup):
         self._open_tab('Assets')
         self._search_field.type_text(asset)
         self._select_asset(asset)
+        driver.waitFor(lambda: self._amount_text_edit.is_visible, timeout_msec=15000)
         self._amount_text_edit.text = str(amount)
         self._ens_address_text_edit.type_text(address)
         driver.waitFor(lambda: self._send_button.is_visible, timeout_msec=6000)

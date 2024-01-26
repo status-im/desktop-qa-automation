@@ -97,10 +97,10 @@ def test_wallet_send_0_eth_anvil(main_screen: MainWindow, user_account, receiver
     process = subprocess.Popen(command, shell=True, stderr=subprocess.STDOUT, stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE)
 
-    wallet_settings = main_screen.left_panel.open_settings().left_panel.open_wallet_settings()
+    # wallet_settings = main_screen.left_panel.open_settings().left_panel.open_wallet_settings()
 
-    with step('Set testnet mode'):
-        wallet_settings.open_networks().switch_testnet_mode_toggle().turn_on_testnet_mode_in_testnet_modal()
+    # with step('Set testnet mode'):
+    #     wallet_settings.open_networks().switch_testnet_mode_toggle().turn_on_testnet_mode_in_testnet_modal()
 
     with step('Open send popup'):
         wallet = main_screen.left_panel.open_wallet()
