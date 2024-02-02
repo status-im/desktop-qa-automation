@@ -94,7 +94,7 @@ class AUT:
             LOG.error('Failed to attach AUT: %s', err)
             self.stop()
             raise err
-        LOG.info('Succesfully attached AUT!')
+        LOG.info('Successfully attached AUT!')
         return self
 
     @allure.step('Start AUT')

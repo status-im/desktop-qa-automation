@@ -11,17 +11,18 @@ LOG = logging.getLogger(__name__)
 
 
 @allure.step('Attaching to "{0}"')
-def attach(aut_id: str, timeout_sec: int = configs.timeouts.PROCESS_TIMEOUT_SEC):
-    started_at = time.monotonic()
+def attach(aut_id: str, attempts: int = 3):
     LOG.debug('Attaching to: %s', aut_id)
-    while True:
+    for i in range (attempts + 1):
         try:
             context = squish.attachToApplication(aut_id, SquishServer().host, SquishServer().port)
             LOG.info('AUT %s attached', aut_id)
             return context
-        except RuntimeError as err:
-            time.sleep(1)
-            assert time.monotonic() - started_at < timeout_sec, str(err)
+        except RuntimeError:
+            time.sleep(4)
+            continue
+        except Exception as ex:
+            raise ex
 
 
 @allure.step('Detaching')
