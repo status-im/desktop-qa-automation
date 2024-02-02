@@ -53,7 +53,7 @@ class OnlineIdentifier(QObject):
         self.wait_until_hidden()
 
     @allure.step('Open Profile popup from online identifier')
-    def open_profile_popup_from_online_identifier(self, attempts: int =2) -> ProfilePopup:
+    def open_profile_popup_from_online_identifier(self, attempts: int = 2) -> ProfilePopup:
         self._view_my_profile_button.click()
         time.sleep(0.5)
         try:
@@ -63,4 +63,3 @@ class OnlineIdentifier(QObject):
                 self.open_profile_popup_from_online_identifier(attempts - 1)
             else:
                 raise ex
-
