@@ -150,3 +150,8 @@ sview_keyLbl_StatusDescriptionListItem = {"container": mainWindow_sview_StatusSc
 sview_ensAgreeTerms_StatusCheckBox = {"checkable": True, "container": mainWindow_sview_StatusScrollView, "objectName": "ensAgreeTerms", "type": "StatusCheckBox", "visible": True}
 mainWindow_Register_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow, "objectName": "ensStartTransaction", "text": "Register", "type": "StatusButton", "visible": True}
 mainWindow_EnsRegisteredView = {"container": statusDesktop_mainWindow, "type": "EnsRegisteredView", "unnamed": 1, "visible": True}
+
+# Advanced settings view
+mainWindow_AdvancedView = {"container": statusDesktop_mainWindow, "type": "AdvancedView", "unnamed": 1, "visible": True}
+mainWindow_settingsContentBaseScrollView_StatusScrollView_advanced = {"container": statusDesktop_mainWindow, "objectName": "settingsContentBaseScrollView", "type": "StatusScrollView", "visible": True}
+settingsContentBaseScrollView_switchItem_StatusSwitch = {"checkable": True, "container": mainWindow_settingsContentBaseScrollView_StatusScrollView_advanced, "id": "switchItem", "type": "StatusSwitch", "unnamed": 1, "visible": True}

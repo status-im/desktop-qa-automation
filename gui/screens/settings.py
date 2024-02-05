@@ -5,6 +5,7 @@ import allure
 from gui.components.back_up_your_seed_phrase_popup import BackUpYourSeedPhrasePopUp
 from gui.elements.object import QObject
 from gui.elements.scroll import Scroll
+from gui.screens.settings_advanced import AdvancedSettingsView
 from gui.screens.settings_communities import CommunitiesSettingsView
 from gui.screens.settings_ens_usernames import ENSSettingsView
 from gui.screens.settings_keycard import KeycardSettingsView
@@ -97,6 +98,12 @@ class LeftPanel(QObject):
         time.sleep(1)
         self._open_settings('2-MainMenuItem')
         return ENSSettingsView()
+
+    @allure.step('Open advanced settings')
+    def open_advanced_settings(self) -> AdvancedSettingsView:
+        time.sleep(1)
+        self._open_settings('10-SettingsMenuItem')
+        return AdvancedSettingsView()
 
 
 class SettingsScreen(QObject):

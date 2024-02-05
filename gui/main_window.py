@@ -165,6 +165,7 @@ class MainWindow(Window):
     def __init__(self):
         super(MainWindow, self).__init__('statusDesktop_mainWindow')
         self.left_panel = LeftPanel()
+        self.close_button = QObject('mainWindow_closeSensor_MouseArea')
 
     # TODO: we need to handle all the issues with keycard mock var before using keycard  window in tests
     def prepare(self) -> 'Window':
@@ -222,3 +223,7 @@ class MainWindow(Window):
             except LookupError as err:
                 LOG.info(err)
                 assert time.monotonic() - started_at < timeout_msec, str(err)
+
+    @allure.step('Click close button in the main window toolbar')
+    def click_close_button(self):
+        self.close_button.click()

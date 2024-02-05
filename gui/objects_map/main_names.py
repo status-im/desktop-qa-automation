@@ -22,3 +22,6 @@ invite_People_StatusMenuItem = {"container": statusDesktop_mainWindow_overlay, "
 
 # Banners
 secureYourSeedPhraseBanner_ModuleWarning = {"container": statusDesktop_mainWindow, "objectName": "secureYourSeedPhraseBanner", "type": "ModuleWarning", "visible": True}
+
+# Main Window Toolbar
+mainWindow_closeSensor_MouseArea = {"container": mainWindow_StatusWindow, "id": "closeSensor", "type": "MouseArea", "unnamed": 1, "visible": True}
