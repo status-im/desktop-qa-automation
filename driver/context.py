@@ -10,16 +10,18 @@ from driver.server import SquishServer
 LOG = logging.getLogger(__name__)
 
 
-@allure.step('Attaching to "{0}"')
-def attach(aut_id: str, attempts: int = 3):
-    LOG.debug('Attaching to: %s', aut_id)
+@allure.step('Get application context of "{0}"')
+def get_context(aut_id: str, attempts: int = 3):
+    LOG.debug('Getting context: %s', aut_id)
     for i in range (attempts + 1):
         try:
             context = squish.attachToApplication(aut_id, SquishServer().host, SquishServer().port)
-            LOG.info('AUT %s attached', aut_id)
-            return context
+            if context is not None:
+                LOG.info('AUT %s context found', aut_id)
+                return context
         except RuntimeError:
-            time.sleep(4)
+            squish.applicationContext.detach()
+            time.sleep(5)
             continue
         except Exception as ex:
             raise ex
