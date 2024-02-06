@@ -20,8 +20,9 @@ def get_context(aut_id: str, attempts: int = 3):
                 LOG.info('AUT %s context found', aut_id)
                 return context
         except RuntimeError:
-            time.sleep(7)
-            continue
+            if attempts:
+                time.sleep(5)
+                continue
         except Exception as ex:
             raise ex
 
