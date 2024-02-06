@@ -11,7 +11,7 @@ LOG = logging.getLogger(__name__)
 
 
 @allure.step('Get application context of "{0}"')
-def get_context(aut_id: str, timeout, retries: int = 0):
+def get_context(aut_id: str, timeout, retries: int = 10):
     LOG.debug('Getting context: %s', aut_id)
     for i in range(retries + 1):
         try:
