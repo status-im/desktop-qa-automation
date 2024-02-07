@@ -22,8 +22,6 @@ def get_context(aut_id: str, timeout, retries: int = 10):
         except RuntimeError:
             time.sleep(timeout)
             continue
-        except Exception as ex:
-            raise ex
 
 
 @allure.step('Detaching')
