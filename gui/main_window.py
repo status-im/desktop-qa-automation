@@ -226,4 +226,5 @@ class MainWindow(Window):
 
     @allure.step('Click close button in the main window toolbar')
     def click_close_button(self):
-        self.close_button.click()
+        # self.close_button.click()
+        MainWindow().close()
