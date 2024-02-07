@@ -84,19 +84,20 @@ class AUT:
     @allure.step('Attach Squish to Test Application')
     def attach(self, timeout_sec: int = configs.timeouts.PROCESS_TIMEOUT_SEC, retries: int = 3):
         LOG.info('Attaching to AUT: localhost:%d', self.port)
-        try:
-            SquishServer().add_attachable_aut(self.aut_id, self.port)
-            if self.ctx is None:
-                self.ctx = context.get_context(self.aut_id, timeout_sec, retries)
-                assert self.ctx is not None, f'Application context is {self.ctx}, expected Status application context'
-            squish.setApplicationContext(self.ctx)
-            assert squish.waitFor(lambda: self.ctx.isRunning, configs.timeouts.PROCESS_TIMEOUT_SEC)
-        except Exception as err:
-            LOG.error('Failed to attach AUT: %s', err)
-            self.stop()
-            raise err
-        LOG.info('Successfully attached AUT!')
-        return self
+        for i in range(retries + 1):
+            try:
+                SquishServer().add_attachable_aut(self.aut_id, self.port)
+                if self.ctx is None:
+                    self.ctx = context.get_context(self.aut_id, timeout_sec)
+                    assert self.ctx is not None, f'Application context is {self.ctx}, expected Status application context'
+                squish.setApplicationContext(self.ctx)
+                assert squish.waitFor(lambda: self.ctx.isRunning, configs.timeouts.PROCESS_TIMEOUT_SEC)
+            except Exception as err:
+                LOG.error('Failed to attach AUT: %s', err)
+                self.stop()
+                raise err
+            LOG.info('Successfully attached AUT!')
+            return self
 
     @allure.step('Start AUT')
     def startaut(self):
