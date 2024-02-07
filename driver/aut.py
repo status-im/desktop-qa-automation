@@ -134,7 +134,7 @@ class AUT:
         return self
 
     @allure.step('Waiting for port')
-    def wait(self, timeout: int = 1, retries: int = 10):
+    def wait(self, timeout: int = 3, retries: int = 10):
         LOG.info('Waiting for AUT port localhost:%d...', self.port)
         try:
             wait_for_port('localhost', self.port, timeout, retries)
