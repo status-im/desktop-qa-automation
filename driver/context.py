@@ -11,16 +11,16 @@ LOG = logging.getLogger(__name__)
 
 
 @allure.step('Get application context of "{0}"')
-def get_context(aut_id: str, timeout):
+def get_context(aut_id: str):
     LOG.debug('Getting context: %s', aut_id)
-    for i in range(10):
+    for i in range(6):
         try:
-            context = squish.attachToApplication(aut_id, SquishServer().host, SquishServer().port, timeout)
+            context = squish.attachToApplication(aut_id, SquishServer().host, SquishServer().port)
             if context is not None:
                 LOG.info('AUT %s context found', aut_id)
                 return context
         except RuntimeError:
-            time.sleep(timeout)
+            time.sleep(10)
             continue
 
 

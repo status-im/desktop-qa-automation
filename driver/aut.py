@@ -76,20 +76,20 @@ class AUT:
 
     def kill_process(self):
         if self.pid is None:
-            LOG.warning('No PID availale for AUT.')
+            LOG.warning('No PID available for AUT.')
             return
         local_system.kill_process_with_retries(self.pid)
         self.pid = None
 
     @allure.step('Attach Squish to Test Application')
-    def attach(self, timeout_sec: int = configs.timeouts.PROCESS_TIMEOUT_SEC, retries: int = 3):
+    def attach(self):
         LOG.info('Attaching to AUT: localhost:%d', self.port)
-        for i in range(retries + 1):
+        for i in range(3):
             try:
                 SquishServer().add_attachable_aut(self.aut_id, self.port)
                 if self.ctx is None:
-                    self.ctx = context.get_context(self.aut_id, timeout_sec)
-                    assert self.ctx is not None, f'Application context is {self.ctx}, expected Status application context'
+                    self.ctx = context.get_context(self.aut_id)
+                    #assert self.ctx is not None, f'Application context is {self.ctx}, expected Status application context'
                 squish.setApplicationContext(self.ctx)
                 assert squish.waitFor(lambda: self.ctx.isRunning, configs.timeouts.PROCESS_TIMEOUT_SEC)
             except Exception as err:
@@ -122,7 +122,7 @@ class AUT:
 
     @allure.step('Close application')
     def stop(self):
-        LOG.info('Stoping AUT: %s', self.path)
+        LOG.info('Stopping AUT: %s', self.path)
         self.detach_context()
         self.kill_process()
 
