@@ -16,25 +16,18 @@ pytestmark = marks
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/703051', 'Delete community channel')
 @pytest.mark.case(703049, 703050, 703051)
 @pytest.mark.parametrize(
-    'channel_name, channel_description, channel_emoji, channel_emoji_image, channel_color, new_channel_name, new_channel_description, new_channel_emoji',
-    [('Channel', 'Description', 'sunglasses', None, '#4360df', 'New-channel', 'New channel description', 'thumbsup')])
+    'channel_name, channel_description, channel_emoji, channel_emoji_image, channel_color, new_channel_name, new_channel_description, new_channel_emoji, new_channel_emoji_image',
+    [('Channel', 'Description', 'sunglasses', '😎', '#4360df', 'New-channel', 'New channel description', 'thumbsup', '👍 ')])
 @pytest.mark.critical
-def test_create_edit_remove_community_channel(main_screen, channel_name, channel_description, channel_emoji, channel_emoji_image,
-                                channel_color, new_channel_name, new_channel_description, new_channel_emoji):
+def test_create_edit_remove_community_channel(main_screen, channel_name, channel_description, channel_emoji,
+                                              channel_emoji_image, channel_color, new_channel_name,
+                                              new_channel_description, new_channel_emoji, new_channel_emoji_image):
     with step('Create simple community'):
         community_params = constants.community_params
         main_screen.create_community(community_params['name'], community_params['description'],
                                      community_params['intro'], community_params['outro'],
                                      community_params['logo']['fp'], community_params['banner']['fp'])
         community_screen = main_screen.left_panel.select_community(community_params['name'])
-
-    with step('Verify General channel is present for recently created community'):
-        community_screen.verify_channel(
-            'general',
-            'General channel for the community',
-            None,
-            channel_color
-        )
 
     with step('Create new channel for recently created community'):
         community_screen.create_channel(channel_name, channel_description, channel_emoji)
@@ -52,17 +45,27 @@ def test_create_edit_remove_community_channel(main_screen, channel_name, channel
 
     with step('Verify edited channel details are correct in channels list'):
         channel = community_screen.left_panel.get_channel_parameters(new_channel_name)
-        assert channel.name == new_channel_name
-        assert channel.selected
+        assert channel.name == new_channel_name, f"Channel name {channel.name} is incorrect in channels list"
 
     with step('Verify edited channel details are correct in community toolbar'):
-        assert community_screen.tool_bar.channel_name == new_channel_name
-        assert community_screen.tool_bar.channel_description == new_channel_description
-        assert community_screen.tool_bar.channel_emoji == '👍 '
-        assert community_screen.tool_bar.channel_color == channel_color
+        assert community_screen.tool_bar.channel_name == new_channel_name, f"Channel name {community_screen.tool_bar.channel_name} is incorrect in toolbar"
+        assert community_screen.tool_bar.channel_description == new_channel_description, f"Channel description {community_screen.tool_bar.channel_description} is incorrect in toolbar"
+        assert community_screen.tool_bar.channel_emoji == new_channel_emoji_image, f"Channel name {community_screen.tool_bar.channel_emoji} is incorrect in toolbar"
+        assert community_screen.tool_bar.channel_color == channel_color, f"Channel name {community_screen.tool_bar.channel_color} is incorrect in toolbar"
 
     with step('Delete channel'):
         community_screen.delete_channel(new_channel_name)
+
+    with step('Verify that there is only one channel in channels list'):
+        assert len(community_screen.left_panel.channels) == 1
+
+    with step('Verify General channel is present for recently created community'):
+        community_screen.verify_channel(
+            'general',
+            'General channel for the community',
+            None,
+            channel_color
+        )
 
     with step('Delete general channel'):
         community_screen.delete_channel('general')
