@@ -82,6 +82,7 @@ def test_create_edit_remove_community_channel(main_screen, channel_name, channel
 def test_member_role_cannot_add_edit_and_delete_channels(main_screen: MainWindow):
     with step('Choose community user is not owner of'):
         community_screen = main_screen.left_panel.select_community('Super community')
+
     with step('Verify that member cannot add new channel'):
         with step('Verify that create channel or category button is not present'):
             assert not community_screen.left_panel.is_create_channel_or_category_button_visible()
@@ -90,19 +91,25 @@ def test_member_role_cannot_add_edit_and_delete_channels(main_screen: MainWindow
         with step('Right-click a channel on the left navigation bar'):
             community_screen.left_panel.right_click_on_panel()
         with step('Verify that context menu does not appear'):
-            assert not ContextMenu().is_visible
+            assert ContextMenu().is_visible is False, \
+                f"Context menu should not appear"
 
     with step('Verify that member cannot edit and delete channel'):
         with step('Right-click on general channel in the left navigation bar'):
-            community_screen.left_panel.open_general_channel_context_menu()
+            general_channel_context_menu = community_screen.left_panel.open_general_channel_context_menu()
         with step('Verify that edit item is not present in context menu'):
-            assert not community_screen.tool_bar.is_edit_item_visible()
+            assert general_channel_context_menu.is_edit_channel_option_present() is False, \
+                f'Edit channel option is present when it should not'
         with step('Verify that delete item is not present in context menu'):
-            assert not community_screen.tool_bar.is_delete_item_visible()
+            assert general_channel_context_menu.is_delete_channel_option_present() is False, \
+                f'Delete channel option is present when it should not'
 
-        with step('Open more options context menu'):
-            more_options_dropdown = community_screen.tool_bar.open_more_options_dropdown()
+        with step('Open context menu from the tool bar'):
+            more_options = community_screen.tool_bar.open_more_options_dropdown()
         with step('Verify that edit item is not present in context menu'):
-            assert not more_options_dropdown.is_edit_item_visible()
+            assert more_options.is_edit_channel_option_present() is False, \
+                f'Edit channel option is present when it should not'
         with step('Verify that delete item is not present in context menu'):
-            assert not more_options_dropdown.is_delete_item_visible()
+            assert more_options.is_delete_channel_option_present() is False, \
+                f'Delete channel option is present when it should not'
+            

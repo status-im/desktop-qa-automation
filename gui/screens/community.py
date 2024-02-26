@@ -135,16 +135,15 @@ class ToolBar(QObject):
     @allure.step('Open more options dropdown')
     def open_more_options_dropdown(self):
         self._more_options_button.click()
-        self._edit_channel_context_item.wait_until_appears()
-        return self
+        return ContextMenu()
 
     @allure.step('Get visibility state of edit item')
     def is_edit_item_visible(self) -> bool:
-        return self._edit_channel_context_item.is_visible
+        return self._edit_channel_context_item.exists
 
     @allure.step('Get visibility state of delete item')
     def is_delete_item_visible(self) -> bool:
-        return self._delete_channel_context_item.is_visible
+        return self._delete_channel_context_item.exists
 
 
 class CategoryItem:
@@ -319,7 +318,7 @@ class LeftPanel(QObject):
     @allure.step('Open general channel context menu')
     def open_general_channel_context_menu(self):
         self._general_channel_item.open_context_menu()
-        ContextMenu().wait_until_appears()
+        return ContextMenu()
 
     @allure.step('Open category context menu')
     def open_category_context_menu(self):
