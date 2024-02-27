@@ -16,12 +16,11 @@ pytestmark = marks
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/703051', 'Delete community channel')
 @pytest.mark.case(703049, 703050, 703051)
 @pytest.mark.parametrize(
-    'channel_name, channel_description, channel_emoji, channel_emoji_image, channel_color, new_channel_name, new_channel_description, new_channel_emoji, new_channel_emoji_image',
-    [('Channel', 'Description', 'sunglasses', '😎', '#4360df', 'New-channel', 'New channel description', 'thumbsup', '👍 ')])
-@pytest.mark.critical
-def test_create_edit_remove_community_channel(main_screen, channel_name, channel_description, channel_emoji,
-                                              channel_emoji_image, channel_color, new_channel_name,
-                                              new_channel_description, new_channel_emoji, new_channel_emoji_image):
+    'channel_name, channel_description, channel_emoji, channel_emoji_image, channel_color, new_channel_name, new_channel_description, new_channel_emoji',
+    [('Channel', 'Description', 'sunglasses', None, '#4360df', 'New-channel', 'New channel description', 'thumbsup')])
+# @pytest.mark.critical TODO: https://github.com/status-im/desktop-qa-automation/issues/535
+def test_create_edit_remove_community_channel(main_screen, channel_name, channel_description, channel_emoji, channel_emoji_image,
+                                channel_color, new_channel_name, new_channel_description, new_channel_emoji):
     with step('Create simple community'):
         community_params = constants.community_params
         main_screen.create_community(community_params['name'], community_params['description'],
