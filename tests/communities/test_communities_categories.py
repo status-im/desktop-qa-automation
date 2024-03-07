@@ -88,7 +88,7 @@ def test_create_edit_remove_community_category(main_screen: MainWindow, category
 @pytest.mark.parametrize('user_data', [configs.testpath.TEST_USER_DATA / 'squisher'])
 def test_member_role_cannot_add_edit_or_delete_category(main_screen: MainWindow):
     with step('Choose community user is not owner of'):
-        driver.waitForObjectExists(main_screen.left_panel.real_name, 8000)
+        assert driver.waitForObjectExists(main_screen.left_panel.real_name, 10000).visible
         community_screen = main_screen.left_panel.select_community('Super community')
 
     with step('Verify that member cannot add category'):
