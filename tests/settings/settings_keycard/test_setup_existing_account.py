@@ -9,8 +9,8 @@ from . import marks
 import configs
 import constants
 import driver
-from constants import ColorCodes, aut_options
-from constants.images_paths import PLUG_IN_KEYCARD_IMAGE_PATH, INSERT_KEYCARD_IMAGE_PATH, CHOOSE_KEYCARD_PIN_IMAGE_PATH, \
+from constants import ColorCodes
+from constants.images_paths import PLUG_IN_KEYCARD_IMAGE_PATH, CHOOSE_KEYCARD_PIN_IMAGE_PATH, \
     KEYCARD_SUCCESS_IMAGE_PATH
 from constants.keycard import Keycard
 from gui.components.community.authenticate_popup import AuthenticatePopup
@@ -23,8 +23,7 @@ pytestmark = marks
                  'Setup a keycard with an existing account')
 @pytest.mark.case(703623)
 @pytest.mark.parametrize('user_account', [constants.user.user_account_one])
-@pytest.mark.parametrize('account_name', [pytest.param('Status account')])
-@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/274")
+@pytest.mark.parametrize('account_name', [pytest.param('Account 1')])
 def test_setup_keycard_with_existing_account(main_screen: MainWindow, user_account, account_name):
     main_screen.prepare()
 

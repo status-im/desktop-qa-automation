@@ -23,7 +23,7 @@ class KeycardSettingsView(QObject):
 
     @allure.step('Check that keycard screen displayed')
     def check_keycard_screen_loaded(self):
-        assert KeycardSettingsView().is_visible
+        assert driver.waitFor(lambda: KeycardSettingsView().is_visible, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
 
     @allure.step('Choose create new keycard account with new seed phrase')
     def click_create_new_account_with_new_seed_phrase(self):

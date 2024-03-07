@@ -6,7 +6,6 @@ from . import marks
 import configs
 import constants
 import driver
-from constants import aut_options
 from constants.images_paths import KEYCARD_ERROR_IMAGE_PATH
 from constants.keycard import Keycard
 from gui.main_window import MainWindow
@@ -17,7 +16,6 @@ pytestmark = marks
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/703628', 'Factory reset a Keycard')
 @pytest.mark.case(703628)
 @pytest.mark.parametrize('user_account', [constants.user.user_account_one])
-@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/274")
 def test_factory_reset_keycard(main_screen: MainWindow, user_account):
     main_screen.prepare()
 
