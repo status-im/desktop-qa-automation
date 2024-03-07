@@ -7,7 +7,6 @@ from . import marks
 
 import configs
 import driver
-from constants import aut_options
 from constants.images_paths import PLUG_IN_KEYCARD_IMAGE_PATH, INSERT_KEYCARD_IMAGE_PATH, CHOOSE_KEYCARD_PIN_IMAGE_PATH
 from constants.keycard import Keycard
 from gui.main_window import MainWindow
@@ -24,7 +23,6 @@ pytestmark = marks
         pytest.param('Test Account', '#216266', 'sunglasses', '😎 ', 'Test Account2', '#2a4af5',
                      'thumbsup', '👍 ', 'Test Account3', '#ff7d46', 'cool', '🆒 ')
     ])
-@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/274")
 def test_create_keycard_account_with_new_seed_phrase(main_screen: MainWindow, name, color, emoji_name, emoji,
                                                      name1, color1, emoji1_name, emoji1, name2, color2, emoji2_name,
                                                      emoji2):

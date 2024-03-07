@@ -80,7 +80,7 @@ class KeycardPopup(BasePopup):
     @property
     @allure.step('Get keycard name in keypair')
     def keypair_name(self) -> str:
-        return self._keypair_item.object.title
+        return str(self._keypair_item.object.title)
 
     @property
     @allure.step('Get accounts on keycard')
@@ -242,7 +242,7 @@ class KeycardPopup(BasePopup):
         else:
             raise RuntimeError("Wrong amount of seed words", len(seed_phrase_words))
         for count, word in enumerate(seed_phrase_words, start=1):
-            self._seed_phrase_word_text_edit.real_name['objectName'] = f'statusSeedPhraseInputField{count}'
+            self._seed_phrase_word_text_edit.real_name['objectName'] = f'enterSeedPhraseInputField{count}'
             self._seed_phrase_word_text_edit.text = word
         self.click_next()
 

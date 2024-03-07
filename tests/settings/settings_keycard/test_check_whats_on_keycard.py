@@ -8,7 +8,6 @@ from . import marks
 import configs
 import constants
 import driver
-from constants import aut_options
 from constants.images_paths import PLUG_IN_KEYCARD_IMAGE_PATH, INSERT_KEYCARD_IMAGE_PATH, EMPTY_KEYCARD_IMAGE_PATH, \
     KEYCARD_SUCCESS_IMAGE_PATH, KEYCARD_INSERTED_IMAGE_PATH
 from constants.keycard import Keycard
@@ -20,7 +19,6 @@ pytestmark = marks
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/703627', 'Check whats on a Keycard')
 @pytest.mark.case(703627)
 @pytest.mark.parametrize('user_account', [constants.user.user_account_one])
-@pytest.mark.skip(reason="https://github.com/status-im/desktop-qa-automation/issues/274")
 def test_check_whats_on_keycard(main_screen: MainWindow, user_account):
     main_screen.prepare()
 
