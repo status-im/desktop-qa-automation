@@ -50,6 +50,10 @@ def test_import_seed_phrase(keys_screen, main_window, user_account, default_name
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()
+        mocked_keycard = MockedKeycardController()
+        if configs.system.TEST_MODE and configs.system.CLOSE_KEYCARD_CONTROLLER:
+            if mocked_keycard.is_visible:
+                mocked_keycard.hide()
 
     with (step('Verify that restored account reveals correct status wallet address')):
         status_account_index = 0

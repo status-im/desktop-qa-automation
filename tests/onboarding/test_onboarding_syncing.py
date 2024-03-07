@@ -2,6 +2,8 @@ import allure
 import pyperclip
 import pytest
 from allure_commons._allure import step
+
+from gui.mocked_keycard_controller import MockedKeycardController
 from . import marks
 
 import configs.testpath
@@ -89,6 +91,10 @@ def test_sync_device_during_onboarding(multiple_instances):
             SplashScreen().wait_until_appears().wait_until_hidden()
             if not configs.system.TEST_MODE:
                 BetaConsentPopup().confirm()
+            mocked_keycard = MockedKeycardController()
+            if configs.system.TEST_MODE and configs.system.CLOSE_KEYCARD_CONTROLLER:
+                if mocked_keycard.is_visible:
+                    mocked_keycard.hide()
 
         with step('Verify user details are the same with user in first instance'):
             online_identifier = main_window.left_panel.open_online_identifier()
