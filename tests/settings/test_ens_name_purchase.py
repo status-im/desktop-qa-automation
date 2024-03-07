@@ -12,6 +12,7 @@ from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
 from gui.components.splash_screen import SplashScreen
 from gui.components.wallet.authenticate_popup import AuthenticatePopup
 from gui.components.wallet.send_popup import SendPopup
+from gui.mocked_keycard_controller import MockedKeycardController
 from gui.screens.onboarding import KeysView, AllowNotificationsView, WelcomeToStatusView, BiometricsView
 from gui.screens.settings_ens_usernames import ENSRegisteredView
 
@@ -49,6 +50,10 @@ def test_ens_name_purchase(keys_screen, main_window, user_account, ens_name):
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()
+        mocked_keycard = MockedKeycardController()
+        if configs.system.TEST_MODE and configs.system.CLOSE_KEYCARD_CONTROLLER:
+            if mocked_keycard.is_visible:
+                mocked_keycard.hide()
 
     with step('Set testnet mode'):
         settings = main_window.left_panel.open_settings()
