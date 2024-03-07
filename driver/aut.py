@@ -81,6 +81,10 @@ class AUT:
         local_system.kill_process_with_retries(self.pid)
         self.pid = None
 
+    def crashHandler(self):
+        LOG.info('Restart application after crash')
+        self.restart()
+
     @allure.step('Attach Squish to Test Application')
     def attach(self):
         LOG.info('Attaching to AUT: localhost:%d', self.port)
@@ -98,6 +102,7 @@ class AUT:
                                 continue
 
                 squish.setApplicationContext(self.ctx)
+                driver.installEventHandler("Crash", "crashHandler")
                 assert squish.waitFor(lambda: self.ctx.isRunning, configs.timeouts.PROCESS_TIMEOUT_SEC)
             except Exception as err:
                 LOG.error('Failed to attach AUT: %s', err)
