@@ -4,6 +4,7 @@ from allure_commons._allure import step
 
 import configs
 import constants
+import driver
 from gui.components.context_menu import ContextMenu
 from gui.main_window import MainWindow
 from . import marks
@@ -79,6 +80,7 @@ def test_create_edit_remove_community_channel(main_screen, channel_name, channel
 @pytest.mark.case(703269, 703270, 703271)
 @pytest.mark.parametrize('user_data', [configs.testpath.TEST_USER_DATA / 'squisher'])
 def test_member_role_cannot_add_edit_and_delete_channels(main_screen: MainWindow):
+    driver.waitForObjectExists(main_screen.left_panel.real_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
     with step('Choose community user is not owner of'):
         community_screen = main_screen.left_panel.select_community('Super community')
     with step('Verify that member cannot add new channel'):

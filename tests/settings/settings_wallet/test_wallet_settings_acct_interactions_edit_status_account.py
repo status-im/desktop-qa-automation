@@ -4,6 +4,9 @@ import string
 import allure
 import pytest
 from allure_commons._allure import step
+
+import configs
+import driver
 from . import marks
 
 from constants.wallet import WalletNetworkSettings, DerivationPath, WalletAccountSettings
@@ -22,10 +25,12 @@ pytestmark = marks
 ])
 def test_settings_edit_status_account(main_screen: MainWindow, new_name):
     with step('Open profile and wallet setting and check the keypairs list is not empty'):
+        driver.waitForObjectExists(main_screen.left_panel.real_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
         settings = main_screen.left_panel.open_settings().left_panel.open_wallet_settings()
         assert settings.get_keypairs_names != 0, f'Keypairs are not displayed'
 
     with step('Verify Status keypair title'):
+        driver.waitForObjectExists(settings._wallet_settings_add_new_account_button.real_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
         status_keypair_title = settings.get_keypairs_names()[0]
         profile_display_name = main_screen.left_panel.open_settings().left_panel.open_profile_settings().get_display_name
         assert profile_display_name in status_keypair_title, \
