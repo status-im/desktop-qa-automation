@@ -171,7 +171,10 @@ class MainWindow(Window):
 
     # TODO: we need to handle all the issues with keycard mock var before using keycard  window in tests
     def prepare(self) -> 'Window':
-        #   MockedKeycardController().wait_until_appears().hide()
+        mocked_keycard = MockedKeycardController()
+        if configs.system.TEST_MODE and configs.system.CLOSE_KEYCARD_CONTROLLER:
+            if mocked_keycard.is_visible:
+                mocked_keycard.hide()
         return super().prepare()
 
     @allure.step('Sign Up user')
@@ -192,6 +195,10 @@ class MainWindow(Window):
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()
+        mocked_keycard = MockedKeycardController()
+        if configs.system.TEST_MODE and configs.system.CLOSE_KEYCARD_CONTROLLER:
+            if mocked_keycard.is_visible:
+                mocked_keycard.hide()
         return self
 
     @allure.step('Log in user')
@@ -200,6 +207,10 @@ class MainWindow(Window):
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()
+        mocked_keycard = MockedKeycardController()
+        if configs.system.TEST_MODE and configs.system.CLOSE_KEYCARD_CONTROLLER:
+            if mocked_keycard.is_visible:
+                mocked_keycard.hide()
         return self
 
     @allure.step('Authorize user')

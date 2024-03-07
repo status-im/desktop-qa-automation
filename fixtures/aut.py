@@ -14,9 +14,19 @@ LOG = logging.getLogger(__name__)
 
 @pytest.fixture
 def options(request):
-    if hasattr(request, 'param'):
-        return request.param
-    return ''
+    if 'settings_keycard' in str(getattr(request, 'fspath')):
+        configs.system.CLOSE_KEYCARD_CONTROLLER = False
+    else:
+        configs.system.CLOSE_KEYCARD_CONTROLLER = True
+
+    # if pytest.mark.keycard:
+    #     configs.system.CLOSE_KEYCARD_CONTROLLER = False
+    # else:
+    #     configs.system.CLOSE_KEYCARD_CONTROLLER = True
+
+    # if hasattr(request, 'param'):
+    #     return request.param
+    # return ''
 
 
 @pytest.fixture
