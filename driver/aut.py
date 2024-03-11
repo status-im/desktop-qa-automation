@@ -101,8 +101,8 @@ class AUT:
                             except AttributeError:
                                 continue
 
-                squish.setApplicationContext(self.ctx)
                 driver.installEventHandler("Crash", "crashHandler")
+                squish.setApplicationContext(self.ctx)
                 assert squish.waitFor(lambda: self.ctx.isRunning, configs.timeouts.PROCESS_TIMEOUT_SEC)
             except Exception as err:
                 LOG.error('Failed to attach AUT: %s', err)
