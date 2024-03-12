@@ -24,6 +24,11 @@ class QObject:
         return driver.waitForObject(self.real_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
 
     @property
+    @allure.step('Get object {0}')
+    def object_exists(self):
+        return driver.waitForObjectExists(self.real_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+
+    @property
     @allure.step('Get object exists {0}')
     def exists(self) -> bool:
         return driver.object.exists(self.real_name)

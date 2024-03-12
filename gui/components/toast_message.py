@@ -16,7 +16,7 @@ class ToastMessage(QObject):
     @allure.step('Get toast messages')
     def get_toast_messages(self) -> typing.List[str]:
         messages = []
-        for child in walk_children(self.object):
+        for child in walk_children(self.object_exists):
             if getattr(child, 'id', '') == 'title':
                 messages.append(str(child.text))
         if len(messages) == 0:
