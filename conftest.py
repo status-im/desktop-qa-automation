@@ -14,7 +14,7 @@ from scripts.utils.system_path import SystemPath
 # Send logs to pytest.log as well
 handler = logging.FileHandler(filename=configs.PYTEST_LOG)
 logging.basicConfig(
-    level=os.getenv('LOG_LEVEL', 'INFO'),
+    level=os.getenv('LOG_LEVEL', 'DEBUG'),
     format='[%(asctime)s] (%(filename)18s:%(lineno)-3s) [%(levelname)-7s] --- %(message)s',
     handlers=[handler],
 )
