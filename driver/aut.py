@@ -97,6 +97,7 @@ class AUT:
                             except AttributeError:
                                 continue
 
+                LOG.info('List of contexts: %s', squish.applicationContextList())
                 squish.setApplicationContext(self.ctx)
                 assert squish.waitFor(lambda: self.ctx.isRunning, configs.timeouts.PROCESS_TIMEOUT_SEC)
             except Exception as err:
