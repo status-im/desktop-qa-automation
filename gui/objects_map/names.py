@@ -743,10 +743,19 @@ savedAddressesArea_SavedAddresses = {"container": mainWindow_SavedAddressesView,
 savedAddresses_area = {"container": mainWindow_SavedAddressesView_2, "objectName": "savedAddressesArea", "type": "SavedAddresses", "visible": True}
 
 # Wallet Account View
-mainWindow_StatusSectionLayout_ContentItem = {"container": statusDesktop_mainWindow, "objectName": "StatusSectionLayout", "type": "ContentItem", "visible": True}
 mainWindow_RightTabView = {"container": statusDesktop_mainWindow, "type": "RightTabView", "unnamed": 1, "visible": True}
 mainWallet_Account_Name = {"container": mainWindow_RightTabView, "objectName": "walletHeaderTitle", "type": "StatusBaseText", "visible": True}
 mainWindow_Send_Button = {"container": mainWindow_StatusWindow, "type": "DisabledTooltipButton", "icon": "send", "visible": True}
+mainWindow_RightTabView = {"container": mainWindow_StatusWindow, "type": "RightTabView", "unnamed": 1, "visible": True}
+filterButton_StatusFlatButton = {"checkable": True, "container": mainWindow_RightTabView, "id": "filterButton", "type": "StatusFlatButton", "unnamed": 1, "visible": True}
+cmbTokenOrder_SortOrderComboBox = {"container": mainWindow_RightTabView, "id": "cmbTokenOrder", "type": "SortOrderComboBox", "unnamed": 1, "visible": True}
+rightSideWalletTabBar_StatusTabBar = {"container": mainWindow_RightTabView, "objectName": "rightSideWalletTabBar", "type": "StatusTabBar", "visible": True}
+rightSideWalletTabBar_Collectibles_StatusTabButton = {"checkable": True, "container": rightSideWalletTabBar_StatusTabBar, "text": "Collectibles", "type": "StatusTabButton", "unnamed": 1, "visible": True}
+rightSideWalletTabBar_Assets_StatusTabButton = {"checkable": True, "container": rightSideWalletTabBar_StatusTabBar, "text": "Assets", "type": "StatusTabButton", "unnamed": 1, "visible": True}
+o_AssetsView = {"container": mainWindow_RightTabView, "type": "AssetsView", "unnamed": 1, "visible": True}
+itemDelegate = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "id": "menuDelegate", "type": "ItemDelegate", "unnamed": 1, "visible": True}
+assetView_TokenListItem_TokenDelegate = {"container": mainWindow_RightTabView, "objectName": RegularExpression("AssetView_TokenListItem_*"), "type": "TokenDelegate", "visible": True}
+arrow_icon_StatusIcon = {"container": statusDesktop_mainWindow_overlay, "objectName": "arrow-up-icon", "type": "StatusIcon", "visible": True}
 
 # MOCKED KEYCARD CONTROLLER NAMES
 
