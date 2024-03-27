@@ -13,8 +13,21 @@ user_account_two = UserAccount('athletic', '0000000000', [
 ], '0x99C096bB5F12bDe37DE9dbee8257Ebe2a5667C46')
 user_account_three = UserAccount('nervous', '0000000000', [], '')
 
-user_account_one_changed_password = UserAccount('squisher', 'NewPassword@12345', [], '')
+# users for group chat test
 
+group_chat_user_1 = UserAccount('group_chat_user_1', '77_80Y+2Eh', [
+    'trophy', 'math', 'robust', 'lake', 'extend', 'cabbage', 'bicycle', 'begin', 'either', 'car', 'race', 'cousin'],
+             '0xcd488381c1664c9585b7940f1c4b20f884b8b4a9')
+group_chat_user_2 = UserAccount('group_chat_user_2', '521/97Qv\:', [
+    'opera', 'great', 'open', 'sight', 'still', 'quantum', 'flight', 'torch', 'mule', 'cage', 'noise', 'horn'
+
+], '0x472078f0110d0bb0dfc73389ce89d8a83c8c0502')
+group_chat_user_3 = UserAccount('group_chat_user_3', '29T\I8Cv_G', [
+    'bless', 'enter', 'wet', 'foot', 'lazy', 'will', 'reform', 'enemy', 'rubber', 'void', 'journey', 'fence'
+
+], '0x4b04b8e22e8295d0ae3177774e4acfd0badacf09')
+
+user_account_one_changed_password = UserAccount('squisher', 'NewPassword@12345', [], '')
 user_account_one_changed_name = UserAccount('NewUserName', '0000000000', [], '')
 
 user_with_funds = UserAccount('User_with_funds', '0000000000', [
