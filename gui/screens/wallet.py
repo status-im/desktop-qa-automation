@@ -1,3 +1,4 @@
+import time
 import typing
 
 import allure
@@ -14,6 +15,7 @@ from gui.components.wallet.remove_wallet_account_popup import RemoveWalletAccoun
 from gui.components.wallet.send_popup import SendPopup
 from gui.components.wallet.wallet_account_popups import AccountPopup
 from gui.elements.button import Button
+from gui.elements.list import List
 from gui.elements.object import QObject
 from gui.elements.text_label import TextLabel
 from gui.objects_map import names
@@ -98,15 +100,10 @@ class LeftPanel(QObject):
         self._open_context_menu_for_account(account_name).select_hide_include_total_balance_from_context_menu()
 
     @allure.step('Open account popup for editing from context menu')
-    def open_edit_account_popup_from_context_menu(self, account_name: str, attempt: int = 2) -> AccountPopup:
-        try:
-            self._open_context_menu_for_account(account_name).select_edit_account_from_context_menu()
-            return AccountPopup().wait_until_appears()
-        except Exception as ex:
-            if attempt:
-                return self.open_edit_account_popup_from_context_menu(account_name, attempt - 1)
-            else:
-                raise ex
+    def open_edit_account_popup_from_context_menu(self, account_name: str) -> AccountPopup:
+        self._open_context_menu_for_account(account_name).select_edit_account_from_context_menu()
+        return AccountPopup().verify_edit_account_popup_present()
+
 
     @allure.step('Open account popup')
     def open_add_account_popup(self, attempt: int = 2):
@@ -200,6 +197,13 @@ class WalletAccountView(QObject):
         self._account_name_text_label = TextLabel(names.mainWallet_Account_Name)
         self._addresses_panel = QObject(names.mainWallet_Address_Panel)
         self._send_button = Button(names.mainWindow_Send_Button)
+        self._filter_button = Button(names.filterButton_StatusFlatButton)
+        self._assets_combobox = List(names.cmbTokenOrder_SortOrderComboBox)
+        self._assets_tab_button = Button(names.rightSideWalletTabBar_Assets_StatusTabButton)
+        self._collectibles_tab_button = Button(names.rightSideWalletTabBar_Collectibles_StatusTabButton)
+        self._asset_item_delegate = QObject(names.itemDelegate)
+        self._asset_item = QObject(names.assetView_TokenListItem_TokenDelegate)
+        self._arrow_icon = QObject(names.arrow_icon_StatusIcon)
 
     @property
     @allure.step('Get name of account')
@@ -220,3 +224,50 @@ class WalletAccountView(QObject):
     def open_send_popup(self) -> SendPopup:
         self._send_button.click()
         return SendPopup().wait_until_appears()
+
+    @allure.step('Open assets tab')
+    def open_assets_tab(self):
+        self._assets_tab_button.click()
+        return self
+
+    @allure.step('Open collectibles tab')
+    def open_collectibles_tab(self):
+        self._collectibles_tab_button.click()
+        return self
+
+    @allure.step('Click filter button')
+    def click_filter_button(self):
+        self._filter_button.click()
+        return self
+
+    @allure.step('Get value from combobox')
+    def get_combobox_value(self) -> str:
+        return str(self._assets_combobox.object.displayText)
+
+    @allure.step('Choose sort by value')
+    def choose_sort_by_value(self, sort_by_value: str):
+        self._assets_combobox.click()
+        driver.mouseClick(self.get_sort_by_item_object(sort_by_value))
+
+    @allure.step('Get sort by item')
+    def get_sort_by_item_object(self, sort_by_value: str):
+        for item in driver.findAllObjects(self._asset_item_delegate.real_name):
+            if getattr(item, 'text', '') == sort_by_value:
+                return item
+
+    @allure.step('Click the arrow button')
+    def click_arrow_button(self, arrow_name: str, occurrence: int):
+        self._assets_combobox.click()
+        self._arrow_icon.real_name['objectName'] = arrow_name
+        if occurrence > 1:
+            self._arrow_icon.real_name['occurrence'] = occurrence
+        self._arrow_icon.click()
+
+    @allure.step('Get list of assets')
+    def get_list_of_assets(self) -> typing.List:
+        time.sleep(1)
+        token_list_items = []
+        for item in driver.findAllObjects(self._asset_item.real_name):
+            token_list_items.append(item)
+        sorted(token_list_items, key=lambda item: item.y)
+        return token_list_items

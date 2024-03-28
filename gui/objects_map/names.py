@@ -154,10 +154,10 @@ o_ColumnLayout = {"container": statusDesktop_mainWindow_overlay, "type": "Column
 headerTitle_StatusBaseText = {"container": statusDesktop_mainWindow_overlay, "objectName": "headerTitle", "type": "StatusBaseText", "visible": True}
 image_StatusImage = {"container": statusDesktop_mainWindow_overlay, "id": "image", "type": "StatusImage", "unnamed": 1, "visible": True}
 intro_StatusBaseText = {"container": o_ColumnLayout, "type": "StatusBaseText", "unnamed": 1, "visible": True}
-select_addresses_to_share_StatusFlatButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "type": "StatusFlatButton", "unnamed": 1, "visible": True}
-join_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "type": "StatusButton", "unnamed": 1, "visible": True}
-welcome_authenticate_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "type": "StatusButton", "text": "Authenticate", "unnamed": 1, "visible": True}
-share_your_addresses_to_join_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "type": "StatusButton", "unnamed": 1, "visible": True}
+select_addresses_to_share_StatusFlatButton = {"container": statusDesktop_mainWindow_overlay, "type": "StatusFlatButton", "unnamed": 1, "visible": True}
+join_StatusButton = { "container": statusDesktop_mainWindow_overlay, "type": "StatusButton", "unnamed": 1, "visible": True}
+welcome_authenticate_StatusButton = {"container": statusDesktop_mainWindow_overlay, "type": "StatusButton", "unnamed": 1, "visible": True}
+share_your_addresses_to_join_StatusButton = {"container": statusDesktop_mainWindow_overlay, "type": "StatusButton", "unnamed": 1, "visible": True}
 
 """ Settings """
 
@@ -237,6 +237,7 @@ o_StatusDialogBackground = {"container": statusDesktop_mainWindow_overlay, "type
 delete_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "objectName": "deleteChatConfirmationDialogDeleteButton", "type": "StatusButton", "visible": True}
 confirm_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "objectName": "confirmDeleteCategoryButton", "type": "StatusButton", "visible": True}
 confirm_permission_delete_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "id": "confirmButton", "type": "StatusButton", "unnamed": 1, "visible": True}
+confirm_delete_message_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "objectName": "chatButtonsPanelConfirmDeleteMessageButton", "text": "Confirm", "type": "StatusButton", "visible": True}
 
 # Authenticate Popup
 keycardSharedPopupContent_KeycardPopupContent = {"container": statusDesktop_mainWindow_overlay, "objectName": "KeycardSharedPopupContent", "type": "KeycardPopupContent", "visible": True}
@@ -436,6 +437,13 @@ close_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow_
 
 # Build showcase popup
 build_your_showcase_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "objectName": "buildShowcaseButton", "type": "StatusButton", "visible": True}
+
+# Activity center
+activityCenterStatusFlatButton = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "objectName": "activityCenterGroupButton", "type": "StatusFlatButton", "visible": True}
+checkmark_circle_icon_StatusIcon = {"container": statusDesktop_mainWindow_overlay, "objectName": "checkmark-circle-icon", "type": "StatusIcon", "visible": True}
+o_ActivityNotificationContactRequest = {"container": statusDesktop_mainWindow_overlay, "type": "ActivityNotificationContactRequest", "unnamed": 1, "visible": True}
+activityCenterTopBar_ActivityCenterPopupTopBarPanel = {"container": statusDesktop_mainWindow_overlay, "id": "activityCenterTopBar", "type": "ActivityCenterPopupTopBarPanel", "unnamed": 1, "visible": True}
+contacts_StatusListView = {"container": statusDesktop_mainWindow_overlay, "type": "StatusListView", "unnamed": 1, "visible": True}
 
 # OS NAMES
 # Open Files Dialog
@@ -743,10 +751,20 @@ savedAddressesArea_SavedAddresses = {"container": mainWindow_SavedAddressesView,
 savedAddresses_area = {"container": mainWindow_SavedAddressesView_2, "objectName": "savedAddressesArea", "type": "SavedAddresses", "visible": True}
 
 # Wallet Account View
-mainWindow_StatusSectionLayout_ContentItem = {"container": statusDesktop_mainWindow, "objectName": "StatusSectionLayout", "type": "ContentItem", "visible": True}
 mainWindow_RightTabView = {"container": statusDesktop_mainWindow, "type": "RightTabView", "unnamed": 1, "visible": True}
 mainWallet_Account_Name = {"container": mainWindow_RightTabView, "objectName": "walletHeaderTitle", "type": "StatusBaseText", "visible": True}
 mainWindow_Send_Button = {"container": mainWindow_StatusWindow, "type": "DisabledTooltipButton", "icon": "send", "visible": True}
+mainWindow_RightTabView = {"container": mainWindow_StatusWindow, "type": "RightTabView", "unnamed": 1, "visible": True}
+filterButton_StatusFlatButton = {"checkable": True, "container": mainWindow_RightTabView, "objectName": "filterButton", "type": "StatusFlatButton", "visible": True}
+cmbTokenOrder_SortOrderComboBox = {"container": mainWindow_RightTabView, "objectName": "cmbTokenOrder", "type": "SortOrderComboBox", "visible": True}
+rightSideWalletTabBar_StatusTabBar = {"container": mainWindow_RightTabView, "objectName": "rightSideWalletTabBar", "type": "StatusTabBar", "visible": True}
+rightSideWalletTabBar_Assets_StatusTabButton = {"checkable": True, "container": rightSideWalletTabBar_StatusTabBar, "objectName": "assetsTabButton", "text": "Assets", "type": "StatusTabButton", "visible": True}
+rightSideWalletTabBar_Collectibles_StatusTabButton = {"checkable": True, "container": rightSideWalletTabBar_StatusTabBar, "objectName": "collectiblesTabButton", "text": "Collectibles", "type": "StatusTabButton", "visible": True}
+rightSideWalletTabBar_Activity_StatusTabButton = {"checkable": True, "container": rightSideWalletTabBar_StatusTabBar, "objectName": "activityTabButton", "text": "Activity", "type": "StatusTabButton", "visible": True}
+o_AssetsView = {"container": mainWindow_RightTabView, "type": "AssetsView", "unnamed": 1, "visible": True}
+itemDelegate = {"checkable": False, "container": statusDesktop_mainWindow_overlay, "id": "menuDelegate", "type": "ItemDelegate", "unnamed": 1, "visible": True}
+assetView_TokenListItem_TokenDelegate = {"container": mainWindow_RightTabView, "objectName": RegularExpression("AssetView_TokenListItem_*"), "type": "TokenDelegate", "visible": True}
+arrow_icon_StatusIcon = {"container": statusDesktop_mainWindow_overlay, "objectName": "arrow-up-icon", "type": "StatusIcon", "visible": True}
 
 # MOCKED KEYCARD CONTROLLER NAMES
 
