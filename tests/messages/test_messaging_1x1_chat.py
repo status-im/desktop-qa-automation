@@ -7,7 +7,7 @@ import pytest
 from allure_commons._allure import step
 
 import driver
-from gui.screens.messages import MessagesScreen, ToolBar, ChatMessagesView
+from gui.screens.messages import MessagesScreen, ToolBar, ChatMessagesView, ChatView
 from tests.settings.settings_messaging import marks
 
 import configs.testpath
@@ -119,6 +119,14 @@ def test_1x1_chat(multiple_instances):
             message_items = [message.text for message in message_objects]
             for message_item in message_items:
                 assert driver.waitFor(lambda: '😎' in message_item, configs.timeouts.UI_LOAD_TIMEOUT_MSEC)
+
+        with step(f'User {user_one.name}, reply to own message and verify that message displayed as a reply'):
+            chat_message_reply = \
+                ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(1, 21))
+            message.hover_message().reply_own_message(chat_message_reply)
+            chat = main_window.left_panel.open_messages_screen().left_panel.click_chat_by_name(user_two.name)
+            message = chat.find_message_by_text(chat_message_reply, 0)
+            assert message.reply_corner.exists
 
         with step(f'User {user_one.name}, delete own message and verify it was deleted'):
             message = messages_screen.left_panel.click_chat_by_name(user_two.name).find_message_by_text(chat_message1, 2)
