@@ -1,3 +1,5 @@
+import time
+
 import allure
 import typing
 
@@ -35,6 +37,8 @@ class SendPopup(BasePopup):
         for index, item in enumerate(assets):
             if str(item.title) == name:
                 QObject(item).click()
+            else:
+                raise LookupError('Asset or collectible not found')
 
     @allure.step('Get assets or collectibles list')
     def get_assets_or_collectibles_list(self, tab: str) -> typing.List[str]:
@@ -43,6 +47,7 @@ class SendPopup(BasePopup):
             for asset in driver.findAllObjects(self._asset_list_item.real_name):
                 assets_or_collectibles_list.append(asset)
         elif tab == 'Collectibles':
+            time.sleep(2)
             for asset in driver.findAllObjects(self._collectible_list_item.real_name):
                 assets_or_collectibles_list.append(asset)
         return assets_or_collectibles_list
