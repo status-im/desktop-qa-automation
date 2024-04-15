@@ -170,7 +170,7 @@ class MainWindow(Window):
     @allure.step('Sign Up user')
     def sign_up(self, user_account: UserAccount = constants.user.user_account_one):
         if configs.system.IS_MAC:
-            AllowNotificationsView().wait_until_appears().allow()
+            AllowNotificationsView().wait_until_appears().start_using_status()
         BeforeStartedPopUp().get_started()
         wellcome_screen = WelcomeToStatusView().wait_until_appears()
         profile_view = wellcome_screen.get_keys().generate_new_keys()

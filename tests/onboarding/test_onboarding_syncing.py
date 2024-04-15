@@ -26,7 +26,7 @@ pytestmark = marks
 def sync_screen(main_window) -> SyncCodeView:
     with step('Open Syncing view'):
         if configs.system.IS_MAC:
-            AllowNotificationsView().wait_until_appears().allow()
+            AllowNotificationsView().wait_until_appears().start_using_status()
         BeforeStartedPopUp().get_started()
         wellcome_screen = WelcomeToStatusView().wait_until_appears()
         return wellcome_screen.sync_existing_user().open_sync_code_view()
@@ -64,7 +64,7 @@ def test_sync_device_during_onboarding(multiple_instances):
             aut_two.attach()
             main_window.prepare()
             if configs.system.IS_MAC:
-                AllowNotificationsView().wait_until_appears().allow()
+                AllowNotificationsView().wait_until_appears().start_using_status()
             BeforeStartedPopUp().get_started()
             wellcome_screen = WelcomeToStatusView().wait_until_appears()
             sync_view = wellcome_screen.sync_existing_user().open_sync_code_view()

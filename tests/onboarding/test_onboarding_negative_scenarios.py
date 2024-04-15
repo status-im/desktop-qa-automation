@@ -25,7 +25,7 @@ pytestmark = marks
 def keys_screen(main_window) -> KeysView:
     with step('Open Generate new keys view'):
         if configs.system.IS_MAC:
-            AllowNotificationsView().wait_until_appears().allow()
+            AllowNotificationsView().wait_until_appears().start_using_status()
         BeforeStartedPopUp().get_started()
         wellcome_screen = WelcomeToStatusView().wait_until_appears()
         return wellcome_screen.get_keys()

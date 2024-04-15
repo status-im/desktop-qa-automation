@@ -623,7 +623,7 @@ mainWindow_onboardingBackButton_StatusRoundButton = {"container": statusDesktop_
 
 # Allow Notification View
 mainWindow_AllowNotificationsView = {"container": statusDesktop_mainWindow, "type": "AllowNotificationsView", "unnamed": 1, "visible": True}
-mainWindow_allowNotificationsOnboardingOkButton = {"container": mainWindow_AllowNotificationsView, "objectName": "allowNotificationsOnboardingOkButton", "type": "StatusButton", "visible": True}
+mainWindow_Start_using_Status_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow, "objectName": "allowNotificationsOnboardingOkButton", "type": "StatusButton", "visible": True}
 
 # Welcome View
 mainWindow_WelcomeView = {"container": statusDesktop_mainWindow, "type": "WelcomeView", "unnamed": 1, "visible": True}
@@ -682,21 +682,21 @@ mainWindow_Plug_in_Keycard_reader_StatusBaseText = {"container": mainWindow_Keyc
 # Your Profile View
 mainWindow_InsertDetailsView = {"container": statusDesktop_mainWindow, "objectName": "onboardingInsertDetailsView", "type": "InsertDetailsView", "visible": True}
 updatePicButton_StatusRoundButton = {"container": mainWindow_InsertDetailsView, "id": "updatePicButton", "type": "StatusRoundButton", "unnamed": 1, "visible": True}
-mainWindow_CanvasItem = {"container": mainWindow_InsertDetailsView, "type": "CanvasItem", "unnamed": 1, "visible": True}
+mainWindow_statusRoundImage_StatusRoundedImage = {"container": statusDesktop_mainWindow, "id": "statusRoundImage", "type": "StatusRoundedImage", "unnamed": 1, "visible": True}
 mainWindow_IdenticonRing = {"container": statusDesktop_mainWindow, "type": "StatusIdenticonRing", "unnamed": 1, "visible": True}
-mainWindow_Next_StatusButton = {"container": statusDesktop_mainWindow, "objectName": "onboardingDetailsViewNextButton", "type": "StatusButton", "visible": True}
+mainWindow_Next_StatusButton = {"checkable": False, "container": mainWindow_StatusWindow, "objectName": "onboardingDetailsViewNextButton", "type": "StatusButton", "visible": True}
 mainWindow_inputLayout_ColumnLayout = {"container": statusDesktop_mainWindow, "id": "inputLayout", "type": "ColumnLayout", "unnamed": 1, "visible": True}
 mainWindow_statusBaseInput_StatusBaseInput = {"container": mainWindow_inputLayout_ColumnLayout, "objectName": "onboardingDisplayNameInput", "type": "TextEdit", "visible": True}
 mainWindow_errorMessage_StatusBaseText = {"container": mainWindow_inputLayout_ColumnLayout, "type": "StatusBaseText", "unnamed": 1, "visible": True}
 mainWindow_nameInput_StatusInput = {"container": statusDesktop_mainWindow, "id": "nameInput", "type": "StatusInput", "unnamed": 1, "visible": True}
-mainWindow_clear_icon_StatusIcon = {"container": mainWindow_StatusWindow, "objectName": "clear-icon", "type": "StatusIcon"}
+mainWindow_clear_icon_StatusIcon = {"container": statusDesktop_mainWindow, "objectName": "clear-icon", "type": "StatusIcon"}
 
 # Your emojihash and identicon ring
 mainWindow_welcomeScreenUserProfileImage_StatusSmartIdenticon = {"container": mainWindow_InsertDetailsView, "objectName": "welcomeScreenUserProfileImage", "type": "StatusSmartIdenticon", "visible": True}
-mainWindow_insertDetailsViewChatKeyTxt_StyledText = {"container": mainWindow_InsertDetailsView, "objectName": "insertDetailsViewChatKeyTxt", "type": "StyledText", "visible": True}
+mainWindow_insertDetailsViewChatKeyTxt_StyledText = {"container": statusDesktop_mainWindow, "objectName": "profileChatKeyViewChatKeyTxt", "type": "StyledText", "visible": True}
 mainWindow_EmojiHash = {"container": statusDesktop_mainWindow, "objectName": "publicKeyEmojiHash", "type": "EmojiHash", "visible": True}
 mainWindow_Header_Title = {"container": statusDesktop_mainWindow, "objectName": "onboardingHeaderText", "type": "StyledText", "visible": True}
-mainWindow_userImageCopy_StatusSmartIdenticon = {"container": mainWindow_InsertDetailsView, "id": "userImageCopy", "type": "StatusSmartIdenticon", "unnamed": 1, "visible": True}
+mainWindow_userImageCopy_StatusSmartIdenticon = {"container": statusDesktop_mainWindow, "id": "userImageCopy", "type": "StatusSmartIdenticon", "unnamed": 1, "visible": True}
 profileImageCropper = {"container": statusDesktop_mainWindow, "objectName": "imageCropWorkflow", "type": "ImageCropWorkflow", "visible": True}
 
 # Create Password View
