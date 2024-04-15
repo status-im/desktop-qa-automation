@@ -1,4 +1,3 @@
-import os
 import random
 import string
 import time
@@ -16,7 +15,7 @@ from driver.aut import AUT
 from gui.components.onboarding.before_started_popup import BeforeStartedPopUp
 from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
 from gui.components.splash_screen import SplashScreen
-from gui.screens.onboarding import AllowNotificationsView, WelcomeToStatusView, KeysView, BiometricsView, LoginView, \
+from gui.screens.onboarding import WelcomeToStatusView, KeysView, BiometricsView, LoginView, \
     YourEmojihashAndIdenticonRingView
 
 pytestmark = marks
@@ -106,8 +105,7 @@ def test_sign_up_with_wrong_password_in_both_fields(keys_screen, user_account, p
         profile_view.set_display_name(user_account.name)
 
     with step('Input wrong password in both first and confirmation fields'):
-        details_view = profile_view.next()
-        create_password_view = details_view.next()
+        create_password_view = profile_view.next()
         create_password_view.set_password_in_first_field(password)
         create_password_view.set_password_in_confirmation_field(password)
 
@@ -130,8 +128,7 @@ def test_sign_up_with_wrong_password_in_confirmation_field(keys_screen, user_acc
         profile_view.set_display_name(user_account.name)
 
     with step('Input correct password in first field and wrong password in confirmation field'):
-        details_view = profile_view.next()
-        create_password_view = details_view.next()
+        create_password_view = profile_view.next()
         create_password_view.set_password_in_first_field(first_password)
         create_password_view.set_password_in_confirmation_field(confirmation_password)
 
@@ -153,8 +150,7 @@ def test_sign_up_with_wrong_password_in_confirmation_again_field(keys_screen, us
         profile_view.set_display_name(user_account.name)
 
     with step('Input correct password in both first and confirmation fields'):
-        details_view = profile_view.next()
-        create_password_view = details_view.next()
+        create_password_view = profile_view.next()
         confirm_password_view = create_password_view.create_password(password)
 
     with step('Input wrong password in confirmation again field'):
