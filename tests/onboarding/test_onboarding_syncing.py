@@ -1,5 +1,3 @@
-import os
-
 import allure
 import pyperclip
 import pytest

@@ -16,18 +16,16 @@ pytestmark = marks
 @pytest.fixture
 def keys_screen(main_window) -> KeysView:
     with step('Open Generate new keys view'):
-        if configs.system.IS_MAC:
-            AllowNotificationsView().wait_until_appears().start_using_status()
         BeforeStartedPopUp().get_started()
-        wellcome_screen = WelcomeToStatusView().wait_until_appears()
-        return wellcome_screen.get_keys()
+        welcome_screen = WelcomeToStatusView().wait_until_appears()
+        return welcome_screen.get_keys()
 
 
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/702989',
                  'Strength of the password')
 @pytest.mark.case(702989)
 @pytest.mark.parametrize('user_account', [constants.user.user_with_random_attributes_1])
-@pytest.mark.skip(reason="https://github.com/status-im/status-desktop/issues/13783")
+# @pytest.mark.skip(reason="https://github.com/status-im/status-desktop/issues/13783")
 def test_check_password_strength_and_login(keys_screen, main_window, user_account):
     values = [('abcdefghij', very_weak_lower_elements),
               ('ABCDEFGHIJ', very_weak_upper_elements),
@@ -44,8 +42,7 @@ def test_check_password_strength_and_login(keys_screen, main_window, user_accoun
         profile_view.set_display_name(user_account.name)
 
     with step('Verify that correct strength indicator color, text and green messages appear'):
-        details_view = profile_view.next()
-        create_password_view = details_view.next()
+        create_password_view = profile_view.next()
 
         for (input_text, expected_indicator) in values:
             expected_password = input_text
