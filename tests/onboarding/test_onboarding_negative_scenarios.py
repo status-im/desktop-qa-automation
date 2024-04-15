@@ -16,7 +16,8 @@ from driver.aut import AUT
 from gui.components.onboarding.before_started_popup import BeforeStartedPopUp
 from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
 from gui.components.splash_screen import SplashScreen
-from gui.screens.onboarding import AllowNotificationsView, WelcomeToStatusView, KeysView, BiometricsView, LoginView
+from gui.screens.onboarding import AllowNotificationsView, WelcomeToStatusView, KeysView, BiometricsView, LoginView, \
+    YourEmojihashAndIdenticonRingView
 
 pytestmark = marks
 
@@ -24,11 +25,9 @@ pytestmark = marks
 @pytest.fixture
 def keys_screen(main_window) -> KeysView:
     with step('Open Generate new keys view'):
-        if configs.system.IS_MAC:
-            AllowNotificationsView().wait_until_appears().start_using_status()
         BeforeStartedPopUp().get_started()
-        wellcome_screen = WelcomeToStatusView().wait_until_appears()
-        return wellcome_screen.get_keys()
+        welcome_screen = WelcomeToStatusView().wait_until_appears()
+        return welcome_screen.get_keys()
 
 
 @allure.testcase('https://ethstatus.testrail.net/index.php?/cases/view/702991', 'Login with an invalid password')
@@ -44,19 +43,21 @@ def test_login_with_wrong_password(aut: AUT, keys_screen, main_window, error: st
         profile_view.set_display_name(user_one.name)
 
     with step('Finalize onboarding and open main screen'):
-        details_view = profile_view.next()
-        create_password_view = details_view.next()
+        create_password_view = profile_view.next()
         confirm_password_view = create_password_view.create_password(user_one.password)
         confirm_password_view.confirm_password(user_one.password)
         if configs.system.IS_MAC:
             BiometricsView().wait_until_appears().prefer_password()
         SplashScreen().wait_until_appears().wait_until_hidden()
+        allow_notifications_view = YourEmojihashAndIdenticonRingView().verify_emojihash_view_present().next()
+        allow_notifications_view.start_using_status()
+        SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()
 
     with step('Verify that the user logged in correctly'):
-        user_canvas = main_window.left_panel.open_online_identifier()
-        profile_popup = user_canvas.open_profile_popup_from_online_identifier()
+        user_image = main_window.left_panel.open_online_identifier()
+        profile_popup = user_image.open_profile_popup_from_online_identifier()
         assert profile_popup.user_name == user_one.name
 
     with step('Restart application and input wrong password'):

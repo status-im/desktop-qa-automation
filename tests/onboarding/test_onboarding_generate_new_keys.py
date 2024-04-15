@@ -1,7 +1,6 @@
 import logging
 import random
 import string
-import time
 
 import allure
 import psutil
@@ -14,7 +13,7 @@ from gui.components.onboarding.before_started_popup import BeforeStartedPopUp
 from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
 from gui.components.picture_edit_popup import shift_image, PictureEditPopup
 from gui.components.splash_screen import SplashScreen
-from gui.screens.onboarding import AllowNotificationsView, WelcomeToStatusView, BiometricsView, KeysView, \
+from gui.screens.onboarding import WelcomeToStatusView, BiometricsView, KeysView, \
     YourEmojihashAndIdenticonRingView
 
 pytestmark = marks
@@ -47,8 +46,8 @@ def keys_screen(main_window) -> KeysView:
         5,
         shift_image(0, 1000, 1000, 0))
 ])
-def test_generate_new_keys_sign_out_from_settings(aut, main_window, keys_screen, user_name: str, password, user_image: str, zoom: int, shift):
-
+def test_generate_new_keys_sign_out_from_settings(aut, main_window, keys_screen, user_name: str, password,
+                                                  user_image: str, zoom: int, shift):
     with step('Click generate new keys and open profile view'):
         profile_view = keys_screen.generate_new_keys()
         assert profile_view.is_next_button_enabled is False, \

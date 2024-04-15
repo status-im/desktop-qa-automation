@@ -11,6 +11,7 @@ from constants.onboarding import OnboardingScreensHeaders
 import driver
 from constants import ColorCodes
 from driver.objects_access import walk_children
+from gui.components.onboarding.beta_consent_popup import BetaConsentPopup
 from gui.components.os.open_file_dialogs import OpenFileDialog
 from gui.components.picture_edit_popup import PictureEditPopup
 from gui.components.splash_screen import SplashScreen
@@ -327,7 +328,7 @@ class YourProfileView(OnboardingView):
         file_dialog.open_file(fp)
         return PictureEditPopup().wait_until_appears()
 
-    @allure.step('Open Your Emoji hash and Identicon Ring View')
+    @allure.step('Open Create Password View')
     def next(self, attempts: int = 2) -> 'CreatePasswordView':
         self._next_button.click()
         try:
