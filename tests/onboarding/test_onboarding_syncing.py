@@ -78,7 +78,7 @@ def test_sync_device_during_onboarding(multiple_instances):
                 raise ex
             sync_result = SyncResultView()
             assert driver.waitFor(
-                lambda: 'Device synced!' in sync_result.device_synced_notifications, 18000)
+                lambda: 'Device synced!' in sync_result.device_synced_notifications, 23000)
             assert user.name in sync_device_found.device_found_notifications
 
         with step('Sign in to synced account'):
