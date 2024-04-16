@@ -701,7 +701,7 @@ profileImageCropper = {"container": statusDesktop_mainWindow, "objectName": "ima
 
 # Create Password View
 mainWindow_CreatePasswordView = {"container": statusDesktop_mainWindow, "type": "CreatePasswordView", "unnamed": 1, "visible": True}
-mainWindow_passwordViewNewPassword = {"container": mainWindow_CreatePasswordView, "echoMode": 2, "objectName": "passwordViewNewPassword", "type": "StatusPasswordInput", "visible": True}
+mainWindow_passwordViewNewPassword = {"container": mainWindow_StatusWindow, "echoMode": 2, "objectName": "passwordViewNewPassword", "type": "StatusPasswordInput", "visible": True}
 mainWindow_passwordViewNewPasswordConfirm = {"container": mainWindow_CreatePasswordView, "echoMode": 2, "objectName": "passwordViewNewPasswordConfirm", "type": "StatusPasswordInput", "visible": True}
 mainWindow_Create_password_StatusButton = {"checkable": False, "container": mainWindow_CreatePasswordView, "objectName": "onboardingCreatePasswordButton", "type": "StatusButton", "visible": True}
 mainWindow_view_PasswordView = {"container": statusDesktop_mainWindow, "id": "view", "type": "PasswordView", "unnamed": 1, "visible": True}
