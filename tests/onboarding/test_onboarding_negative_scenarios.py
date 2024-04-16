@@ -48,8 +48,9 @@ def test_login_with_wrong_password(aut: AUT, keys_screen, main_window, error: st
         if configs.system.IS_MAC:
             BiometricsView().wait_until_appears().prefer_password()
         SplashScreen().wait_until_appears().wait_until_hidden()
-        allow_notifications_view = YourEmojihashAndIdenticonRingView().verify_emojihash_view_present().next()
-        allow_notifications_view.start_using_status()
+        next_view = YourEmojihashAndIdenticonRingView().verify_emojihash_view_present().next()
+        if configs.system.IS_MAC:
+            next_view.start_using_status()
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()

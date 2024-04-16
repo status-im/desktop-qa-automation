@@ -98,8 +98,9 @@ def test_generate_new_keys_sign_out_from_settings(aut, main_window, keys_screen,
         assert emoji_hash_identicon_view.is_identicon_ring_visible, f'Identicon ring is not present when it should'
 
     with step('Click Start using Status'):
-        allow_notifications_view = emoji_hash_identicon_view.next()
-        allow_notifications_view.start_using_status()
+        next_view = emoji_hash_identicon_view.next()
+        if configs.system.IS_MAC:
+            next_view.start_using_status()
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()

@@ -182,7 +182,7 @@ class MainWindow(Window):
         SplashScreen().wait_until_appears().wait_until_hidden()
         YourEmojihashAndIdenticonRingView().verify_emojihash_view_present().next()
         if configs.system.IS_MAC:
-            AllowNotificationsView().wait_until_appears().start_using_status()
+            AllowNotificationsView().start_using_status()
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
             BetaConsentPopup().confirm()

@@ -396,11 +396,12 @@ class YourEmojihashAndIdenticonRingView(OnboardingView):
     def is_identicon_ring_visible(self):
         return self._identicon_ring.is_visible
 
-    @allure.step('Open Create password view')
-    def next(self) -> 'AllowNotificationsView':
+    @allure.step('Click next in your emojihash and identicon ring view')
+    def next(self):
         self._next_button.click()
         time.sleep(1)
-        return AllowNotificationsView().wait_until_appears()
+        if configs.system.IS_MAC:
+            return AllowNotificationsView().wait_until_appears()
 
     @allure.step('Go back')
     def back(self):
