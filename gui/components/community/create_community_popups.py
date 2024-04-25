@@ -21,17 +21,6 @@ from gui.screens.community import CommunityScreen
 LOG = logging.getLogger(__name__)
 
 
-class CreateCommunitiesBanner(BasePopup):
-
-    def __init__(self):
-        super().__init__()
-        self._crete_community_button = Button(names.create_new_StatusButton)
-
-    def open_create_community_popup(self) -> 'CreateCommunityPopup':
-        self._crete_community_button.click()
-        return CreateCommunityPopup().wait_until_appears()
-
-
 class CreateCommunityPopup(BasePopup):
 
     def __init__(self):
@@ -208,6 +197,6 @@ class CreateCommunityPopup(BasePopup):
         self._next_button.click()
         self.intro = intro
         self.outro = outro
-        self._create_community_button.click()
+        self._next_button.click()
         self.wait_until_hidden()
         return CommunityScreen().wait_until_appears()
