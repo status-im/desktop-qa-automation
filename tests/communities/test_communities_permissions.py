@@ -21,9 +21,14 @@ pytestmark = marks
 @pytest.mark.case(703632, 705014, 705016)
 @pytest.mark.parametrize('params', [constants.community_params])
 def test_add_edit_and_remove_permissions(main_screen: MainWindow, params):
+    with step('Enable creation of community option'):
+        settings = main_screen.left_panel.open_settings()
+        settings.left_panel.open_advanced_settings().enable_creation_of_communities()
+
     main_screen.create_community(params['name'], params['description'],
                                  params['intro'], params['outro'],
-                                 params['logo']['fp'], params['banner']['fp'])
+                                 params['logo']['fp'], params['banner']['fp'],
+                                 ['Activism', 'Art'], constants.community_tags[:2])
 
     permission_data = [
         {
@@ -170,9 +175,14 @@ def test_add_edit_and_remove_permissions(main_screen: MainWindow, params):
 
 @pytest.mark.parametrize('params', [constants.community_params])
 def test_add_5_member_role_permissions(main_screen: MainWindow, params):
+    with step('Enable creation of community option'):
+        settings = main_screen.left_panel.open_settings()
+        settings.left_panel.open_advanced_settings().enable_creation_of_communities()
+
     main_screen.create_community(params['name'], params['description'],
                                  params['intro'], params['outro'],
-                                 params['logo']['fp'], params['banner']['fp'])
+                                 params['logo']['fp'], params['banner']['fp'],
+                                 ['Activism', 'Art'], constants.community_tags[:2])
 
     permission_data = [
         {
