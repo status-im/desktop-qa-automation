@@ -48,19 +48,16 @@ class CreateCommunityPopup(BasePopup):
     def is_next_button_enabled(self) -> bool:
         return driver.waitForObjectExists(self._next_button.real_name, configs.timeouts.UI_LOAD_TIMEOUT_MSEC).enabled
 
-    @property
     @allure.step('Get archive support checkbox state')
     def is_archive_checkbox_checked(self) -> bool:
         self._scroll.vertical_scroll_to(self._archive_support_checkbox)
         return self._archive_support_checkbox.is_checked
 
-    @property
     @allure.step('Get request to join checkbox state')
     def is_request_to_join_checkbox_checked(self) -> bool:
         self._scroll.vertical_scroll_to(self._request_to_join_checkbox)
         return self._request_to_join_checkbox.is_checked
 
-    @property
     @allure.step('Get pin messaged checkbox state')
     def is_pin_messages_checkbox_checked(self) -> bool:
         self._scroll.vertical_scroll_to(self._pin_messages_checkbox)
@@ -134,30 +131,26 @@ class CreateCommunityPopup(BasePopup):
         self._cropped_image_banner_item.object.cropImage('file://' + str(path))
         return PictureEditPopup()
 
-    @property
     @allure.step('Get community color')
-    def color(self):
+    def get_color(self):
         return self._select_color_button.object.bgColor.name
 
-    @color.setter
     @allure.step('Set community color')
-    def color(self, value: str):
+    def set_color(self, value: str):
         self._scroll.vertical_scroll_to(self._select_color_button)
         self._select_color_button.click()
         ColorSelectPopup().wait_until_appears().select_color(value)
 
-    @property
     @allure.step('Get community tags')
-    def tags(self):
+    def get_tags(self):
         tags_string = str(self._community_tags_picker_button.object.selectedTags)
         symbols = '[]"'
         for symbol in symbols:
             tags_string = tags_string.replace(symbol, '')
         return tags_string.split(',')
 
-    @tags.setter
     @allure.step('Set community tags')
-    def tags(self, values: typing.List[str]):
+    def set_tags(self, values: typing.List[str]):
         self._scroll.vertical_scroll_to(self._choose_tag_button)
         self._choose_tag_button.click()
         TagsSelectPopup().wait_until_appears().select_tags(values)
@@ -186,14 +179,33 @@ class CreateCommunityPopup(BasePopup):
     def open_next_form(self):
         self._next_button.click()
 
+    @allure.step('Select color and verify it was set correctly')
+    def select_and_verify_color(self, color: str):
+        self.set_color(color)
+        assert self.get_color() == color
+
+    @allure.step('Select tags and verify they were set correctly')
+    def select_and_verify_tags(self, tags_to_set: typing.List[str]):
+        self.set_tags(tags_to_set)
+        assert self.get_tags() == tags_to_set
+
+    @allure.step('Verify default values of checkboxes')
+    def verify_checkboxes_values(self):
+        assert self.is_archive_checkbox_checked()
+        assert not self.is_request_to_join_checkbox_checked()
+        assert not self.is_pin_messages_checkbox_checked()
+
     @allure.step('Create community without file upload dialog usage')
-    def create_community(self, name, description, intro, outro, logo, banner):
+    def create_community(self, name, description, intro, outro, logo, banner, color, tags):
         self.name = name
         self.description = description
         self.set_logo_without_file_upload_dialog(logo)
         PictureEditPopup().set_zoom_shift_for_picture(None, None)
         self.set_banner_without_file_upload_dialog(banner)
         PictureEditPopup().set_zoom_shift_for_picture(None, None)
+        self.select_and_verify_color(color)
+        self.select_and_verify_tags(tags)
+        self.verify_checkboxes_values()
         self._next_button.click()
         self.intro = intro
         self.outro = outro
