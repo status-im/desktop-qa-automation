@@ -1,6 +1,6 @@
 import allure
 
-from gui.components.community.create_community_popups import CreateCommunityPopup
+from gui.components.community.create_community_popups import CreateCommunityPopup, CreateCommunitiesBanner
 from gui.elements.button import Button
 from gui.elements.object import QObject
 from gui.objects_map import communities_names
@@ -15,4 +15,4 @@ class CommunitiesPortal(QObject):
     @allure.step('Open create community popup')
     def open_create_community_popup(self) -> CreateCommunityPopup:
         self._create_community_button.click()
-        return CreateCommunityPopup().wait_until_appears()
+        return CreateCommunitiesBanner().wait_until_appears().open_create_community_popup()
