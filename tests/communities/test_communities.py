@@ -90,7 +90,6 @@ def test_create_community(user_account, main_screen: MainWindow, params):
         'outro': 'Updated Outro'
     }
 ])
-@pytest.mark.skip(reason="https://github.com/status-im/status-desktop/issues/13783")
 def test_edit_community(main_screen: MainWindow, params):
     with step('Enable creation of community option'):
         settings = main_screen.left_panel.open_settings()
