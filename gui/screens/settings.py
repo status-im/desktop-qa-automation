@@ -56,7 +56,7 @@ class LeftPanel(QObject):
     @allure.step('Open wallet settings')
     def open_wallet_settings(self) -> 'WalletSettingsView':
         self._open_settings('5-AppMenuItem')
-        assert WalletSettingsView().exists, 'Wallet view was not opened'
+        assert WalletSettingsView().wait_until_appears(), 'Wallet view was not opened'
         return WalletSettingsView()
 
     @allure.step('Open profile settings')
