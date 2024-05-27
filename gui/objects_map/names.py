@@ -803,7 +803,6 @@ savedAddresses_area = {"container": mainWindow_SavedAddressesView_2, "objectName
 mainWindow_RightTabView = {"container": statusDesktop_mainWindow, "type": "RightTabView", "unnamed": 1, "visible": True}
 mainWallet_Account_Name = {"container": mainWindow_RightTabView, "objectName": "walletHeaderTitle", "type": "StatusBaseText", "visible": True}
 mainWindow_Send_Button = {"container": statusDesktop_mainWindow, "objectName": "walletFooterSendButton", "type": "StatusFlatButton", "visible": True}
-mainWindow_RightTabView = {"container": mainWindow_StatusWindow, "type": "RightTabView", "unnamed": 1, "visible": True}
 filterButton_StatusFlatButton = {"checkable": True, "container": mainWindow_RightTabView, "objectName": "filterButton", "type": "StatusFlatButton", "visible": True}
 cmbTokenOrder_SortOrderComboBox = {"container": mainWindow_RightTabView, "objectName": "cmbTokenOrder", "type": "SortOrderComboBox", "visible": True}
 collectibles_cmbTokenOrder_SortOrderComboBox = {"container": mainWindow_RightTabView, "id": "cmbTokenOrder", "type": "SortOrderComboBox", "unnamed": 1, "visible": True}
@@ -822,6 +821,17 @@ settingsContentBaseScrollView_manageTokensView_ManageTokensView = {"container": 
 
 mainWindow_Save_and_apply_StatusButton = {"checkable": False, "container": mainWindow_StatusWindow, "objectName": "settingsDirtyToastMessageSaveButton", "text": "Save and apply", "type": "StatusButton", "visible": True}
 mainWindow_Save_StatusFlatButton = {"checkable": False, "container": mainWindow_StatusWindow, "id": "saveForLaterButton", "text": "Save", "type": "StatusFlatButton", "unnamed": 1, "visible": True}
+
+# Wallet asset view
+mainWindow_rightPanelStackView_StackView = {"container": mainWindow_StatusWindow, "id": "rightPanelStackView", "type": "StackView", "unnamed": 1, "visible": True}
+tokenDetailsHeader_AssetsDetailsHeader = {"container": mainWindow_RightTabView, "id": "tokenDetailsHeader", "type": "AssetsDetailsHeader", "unnamed": 1, "visible": True}
+wallet_scrollView_StatusScrollView = {"container": mainWindow_RightTabView, "id": "scrollView", "type": "StatusScrollView", "unnamed": 1, "visible": True}
+scrollView_marketCapField_InformationTile = {"container": wallet_scrollView_StatusScrollView, "objectName": "marketCapField", "type": "InformationTile", "visible": True}
+scrollView_dayLowField_InformationTile = {"container": wallet_scrollView_StatusScrollView, "objectName": "dayLowField", "type": "InformationTile", "visible": True}
+scrollView_dayHighField_InformationTile = {"container": wallet_scrollView_StatusScrollView, "objectName": "dayHighField", "type": "InformationTile", "visible": True}
+scrollView_hourField_InformationTile = {"container": wallet_scrollView_StatusScrollView, "objectName": "hourField", "type": "InformationTile", "visible": True}
+scrollView_dayField_InformationTile = {"container": wallet_scrollView_StatusScrollView, "objectName": "dayField", "type": "InformationTile", "visible": True}
+scrollView_24HoursField_InformationTile = {"container": wallet_scrollView_StatusScrollView, "objectName": "24HoursField", "type": "InformationTile", "visible": True}
 
 # MOCKED KEYCARD CONTROLLER NAMES
 

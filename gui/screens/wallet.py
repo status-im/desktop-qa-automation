@@ -1,3 +1,4 @@
+import re
 import time
 import typing
 
@@ -299,6 +300,13 @@ class WalletAccountView(QObject):
         sorted(token_list_items, key=lambda item: item.y)
         return token_list_items
 
+    @allure.step('Click asset')
+    def click_asset(self, asset_name: str):
+        for asset in self.get_list_of_assets():
+            if getattr(asset, 'title', '') == asset_name:
+                driver.mouseClick(asset)
+        return WalletAssetDetailsView().wait_until_appears()
+
     @allure.step('Get list of collectibles')
     def get_list_of_collectibles(self) -> typing.List:
         time.sleep(1)
@@ -307,3 +315,52 @@ class WalletAccountView(QObject):
             token_list_items.append(item)
         sorted(token_list_items, key=lambda item: item.x)
         return token_list_items
+
+
+class WalletAssetDetailsView(QObject):
+
+    def __init__(self):
+        super(WalletAssetDetailsView, self).__init__(names.mainWindow_rightPanelStackView_StackView)
+        self._asset_details_header = QObject(names.tokenDetailsHeader_AssetsDetailsHeader)
+        self._market_cap_field = QObject(names.scrollView_marketCapField_InformationTile)
+        self._day_low_field = QObject(names.scrollView_dayLowField_InformationTile)
+        self._day_high_field = QObject(names.scrollView_dayHighField_InformationTile)
+        self._hour_field = QObject(names.scrollView_hourField_InformationTile)
+        self._day_field = QObject(names.scrollView_dayField_InformationTile)
+        self._24_hours_field = QObject(names.scrollView_24HoursField_InformationTile)
+
+    @allure.step('Get numbers in title of eth header')
+    def get_asset_eth_header_numbers(self) -> str:
+        return self.leave_only_numbers(str(self._asset_details_header.object.secondaryText))
+
+    @allure.step('Get numbers in title of usd header')
+    def get_asset_usd_header_numbers(self) -> str:
+        return self.leave_only_numbers(str(self._asset_details_header.object.tertiaryText))
+
+    @allure.step('Get numbers from market cap field')
+    def get_asset_market_cap_numbers(self) -> str:
+        return self.leave_only_numbers(str(self._market_cap_field.object.secondaryText))
+
+    @allure.step('Get numbers from day low field')
+    def get_asset_day_low_numbers(self) -> str:
+        return self.leave_only_numbers(str(self._day_low_field.object.secondaryText))
+
+    @allure.step('Get numbers from day high field')
+    def get_asset_day_high_numbers(self) -> str:
+        return self.leave_only_numbers(str(self._day_high_field.object.secondaryText))
+
+    @allure.step('Get numbers from hour field')
+    def get_asset_hour_numbers(self) -> str:
+        return self.leave_only_numbers(str(self._hour_field.object.secondaryText))
+
+    @allure.step('Get numbers from day field')
+    def get_asset_day_numbers(self) -> str:
+        return self.leave_only_numbers(str(self._day_field.object.secondaryText))
+
+    @allure.step('Get numbers from 24 hours field')
+    def get_asset_24_hours_numbers(self) -> str:
+        return self.leave_only_numbers(str(self._24_hours_field.object.secondaryText))
+
+    @allure.step('Leave only numbers in strings')
+    def leave_only_numbers(self, string: str):
+        return float(''.join(re.findall('(,*[\d]+,*[\d]*)+', string)).replace(',', '.'))
