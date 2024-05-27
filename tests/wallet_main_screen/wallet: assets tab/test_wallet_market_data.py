@@ -1,3 +1,5 @@
+import time
+
 import allure
 import pytest
 from allure_commons._allure import step
@@ -64,6 +66,8 @@ def test_wallet_check_market_data(keys_screen, main_window, user_account, asset_
         SigningPhrasePopup().wait_until_appears().confirm_phrase()
         wallet_account_view = WalletAccountView()
         asset_view = wallet_account_view.click_asset(asset_name)
+
+    time.sleep(20)
 
     with step('Verify that all market data fields are not empty'):
         assert driver.waitFor(lambda: asset_view.get_asset_eth_header_numbers() != 0,
