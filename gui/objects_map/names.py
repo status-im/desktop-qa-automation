@@ -679,7 +679,7 @@ enableCreateCommunityButton_StatusSettingsLineButton = {"container": settingsCon
 
 # Allow Notification View
 mainWindow_AllowNotificationsView = {"container": statusDesktop_mainWindow, "type": "AllowNotificationsView", "unnamed": 1, "visible": True}
-mainWindow_Start_using_Status_StatusButton = {"checkable": False, "container": mainWindow_AllowNotificationsView, "objectName": "allowNotificationsOnboardingOkButton", "type": "StatusButton", "visible": True}
+mainWindow_Start_using_Status_StatusButton = {"checkable": False, "container": statusDesktop_mainWindow, "objectName": "allowNotificationsOnboardingOkButton", "type": "StatusButton", "visible": True}
 
 # Welcome View
 mainWindow_WelcomeView = {"container": statusDesktop_mainWindow, "type": "WelcomeView", "unnamed": 1, "visible": True}

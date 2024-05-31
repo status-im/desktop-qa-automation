@@ -101,7 +101,7 @@ def test_generate_new_keys_sign_out_from_settings(aut, main_window, keys_screen,
         next_view = emoji_hash_identicon_view.next()
         if configs.system.IS_MAC:
             next_view.start_using_status()
-        if configs.system.IS_MAC:
+        if configs.system.IS_LIN:
             emoji_hash_identicon_view.start_using_status()
         SplashScreen().wait_until_appears().wait_until_hidden()
         if not configs.system.TEST_MODE:
