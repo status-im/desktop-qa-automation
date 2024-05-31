@@ -372,6 +372,12 @@ class YourEmojihashAndIdenticonRingView(OnboardingView):
         self._emoji_hash = QObject(names.mainWindow_EmojiHash)
         self._identicon_ring = QObject(names.mainWindow_userImageCopy_StatusSmartIdenticon)
         self._view_header_title = TextLabel(names.mainWindow_Header_Title)
+        self._start_using_status_button = Button(names.mainWindow_Start_using_Status_StatusButton)
+
+    @allure.step("Start using Status")
+    def start_using_status(self):
+        self._start_using_status_button.click()
+        self.wait_until_hidden()
 
     def verify_emojihash_view_present(self, timeout_msec: int = configs.timeouts.UI_LOAD_TIMEOUT_MSEC):
         driver.waitFor(lambda: self._view_header_title.exists, timeout_msec)
