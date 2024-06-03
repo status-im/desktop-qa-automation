@@ -1,4 +1,6 @@
-# This repository manages UI tests for desktop application
+# :warning: Legacy repo for desktop app UI tests.
+
+Migration PR: https://github.com/status-im/status-desktop/pull/14548
 
 ## How to set up your environment
 
